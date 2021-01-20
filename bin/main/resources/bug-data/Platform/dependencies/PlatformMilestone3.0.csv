@@ -1,0 +1,1118 @@
+bug_id,Depends_On,Title,Milestone,assigned_to,bug_severity,priority,creation_ts,delta_ts,duration,churned_loc,description
+36101,," plugin dir in ""$HOME"" isn't possible  ",,platform-runtime-inbox@eclipse.org,normal,P3,4/5/2003 8:03,11/19/2004 16:56,,30,"In a multiuser environment it isn't possible to have a linked in folder for a 
+user. You can put additional shared plugins into /usr/lokal/ and link this, but 
+it is not possible to link to for example 
+
+
+$HOME/eclipse
+
+
+A comandline parameter along the -data one would be nice for this.
+
+
+<a href=""http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=186725"">http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=186725</a>"
+37233,, add support for map file entries requiring https  ,,kmoir@ca.ibm.com,major,P2,5/5/2003 13:45,3/23/2012 14:41,,3,"Please add support for map file entries which require the https protocol to 
+fetch zip files.  
+
+For example, if the following type of entry were included in a map file
+
+com.ibm.etools.systems.core_5.1.0.zip=<a href=""http://auser:apassword@aserver/groups/web"">http://auser:apassword@aserver/groups/web</a>
+sphere/artemis/ | | | runtime
+
+it would translate into the following Ant call to get:
+
+	<get username=""ausername"" password=""apassword""  
+src=""<a href=""https://aserver/groups/websphere/artemis/com.ibm.etools.systems.core_5.1.0"">https://aserver/groups/websphere/artemis/com.ibm.etools.systems.core_5.1.0</a>
+.zip"" dest=""com.ibm.etools.systems.core_5.1.0.zip"" />
+
+
+It appears the following calls do not work:
+
+		<get username=""ausername"" password=""apassword""  
+src=""<a href=""http://aserver/groups/websphere/artemis/com.ibm.etools.systems.core_5.1.0"">http://aserver/groups/websphere/artemis/com.ibm.etools.systems.core_5.1.0</a>.
+zip"" dest=""com.ibm.etools.systems.core_5.1.0.zip"" />
+		<get 
+src=""<a href=""http://ausername:apassword@aserver/groups/websphere/artemis/com.ibm.etools"">http://ausername:apassword@aserver/groups/websphere/artemis/com.ibm.etools</a>
+.systems.core_5.1.0.zip"" dest=""com.ibm.etools.systems.core_5.1.0.zip"" />
+		<get 
+src=""<a href=""https://ausername:apassword@aserver/groups/websphere/artemis/com.ibm.etool"">https://ausername:apassword@aserver/groups/websphere/artemis/com.ibm.etool</a>
+s.systems.core_5.1.0.zip"" dest=""com.ibm.etools.systems.core_5.1.0.zip"" />
+		<get 
+src=""<a href=""https://aserver/groups/websphere/artemis/com.ibm.etools.systems.core_5.1.0"">https://aserver/groups/websphere/artemis/com.ibm.etools.systems.core_5.1.0</a>
+.zip"" dest=""com.ibm.etools.systems.core_5.1.0.zip"" />"
+39014,, [typing][templates] Auto - Bracketing  ,,platform-text-inbox@eclipse.org,enhancement,P3,6/17/2003 10:18,4/6/2004 9:13,,9,"Visual Works Smalltalk had this feature built in - when a piece of text is 
+highlighted, a key combination, followed by any type of bracket key would 
+surround the selected text with the type of bracket selected - ({[ - I believe 
+this also applied to string delimiters. 
+
+This is a very useful feature in refactoring code for clarity."
+39024,, Need better icon for object browsers action  ,,Darin_Wright@ca.ibm.com,normal,P3,6/17/2003 11:56,4/23/2004 11:48,,12,"The current icon for this action was borrowed from somewhere, and thus risks 
+confusing users.  Also, it doesn't really say ""object browser"" to me."
+39772,, [CVS Refactoring] Use ReplaceOperation from replace actions  ,,Michael_Valenta@ca.ibm.com,normal,P3,7/8/2003 15:21,12/18/2003 12:01,,10,"I added a ReplaceOperation for use by the Workspace subscriber update. The 
+replace actions should be updated to use this operation."
+40060,, Release gives no feedback if tag fails  ,,jean-michel_lemieux@ca.ibm.com,normal,P3,7/14/2003 16:01,3/22/2004 22:48,,24,"Build: I20030710
+releng plugin version: 2.1.0
+
+If I try to ""release"" a plugin that I don't have commit rights on, it doesn't
+report any success or failure.  CVS console says:
+
+cvs tag ""/org.eclipse.webdav/v20030714"" ""/org.eclipse.webdav""
+  cvs server: Tagging .
+  cvs [server aborted]: could not open lock file
+`/home/eclipse/org.eclipse.webdav/,.classpath,': Permission denied
+The server reported an error while performing the ""cvs tag"" command. (took 0:00.328)
+Error: org.eclipse.webdav: cvs [server aborted]: could not open lock file
+`/home/eclipse/org.eclipse.webdav/,.classpath,': Permission denied"
+40725,, [Sync View] Selection and expansion needs to be fixed  ,,jean-michel_lemieux@ca.ibm.com,normal,P3,7/24/2003 13:33,5/6/2004 0:56,,1197,"The sync view has always had bad behavior relating to expansion and selection.
+We must ensure that we fix these problems in the new sync view. Here is the
+summary of the areas that need to be looked at:
+
+1. Expansion should be preserved during the following: 
+- an operation performed on a resource and the expansion should not be changed
+- changing from one filter mode to another should preserve expansion
+- view is closed and re-opened
+
+2. In 2.1 when the sync view was populated the first change was revealed. This
+is hard to do in the new sync view because changes are calculated asynchronously
+and there is no opportune time to set the selection. Messing with auto-expansion
+and selection will confuse people because the view is now dynamic and resources
+can be added to the view at the same time as someone is browing it."
+40916,, Code cleanup  ,,michaelvanmeekeren@yahoo.ca,normal,P3,7/29/2003 16:47,3/10/2004 16:47,,36,"I have been working with org.eclipse.jface as source from HEAD.
+There are numerous warnings for:
+  Unnecessary casts
+  Indirect static field access
+  never read private fields
+  superfluous semicolons
+
+I would like to volunteer to clean these up."
+41090,, THAI VIET: The behavior of text editing functions are not correct.  ,,felipe_heidrich@ca.ibm.com,normal,P3,8/3/2003 20:29,5/14/2004 4:44,,4,"Build driver: Eclipse 2.1.1
+OS: Windows platforms
+
+Problem Description
+===================
+The following text editing functions of StyledText are not conform to Thai 
+standard:-
+
+    Caret movement
+    Text deletion with Del key
+    Text selection
+
+Overview of Thai text editing
+=============================
+Thai script is written in linear sequence from left to right with the occasional
+use of combining character, which is positioned above or below an associated 
+base character in presentation.
+
+The behavior of Text editing functions such as caret movement and text deletion 
+in Thai are different from these functions in English because combining Thai 
+characters must be considered.
+
+The followings are text editing behaviors in Thai standard:
+ - Using arrow key to move caret by one cell instead of by one character. 
+ - Text insertion is allowed at cell boundary only.
+ - Text deletion with Del key will delete a whole cell, not only a baseline 
+character.
+ - Text deletion with Backspace key can be done on character basis.
+ - Text selection or deletion using character cell boundaries means that an 
+entire character cell is selected or deleted as a single unit.
+
+
+Best Regards,
+Suwit Srivilairith"
+42120,, [Workbench] [runtime] version check prompt after workspace crash  ,,eclipse@jfront.com,normal,P3,8/27/2003 10:49,4/21/2004 14:09,,32,"If you have a fresh workspace and start-up and then kill it (don't shut down 
+correctly), you get the version check prompt on your next start-up.
+
+Is this the desired behaviour?"
+42138,, Provide a way to dynamically change the process label shown in the console title and debug view  ,,Darin_Wright@ca.ibm.com,enhancement,P3,8/27/2003 11:28,4/21/2004 13:30,,38,"The use case is that I'm running an external command with a custom launch 
+delegate, and the command produces a lot of output I want to sumarize it in 
+the process label. In this case the command is an external builder and 
+somewhere in the hundreds of lines of output is information about errors and 
+warnings generated. I want to change the label displayed in the console title 
+bar and in the debug view to say something like ""<options>, 5 warnings, 0 
+errors"". This will quickly let the user know if she needs to scroll back and 
+look at the output more closely. Currently that label can only be set to a 
+fixed string at the call to DebugPlugin.newProcess() and not changed 
+afterwards.
+
+It would also be nice if, as the build is running, I could make it display 
+something like ""256 builds, 100 pending, 1 failed, 0 warnings, 5 errors"" and 
+force the labels to be redrawn whenever I want to change those numbers (as I 
+interpret the output through the console line tracker)."
+42140,, [Dialog] [Font] Team Share Project wizard does not use dialog font  ,,platform-vcm-inbox@eclipse.org,normal,P3,8/27/2003 11:33,11/22/2003 6:21,,10,"select a project
+
+context menu team/share project..."
+42185,, G1.3 : XYZ 1.0.0.e334 does not show up under the root feature hierarchy  ,,birsan@ca.ibm.com,normal,P3,8/27/2003 15:37,6/4/2004 15:34,,16,"After installing the efix e334, the configuration view shows the xyz 1.0.0 
+feature disabled under the xyz bogus 1.0.0, instead of also showing the xyz 
+1.0.0.e334. See attachement."
+44519,, [find replace] Incremental find should live in its own status bar space  ,,daniel_megert@ch.ibm.com,enhancement,P3,10/9/2003 4:18,6/28/2006 2:51,,20,"I20031008/rebuild
+
+Incremental find should live in its own status bar space. Currently it can
+overwritten by other stuff (e.g. error message, log messages from background
+tasks, etc.).
+
+See also <a class=""bz_bug_link 
+          bz_status_ASSIGNED ""
+   title=""ASSIGNED - [find/replace] Incremental Search mode should overlay popup widget [usability]""
+   href=""show_bug.cgi?id=40561"">bug 40561</a> for another possible solution to this problem."
+45729,, Search dialog not respecting activity enablement  ,,t.s.maeder@hispeed.ch,normal,P2,10/29/2003 10:18,5/4/2004 4:39,,59,"The search page is not respecting the role/activity system.  All search tabs are
+show regardless of enablement state."
+47267,, Intermitant exception logged during CVS tests  ,,platform-resources-inbox@eclipse.org,normal,P3,11/21/2003 16:36,8/26/2004 12:15,,210,"We sometimes get the following exception in the log in the teardown of the CVS 
+tests. A project (and its metadata area) is being deleted at the same time the 
+persistant properties are being accessed.
+
+
+!ENTRY org.eclipse.core.resources 4 272 Nov 21, 2003 16:23:10.350
+!MESSAGE Could not open indexed store: C:\Eclipse\Latest-Eclipse-
+Drop\eclipse\runtime-test-
+workspace\.metadata\.plugins\org.eclipse.core.resources\.projects\testCheckout-
+1069449786584\.properties.
+!STACK 0
+java.lang.NullPointerException
+	at org.eclipse.core.internal.indexing.ObjectStore.commit
+(ObjectStore.java:151)
+	at org.eclipse.core.internal.indexing.ObjectStore.close
+(ObjectStore.java:86)
+	at org.eclipse.core.internal.indexing.IndexedStore.create
+(IndexedStore.java:170)
+	at org.eclipse.core.internal.indexing.IndexedStore.open
+(IndexedStore.java:337)
+	at org.eclipse.core.internal.properties.IndexedStoreWrapper.open
+(IndexedStoreWrapper.java:41)
+	at org.eclipse.core.internal.properties.IndexedStoreWrapper.create
+(IndexedStoreWrapper.java:96)
+	at org.eclipse.core.internal.properties.IndexedStoreWrapper.getStore
+(IndexedStoreWrapper.java:166)
+	at org.eclipse.core.internal.properties.IndexedStoreWrapper.getIndex
+(IndexedStoreWrapper.java:122)
+	at org.eclipse.core.internal.properties.IndexedStoreWrapper.getCursor
+(IndexedStoreWrapper.java:172)
+	at org.eclipse.core.internal.properties.PropertyStore.recordsMatching
+(PropertyStore.java:302)
+	at org.eclipse.core.internal.properties.PropertyStore.get
+(PropertyStore.java:171)
+	at org.eclipse.core.internal.properties.PropertyManager.getProperty
+(PropertyManager.java:108)
+	at org.eclipse.core.internal.resources.Resource.getPersistentProperty
+(Resource.java:892)
+	at org.eclipse.team.core.RepositoryProvider.getProvider
+(RepositoryProvider.java:451)
+	at 
+org.eclipse.team.internal.ccvs.core.CVSSyncTreeSubscriber.isSupervised
+(CVSSyncTreeSubscriber.java:289)
+	at 
+org.eclipse.team.internal.ccvs.core.CVSSyncTreeSubscriber.getSyncInfo
+(CVSSyncTreeSubscriber.java:166)
+	at 
+org.eclipse.team.internal.ui.synchronize.sets.SubscriberEventHandler.collect
+(SubscriberEventHandler.java:153)
+	at 
+org.eclipse.team.internal.ui.synchronize.sets.SubscriberEventHandler.processEve
+nt(SubscriberEventHandler.java:281)
+	at 
+org.eclipse.team.core.subscribers.BackgroundEventHandler.processEvents
+(BackgroundEventHandler.java:248)
+	at org.eclipse.team.core.subscribers.BackgroundEventHandler$1.run
+(BackgroundEventHandler.java:122)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:62)"
+48849,, Keyboard events ignored in Import Plug-ins and Fragments dialog  ,,Silenio_Quarti@ca.ibm.com,normal,P1,12/16/2003 9:57,5/20/2004 10:45,,10,"20031216
+
+The Selection page of the import plug-in and fragments dialog does not respond
+to any key events although all other pages in the wizard do. This works fine on
+Windows.
+
+STEPS
+1) Select Import Plug-ins and Fragments
+2) Alt-N to the Selection page
+3) None of the menmonics work and you cannot tab"
+49223,, [SSH2] Key Management  - Generate ... progress indicator  ,,ymnk@jcraft.com,enhancement,P3,12/20/2003 7:34,1/25/2004 3:31,,489,"After clicking on ""Generate"" and while the key is generated there should be a
+progress indication."
+49226,, [SSH2] Passphrase validation warning in wizard  ,,ymnk@jcraft.com,normal,P3,12/20/2003 7:48,2/10/2004 20:26,,12,"The following behavior would be appreciated:
+
+Empty passphrase/Empty confirm:
+
+Typing in passphrase -> no error message.
+Typing in confirm -> error message ""don't match"" (unless they match .)
+
+Empty passphrase/Non-empty confirm
+
+Typing in passphrase text -> error message ""don't match"" (unless they match .)
+
+@@@@
+
+There could be a warning that not having a passphrase (i.e. both text fields are
+empty) is insecure."
+49811,53673, [RCP] Provide a way to prevent a view from being hidden (closed) and or moved  ,,nick_edgar@ca.ibm.com,enhancement,P2,1/10/2004 12:24,3/14/2005 15:50,,695,"In an RCP application I want to be able to prevent views from being hidden 
+(closed). Also I'd like an option to lock them in place in order to prevent 
+them from being moved and/or resized. There is an internal 
+Perspective.canCloseView() method but the API is not exposed anywhere I can 
+find.
+
+Use case: user interfaces designed for unsophisticated workers (like data 
+entry) need to be very simple. If a secretary closes a view and doesn't know 
+how to get it back, or makes it really small by accident, that's an extra call 
+to the help desk."
+50438,," [RCP] Progress view icon ""area"" shows even if setShowStatusLine(false) is called  ",,sxenos@gmail.com,normal,P3,1/22/2004 17:59,9/14/2004 9:19,,38,"Build: M6
+
+If I call IWorkbenchWindowConfigurer.setShowStatusLine(false) in my
+WorkbenchAdvisor's preWindowOpen(IWorkbenchConfigurer) method the status line is
+hidden.  BUT, the action with a tooltip of ""Double click to open Progress View""
+which appears in the bottom left of the window still shows.  The action is
+missing/can't find its icon so it just shows as empty screen space, but it shows
+over views that I put on the left side of the window."
+50534,, [ViewMgmt] Eclipse config corrupted after trying to alter a View  ,,nick_edgar@ca.ibm.com,normal,P2,1/24/2004 2:44,4/28/2005 14:23,,258,"I am using 3.0 M6.
+
+Each time I tried just moving a View to another position, a blank window 
+popped up.  I shut down Eclipse, but couldn't start it up again.  It 
+complained with some error (that I unfortunately didn't write down) that said 
+to look in the log file for details.  The log output follows (I didn't know 
+how much was critical, so I figured that more was better than not enough -- 
+hope it all gets through ;-)
+
+In any case, I had to delete my configuration (workspace\.metadata\.plugins) 
+so Eclipse could launch again!  Somehow, just moving that View corrupted my 
+whole config!
+
+Let me know if you need more info.
+Ari
+
+Portion of .log output:
+
+!SESSION Jan 23, 2004 20:13:33.870 --------------------------------------------
+-
+java.version=1.4.2_02
+java.vendor=Sun Microsystems Inc.
+BootLoader constants: OS=win32, ARCH=x86, WS=win32, NL=en_US
+Command-line arguments: -os win32 -ws win32 -arch x86
+!ENTRY com.objectlearn.jdt.j2ee 1 0 Jan 23, 2004 20:13:33.886
+!MESSAGE Creating server definition manager
+[/c:/eclipse/plugins/com.objectlearn.jdt.j2ee/]
+!ENTRY org.eclipse.core.runtime 4 2 Jan 23, 2004 20:13:41.575
+!MESSAGE Problems occurred when invoking code from plug-
+in: ""org.eclipse.core.runtime"".
+!STACK 0
+java.lang.NullPointerException
+	at org.eclipse.jface.text.source.AnnotationRulerColumn.skip
+(AnnotationRulerColumn.java:618)
+	at org.eclipse.jface.text.source.AnnotationRulerColumn.doPaint
+(AnnotationRulerColumn.java:385)
+	at 
+org.eclipse.jface.text.source.AnnotationRulerColumn.doubleBufferPaint
+(AnnotationRulerColumn.java:296)
+	at org.eclipse.jface.text.source.AnnotationRulerColumn.access$3
+(AnnotationRulerColumn.java:270)
+	at org.eclipse.jface.text.source.AnnotationRulerColumn$1.paintControl
+(AnnotationRulerColumn.java:200)
+	at org.eclipse.swt.widgets.TypedListener.handleEvent
+(TypedListener.java:82)
+	at org.eclipse.swt.widgets.EventTable.sendEvent(EventTable.java:82)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:847)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:871)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:856)
+	at org.eclipse.swt.widgets.Composite.WM_PAINT(Composite.java:796)
+	at org.eclipse.swt.widgets.Control.windowProc(Control.java:2989)
+	at org.eclipse.swt.widgets.Display.windowProc(Display.java:2836)
+	at org.eclipse.swt.internal.win32.OS.UpdateWindow(Native Method)
+	at org.eclipse.swt.widgets.Decorations.setVisible
+(Decorations.java:1269)
+	at org.eclipse.swt.widgets.Shell.setVisible(Shell.java:1111)
+	at org.eclipse.swt.widgets.Shell.open(Shell.java:736)
+	at org.eclipse.jface.window.Window.open(Window.java:562)
+	at org.eclipse.ui.internal.WorkbenchWindow.open
+(WorkbenchWindow.java:591)
+	at org.eclipse.ui.internal.Workbench.restoreState(Workbench.java:1332)
+	at org.eclipse.ui.internal.Workbench.access$8(Workbench.java:1293)
+	at org.eclipse.ui.internal.Workbench$11.run(Workbench.java:1215)
+	at org.eclipse.core.internal.runtime.InternalPlatform.run
+(InternalPlatform.java:813)
+	at org.eclipse.core.runtime.Platform.run(Platform.java:457)
+	at org.eclipse.ui.internal.Workbench.openPreviousWorkbenchState
+(Workbench.java:1171)
+	at org.eclipse.ui.internal.Workbench.init(Workbench.java:870)
+	at org.eclipse.ui.internal.Workbench.runUI(Workbench.java:1459)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench
+(Workbench.java:246)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:139)
+	at org.eclipse.ui.internal.ide.IDEApplication.run
+(IDEApplication.java:47)
+	at org.eclipse.core.internal.runtime.PlatformActivator$1.run
+(PlatformActivator.java:226)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run
+(EclipseStarter.java:85)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke
+(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke
+(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:324)
+	at org.eclipse.core.launcher.Main.basicRun(Main.java:279)
+	at org.eclipse.core.launcher.Main.run(Main.java:742)
+	at org.eclipse.core.launcher.Main.main(Main.java:581)
+!ENTRY org.eclipse.ui 4 4 Jan 23, 2004 20:13:41.684
+!MESSAGE Unhandled event loop exception
+!ENTRY org.eclipse.ui 4 0 Jan 23, 2004 20:13:41.700
+!MESSAGE Failed to execute runnable (java.lang.NullPointerException)
+!STACK 0
+org.eclipse.swt.SWTException: Failed to execute runnable 
+(java.lang.NullPointerException)
+	at org.eclipse.swt.SWT.error(SWT.java:2592)
+	at org.eclipse.swt.widgets.Synchronizer.runAsyncMessages
+(Synchronizer.java:105)
+	at org.eclipse.swt.widgets.Display.runAsyncMessages(Display.java:2288)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:1996)
+	at org.eclipse.jface.window.Window.runEventLoop(Window.java:586)
+	at org.eclipse.jface.window.Window.open(Window.java:566)
+	at org.eclipse.jface.dialogs.MessageDialog.openError
+(MessageDialog.java:285)
+	at org.eclipse.jface.util.SafeRunnable.handleException
+(SafeRunnable.java:50)
+	at org.eclipse.ui.internal.Workbench$11.handleException
+(Workbench.java:1224)
+	at org.eclipse.core.internal.runtime.InternalPlatform.handleException
+(InternalPlatform.java:381)
+	at org.eclipse.core.internal.runtime.InternalPlatform.run
+(InternalPlatform.java:815)
+	at org.eclipse.core.runtime.Platform.run(Platform.java:457)
+	at org.eclipse.ui.internal.Workbench.openPreviousWorkbenchState
+(Workbench.java:1171)
+	at org.eclipse.ui.internal.Workbench.init(Workbench.java:870)
+	at org.eclipse.ui.internal.Workbench.runUI(Workbench.java:1459)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench
+(Workbench.java:246)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:139)
+	at org.eclipse.ui.internal.ide.IDEApplication.run
+(IDEApplication.java:47)
+	at org.eclipse.core.internal.runtime.PlatformActivator$1.run
+(PlatformActivator.java:226)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run
+(EclipseStarter.java:85)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke
+(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke
+(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:324)
+	at org.eclipse.core.launcher.Main.basicRun(Main.java:279)
+	at org.eclipse.core.launcher.Main.run(Main.java:742)
+	at org.eclipse.core.launcher.Main.main(Main.java:581)
+!ENTRY org.eclipse.ui 4 4 Jan 23, 2004 20:13:41.700
+!MESSAGE *** SWT nested exception
+!ENTRY org.eclipse.ui 4 0 Jan 23, 2004 20:13:41.700
+!MESSAGE java.lang.NullPointerException
+!STACK 0
+java.lang.NullPointerException
+	at org.eclipse.jface.text.source.AnnotationRulerColumn.skip
+(AnnotationRulerColumn.java:618)
+	at org.eclipse.jface.text.source.AnnotationRulerColumn.doPaint
+(AnnotationRulerColumn.java:385)
+	at 
+org.eclipse.jface.text.source.AnnotationRulerColumn.doubleBufferPaint
+(AnnotationRulerColumn.java:296)
+	at org.eclipse.jface.text.source.AnnotationRulerColumn.redraw
+(AnnotationRulerColumn.java:536)
+	at org.eclipse.jface.text.source.AnnotationRulerColumn$4.run
+(AnnotationRulerColumn.java:523)
+	at org.eclipse.swt.widgets.RunnableLock.run(RunnableLock.java:35)
+	at org.eclipse.swt.widgets.Synchronizer.runAsyncMessages
+(Synchronizer.java:102)
+	at org.eclipse.swt.widgets.Display.runAsyncMessages(Display.java:2288)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:1996)
+	at org.eclipse.jface.window.Window.runEventLoop(Window.java:586)
+	at org.eclipse.jface.window.Window.open(Window.java:566)
+	at org.eclipse.jface.dialogs.MessageDialog.openError
+(MessageDialog.java:285)
+	at org.eclipse.jface.util.SafeRunnable.handleException
+(SafeRunnable.java:50)
+	at org.eclipse.ui.internal.Workbench$11.handleException
+(Workbench.java:1224)
+	at org.eclipse.core.internal.runtime.InternalPlatform.handleException
+(InternalPlatform.java:381)
+	at org.eclipse.core.internal.runtime.InternalPlatform.run
+(InternalPlatform.java:815)
+	at org.eclipse.core.runtime.Platform.run(Platform.java:457)
+	at org.eclipse.ui.internal.Workbench.openPreviousWorkbenchState
+(Workbench.java:1171)
+	at org.eclipse.ui.internal.Workbench.init(Workbench.java:870)
+	at org.eclipse.ui.internal.Workbench.runUI(Workbench.java:1459)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench
+(Workbench.java:246)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:139)
+	at org.eclipse.ui.internal.ide.IDEApplication.run
+(IDEApplication.java:47)
+	at org.eclipse.core.internal.runtime.PlatformActivator$1.run
+(PlatformActivator.java:226)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run
+(EclipseStarter.java:85)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke
+(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke
+(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:324)
+	at org.eclipse.core.launcher.Main.basicRun(Main.java:279)
+	at org.eclipse.core.launcher.Main.run(Main.java:742)
+	at org.eclipse.core.launcher.Main.main(Main.java:581)
+!ENTRY org.eclipse.ui 4 4 Jan 23, 2004 20:13:41.700
+!MESSAGE Unhandled event loop exception
+!ENTRY org.eclipse.ui 4 0 Jan 23, 2004 20:13:41.715
+!MESSAGE Failed to execute runnable (java.lang.NullPointerException)
+!STACK 0
+org.eclipse.swt.SWTException: Failed to execute runnable 
+(java.lang.NullPointerException)
+	at org.eclipse.swt.SWT.error(SWT.java:2592)
+	at org.eclipse.swt.widgets.Synchronizer.runAsyncMessages
+(Synchronizer.java:105)
+	at org.eclipse.swt.widgets.Display.runAsyncMessages(Display.java:2288)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:1996)
+	at org.eclipse.jface.window.Window.runEventLoop(Window.java:586)
+	at org.eclipse.jface.window.Window.open(Window.java:566)
+	at org.eclipse.jface.dialogs.MessageDialog.openError
+(MessageDialog.java:285)
+	at org.eclipse.jface.util.SafeRunnable.handleException
+(SafeRunnable.java:50)
+	at org.eclipse.ui.internal.Workbench$11.handleException
+(Workbench.java:1224)
+	at org.eclipse.core.internal.runtime.InternalPlatform.handleException
+(InternalPlatform.java:381)
+	at org.eclipse.core.internal.runtime.InternalPlatform.run
+(InternalPlatform.java:815)
+	at org.eclipse.core.runtime.Platform.run(Platform.java:457)
+	at org.eclipse.ui.internal.Workbench.openPreviousWorkbenchState
+(Workbench.java:1171)
+	at org.eclipse.ui.internal.Workbench.init(Workbench.java:870)
+	at org.eclipse.ui.internal.Workbench.runUI(Workbench.java:1459)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench
+(Workbench.java:246)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:139)
+	at org.eclipse.ui.internal.ide.IDEApplication.run
+(IDEApplication.java:47)
+	at org.eclipse.core.internal.runtime.PlatformActivator$1.run
+(PlatformActivator.java:226)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run
+(EclipseStarter.java:85)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke
+(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke
+(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:324)
+	at org.eclipse.core.launcher.Main.basicRun(Main.java:279)
+	at org.eclipse.core.launcher.Main.run(Main.java:742)
+	at org.eclipse.core.launcher.Main.main(Main.java:581)
+!ENTRY org.eclipse.ui 4 4 Jan 23, 2004 20:13:41.715
+!MESSAGE *** SWT nested exception
+!ENTRY org.eclipse.ui 4 0 Jan 23, 2004 20:13:41.715
+!MESSAGE java.lang.NullPointerException
+!STACK 0
+java.lang.NullPointerException
+	at org.eclipse.jface.text.source.AnnotationRulerColumn.skip
+(AnnotationRulerColumn.java:618)
+	at org.eclipse.jface.text.source.AnnotationRulerColumn.doPaint
+(AnnotationRulerColumn.java:385)
+	at 
+org.eclipse.jface.text.source.AnnotationRulerColumn.doubleBufferPaint
+(AnnotationRulerColumn.java:296)
+	at org.eclipse.jface.text.source.AnnotationRulerColumn.redraw
+(AnnotationRulerColumn.java:536)
+	at org.eclipse.jface.text.source.AnnotationRulerColumn$4.run
+(AnnotationRulerColumn.java:523)
+	at org.eclipse.swt.widgets.RunnableLock.run(RunnableLock.java:35)
+	at org.eclipse.swt.widgets.Synchronizer.runAsyncMessages
+(Synchronizer.java:102)
+	at org.eclipse.swt.widgets.Display.runAsyncMessages(Display.java:2288)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:1996)
+	at org.eclipse.jface.window.Window.runEventLoop(Window.java:586)
+	at org.eclipse.jface.window.Window.open(Window.java:566)
+	at org.eclipse.jface.dialogs.MessageDialog.openError
+(MessageDialog.java:285)
+	at org.eclipse.jface.util.SafeRunnable.handleException
+(SafeRunnable.java:50)
+	at org.eclipse.ui.internal.Workbench$11.handleException
+(Workbench.java:1224)
+	at org.eclipse.core.internal.runtime.InternalPlatform.handleException
+(InternalPlatform.java:381)
+	at org.eclipse.core.internal.runtime.InternalPlatform.run
+(InternalPlatform.java:815)
+	at org.eclipse.core.runtime.Platform.run(Platform.java:457)
+	at org.eclipse.ui.internal.Workbench.openPreviousWorkbenchState
+(Workbench.java:1171)
+	at org.eclipse.ui.internal.Workbench.init(Workbench.java:870)
+	at org.eclipse.ui.internal.Workbench.runUI(Workbench.java:1459)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench
+(Workbench.java:246)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:139)
+	at org.eclipse.ui.internal.ide.IDEApplication.run
+(IDEApplication.java:47)
+	at org.eclipse.core.internal.runtime.PlatformActivator$1.run
+(PlatformActivator.java:226)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run
+(EclipseStarter.java:85)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke
+(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke
+(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:324)
+	at org.eclipse.core.launcher.Main.basicRun(Main.java:279)
+	at org.eclipse.core.launcher.Main.run(Main.java:742)
+	at org.eclipse.core.launcher.Main.main(Main.java:581)
+!ENTRY org.eclipse.ui 4 4 Jan 23, 2004 20:13:41.715
+!MESSAGE Unhandled event loop exception
+!ENTRY org.eclipse.ui 4 0 Jan 23, 2004 20:13:41.715
+!MESSAGE Failed to execute runnable (java.lang.NullPointerException)
+!STACK 0
+org.eclipse.swt.SWTException: Failed to execute runnable 
+(java.lang.NullPointerException)
+	at org.eclipse.swt.SWT.error(SWT.java:2592)
+	at org.eclipse.swt.widgets.Synchronizer.runAsyncMessages
+(Synchronizer.java:105)
+	at org.eclipse.swt.widgets.Display.runAsyncMessages(Display.java:2288)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:1996)
+	at org.eclipse.jface.window.Window.runEventLoop(Window.java:586)
+	at org.eclipse.jface.window.Window.open(Window.java:566)
+	at org.eclipse.jface.dialogs.MessageDialog.openError
+(MessageDialog.java:285)
+	at org.eclipse.jface.util.SafeRunnable.handleException
+(SafeRunnable.java:50)
+	at org.eclipse.ui.internal.Workbench$11.handleException
+(Workbench.java:1224)
+	at org.eclipse.core.internal.runtime.InternalPlatform.handleException
+(InternalPlatform.java:381)
+	at org.eclipse.core.internal.runtime.InternalPlatform.run
+(InternalPlatform.java:815)
+	at org.eclipse.core.runtime.Platform.run(Platform.java:457)
+	at org.eclipse.ui.internal.Workbench.openPreviousWorkbenchState
+(Workbench.java:1171)
+	at org.eclipse.ui.internal.Workbench.init(Workbench.java:870)
+	at org.eclipse.ui.internal.Workbench.runUI(Workbench.java:1459)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench
+(Workbench.java:246)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:139)
+	at org.eclipse.ui.internal.ide.IDEApplication.run
+(IDEApplication.java:47)
+	at org.eclipse.core.internal.runtime.PlatformActivator$1.run
+(PlatformActivator.java:226)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run
+(EclipseStarter.java:85)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke
+(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke
+(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:324)
+	at org.eclipse.core.launcher.Main.basicRun(Main.java:279)
+	at org.eclipse.core.launcher.Main.run(Main.java:742)
+	at org.eclipse.core.launcher.Main.main(Main.java:581)
+!ENTRY org.eclipse.ui 4 4 Jan 23, 2004 20:13:41.715
+!MESSAGE *** SWT nested exception
+!ENTRY org.eclipse.ui 4 0 Jan 23, 2004 20:13:41.715
+!MESSAGE java.lang.NullPointerException
+!STACK 0
+java.lang.NullPointerException
+	at org.eclipse.jface.text.source.AnnotationRulerColumn.skip
+(AnnotationRulerColumn.java:618)
+	at org.eclipse.jface.text.source.AnnotationRulerColumn.doPaint
+(AnnotationRulerColumn.java:385)
+	at 
+org.eclipse.jface.text.source.AnnotationRulerColumn.doubleBufferPaint
+(AnnotationRulerColumn.java:296)
+	at org.eclipse.jface.text.source.AnnotationRulerColumn.redraw
+(AnnotationRulerColumn.java:536)
+	at org.eclipse.jface.text.source.AnnotationRulerColumn$4.run
+(AnnotationRulerColumn.java:523)
+	at org.eclipse.swt.widgets.RunnableLock.run(RunnableLock.java:35)
+	at org.eclipse.swt.widgets.Synchronizer.runAsyncMessages
+(Synchronizer.java:102)
+	at org.eclipse.swt.widgets.Display.runAsyncMessages(Display.java:2288)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:1996)
+	at org.eclipse.jface.window.Window.runEventLoop(Window.java:586)
+	at org.eclipse.jface.window.Window.open(Window.java:566)
+	at org.eclipse.jface.dialogs.MessageDialog.openError
+(MessageDialog.java:285)
+	at org.eclipse.jface.util.SafeRunnable.handleException
+(SafeRunnable.java:50)
+	at org.eclipse.ui.internal.Workbench$11.handleException
+(Workbench.java:1224)
+	at org.eclipse.core.internal.runtime.InternalPlatform.handleException
+(InternalPlatform.java:381)
+	at org.eclipse.core.internal.runtime.InternalPlatform.run
+(InternalPlatform.java:815)
+	at org.eclipse.core.runtime.Platform.run(Platform.java:457)
+	at org.eclipse.ui.internal.Workbench.openPreviousWorkbenchState
+(Workbench.java:1171)
+	at org.eclipse.ui.internal.Workbench.init(Workbench.java:870)
+	at org.eclipse.ui.internal.Workbench.runUI(Workbench.java:1459)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench
+(Workbench.java:246)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:139)
+	at org.eclipse.ui.internal.ide.IDEApplication.run
+(IDEApplication.java:47)
+	at org.eclipse.core.internal.runtime.PlatformActivator$1.run
+(PlatformActivator.java:226)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run
+(EclipseStarter.java:85)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke
+(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke
+(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:324)
+	at org.eclipse.core.launcher.Main.basicRun(Main.java:279)
+	at org.eclipse.core.launcher.Main.run(Main.java:742)
+	at org.eclipse.core.launcher.Main.main(Main.java:581)
+!SESSION ----------------------------------------------------------------------
+!ENTRY org.eclipse.core.launcher 4 0 Jan 23, 2004 20:14:25.831
+!MESSAGE Exception launching the Eclipse Platform:
+!STACK
+java.lang.NullPointerException
+	at org.eclipse.jface.text.source.AnnotationRulerColumn.skip
+(AnnotationRulerColumn.java:618)
+	at org.eclipse.jface.text.source.AnnotationRulerColumn.doPaint
+(AnnotationRulerColumn.java:385)
+	at 
+org.eclipse.jface.text.source.AnnotationRulerColumn.doubleBufferPaint
+(AnnotationRulerColumn.java:296)
+	at org.eclipse.jface.text.source.AnnotationRulerColumn.access$3
+(AnnotationRulerColumn.java:270)
+	at org.eclipse.jface.text.source.AnnotationRulerColumn$1.paintControl
+(AnnotationRulerColumn.java:200)
+	at org.eclipse.swt.widgets.TypedListener.handleEvent
+(TypedListener.java:82)
+	at org.eclipse.swt.widgets.EventTable.sendEvent(EventTable.java:82)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:847)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:871)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:856)
+	at org.eclipse.swt.widgets.Composite.WM_PAINT(Composite.java:796)
+	at org.eclipse.swt.widgets.Control.windowProc(Control.java:2989)
+	at org.eclipse.swt.widgets.Display.windowProc(Display.java:2836)
+	at org.eclipse.swt.internal.win32.OS.RedrawWindow(Native Method)
+	at org.eclipse.swt.widgets.Control.update(Control.java:2834)
+	at org.eclipse.swt.widgets.Display.update(Display.java:2777)
+	at org.eclipse.jface.window.Window.runEventLoop(Window.java:592)
+	at org.eclipse.jface.window.Window.open(Window.java:566)
+	at org.eclipse.jface.dialogs.MessageDialog.openError
+(MessageDialog.java:285)
+	at org.eclipse.jface.util.SafeRunnable.handleException
+(SafeRunnable.java:50)
+	at org.eclipse.ui.internal.Workbench$11.handleException
+(Workbench.java:1224)
+	at org.eclipse.core.internal.runtime.InternalPlatform.handleException
+(InternalPlatform.java:381)
+	at org.eclipse.core.internal.runtime.InternalPlatform.run
+(InternalPlatform.java:815)
+	at org.eclipse.core.runtime.Platform.run(Platform.java:457)
+	at org.eclipse.ui.internal.Workbench.openPreviousWorkbenchState
+(Workbench.java:1171)
+	at org.eclipse.ui.internal.Workbench.init(Workbench.java:870)
+	at org.eclipse.ui.internal.Workbench.runUI(Workbench.java:1459)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench
+(Workbench.java:246)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:139)
+	at org.eclipse.ui.internal.ide.IDEApplication.run
+(IDEApplication.java:47)
+	at org.eclipse.core.internal.runtime.PlatformActivator$1.run
+(PlatformActivator.java:226)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run
+(EclipseStarter.java:85)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke
+(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke
+(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:324)
+	at org.eclipse.core.launcher.Main.basicRun(Main.java:279)
+	at org.eclipse.core.launcher.Main.run(Main.java:742)
+	at org.eclipse.core.launcher.Main.main(Main.java:581)
+
+!SESSION Jan 23, 2004 20:15:26.684 --------------------------------------------
+-
+java.version=1.4.2_02
+java.vendor=Sun Microsystems Inc.
+BootLoader constants: OS=win32, ARCH=x86, WS=win32, NL=en_US
+Command-line arguments: -os win32 -ws win32 -arch x86
+!ENTRY com.objectlearn.jdt.j2ee 1 0 Jan 23, 2004 20:15:26.684
+!MESSAGE Creating server definition manager
+[/c:/eclipse/plugins/com.objectlearn.jdt.j2ee/]
+!ENTRY org.eclipse.core.runtime 4 2 Jan 23, 2004 20:15:30.685
+!MESSAGE Problems occurred when invoking code from plug-
+in: ""org.eclipse.core.runtime"".
+!STACK 0
+java.lang.NullPointerException
+	at org.eclipse.jface.text.source.AnnotationRulerColumn.skip
+(AnnotationRulerColumn.java:618)
+	at org.eclipse.jface.text.source.AnnotationRulerColumn.doPaint
+(AnnotationRulerColumn.java:385)
+	at 
+org.eclipse.jface.text.source.AnnotationRulerColumn.doubleBufferPaint
+(AnnotationRulerColumn.java:296)
+	at org.eclipse.jface.text.source.AnnotationRulerColumn.access$3
+(AnnotationRulerColumn.java:270)
+	at org.eclipse.jface.text.source.AnnotationRulerColumn$1.paintControl
+(AnnotationRulerColumn.java:200)
+	at org.eclipse.swt.widgets.TypedListener.handleEvent
+(TypedListener.java:82)
+	at org.eclipse.swt.widgets.EventTable.sendEvent(EventTable.java:82)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:847)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:871)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:856)
+	at org.eclipse.swt.widgets.Composite.WM_PAINT(Composite.java:796)
+	at org.eclipse.swt.widgets.Control.windowProc(Control.java:2989)
+	at org.eclipse.swt.widgets.Display.windowProc(Display.java:2836)
+	at org.eclipse.swt.internal.win32.OS.UpdateWindow(Native Method)
+	at org.eclipse.swt.widgets.Decorations.setVisible
+(Decorations.java:1269)
+	at org.eclipse.swt.widgets.Shell.setVisible(Shell.java:1111)
+	at org.eclipse.swt.widgets.Shell.open(Shell.java:736)
+	at org.eclipse.jface.window.Window.open(Window.java:562)
+	at org.eclipse.ui.internal.WorkbenchWindow.open
+(WorkbenchWindow.java:591)
+	at org.eclipse.ui.internal.Workbench.restoreState(Workbench.java:1332)
+	at org.eclipse.ui.internal.Workbench.access$8(Workbench.java:1293)
+	at org.eclipse.ui.internal.Workbench$11.run(Workbench.java:1215)
+	at org.eclipse.core.internal.runtime.InternalPlatform.run
+(InternalPlatform.java:813)
+	at org.eclipse.core.runtime.Platform.run(Platform.java:457)
+	at org.eclipse.ui.internal.Workbench.openPreviousWorkbenchState
+(Workbench.java:1171)
+	at org.eclipse.ui.internal.Workbench.init(Workbench.java:870)
+	at org.eclipse.ui.internal.Workbench.runUI(Workbench.java:1459)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench
+(Workbench.java:246)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:139)
+	at org.eclipse.ui.internal.ide.IDEApplication.run
+(IDEApplication.java:47)
+	at org.eclipse.core.internal.runtime.PlatformActivator$1.run
+(PlatformActivator.java:226)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run
+(EclipseStarter.java:85)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke
+(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke
+(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:324)
+	at org.eclipse.core.launcher.Main.basicRun(Main.java:279)
+	at org.eclipse.core.launcher.Main.run(Main.java:742)
+	at org.eclipse.core.launcher.Main.main(Main.java:581)
+!ENTRY org.eclipse.ui 4 4 Jan 23, 2004 20:15:30.810
+!MESSAGE Unhandled event loop exception
+!ENTRY org.eclipse.ui 4 0 Jan 23, 2004 20:15:30.810
+!MESSAGE Failed to execute runnable (java.lang.NullPointerException)
+!STACK 0
+org.eclipse.swt.SWTException: Failed to execute runnable 
+(java.lang.NullPointerException)
+	at org.eclipse.swt.SWT.error(SWT.java:2592)
+	at org.eclipse.swt.widgets.Synchronizer.runAsyncMessages
+(Synchronizer.java:105)
+	at org.eclipse.swt.widgets.Display.runAsyncMessages(Display.java:2288)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:1996)
+	at org.eclipse.jface.window.Window.runEventLoop(Window.java:586)
+	at org.eclipse.jface.window.Window.open(Window.java:566)
+	at org.eclipse.jface.dialogs.MessageDialog.openError
+(MessageDialog.java:285)
+	at org.eclipse.jface.util.SafeRunnable.handleException
+(SafeRunnable.java:50)
+	at org.eclipse.ui.internal.Workbench$11.handleException
+(Workbench.java:1224)
+	at org.eclipse.core.internal.runtime.InternalPlatform.handleException
+(InternalPlatform.java:381)
+	at org.eclipse.core.internal.runtime.InternalPlatform.run
+(InternalPlatform.java:815)
+	at org.eclipse.core.runtime.Platform.run(Platform.java:457)
+	at org.eclipse.ui.internal.Workbench.openPreviousWorkbenchState
+(Workbench.java:1171)
+	at org.eclipse.ui.internal.Workbench.init(Workbench.java:870)
+	at org.eclipse.ui.internal.Workbench.runUI(Workbench.java:1459)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench
+(Workbench.java:246)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:139)
+	at org.eclipse.ui.internal.ide.IDEApplication.run
+(IDEApplication.java:47)
+	at org.eclipse.core.internal.runtime.PlatformActivator$1.run
+(PlatformActivator.java:226)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run
+(EclipseStarter.java:85)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke
+(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke
+(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:324)
+	at org.eclipse.core.launcher.Main.basicRun(Main.java:279)
+	at org.eclipse.core.launcher.Main.run(Main.java:742)
+	at org.eclipse.core.launcher.Main.main(Main.java:581)
+!ENTRY org.eclipse.ui 4 4 Jan 23, 2004 20:15:30.810
+!MESSAGE *** SWT nested exception
+!ENTRY org.eclipse.ui 4 0 Jan 23, 2004 20:15:30.810
+!MESSAGE java.lang.NullPointerException
+!STACK 0
+java.lang.NullPointerException
+	at org.eclipse.jface.text.source.AnnotationRulerColumn.skip
+(AnnotationRulerColumn.java:618)
+	at org.eclipse.jface.text.source.AnnotationRulerColumn.doPaint
+(AnnotationRulerColumn.java:385)
+	at 
+org.eclipse.jface.text.source.AnnotationRulerColumn.doubleBufferPaint
+(AnnotationRulerColumn.java:296)
+	at org.eclipse.jface.text.source.AnnotationRulerColumn.redraw
+(AnnotationRulerColumn.java:536)
+	at org.eclipse.jface.text.source.AnnotationRulerColumn$4.run
+(AnnotationRulerColumn.java:523)
+	at org.eclipse.swt.widgets.RunnableLock.run(RunnableLock.java:35)
+	at org.eclipse.swt.widgets.Synchronizer.runAsyncMessages
+(Synchronizer.java:102)
+	at org.eclipse.swt.widgets.Display.runAsyncMessages(Display.java:2288)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:1996)
+	at org.eclipse.jface.window.Window.runEventLoop(Window.java:586)
+	at org.eclipse.jface.window.Window.open(Window.java:566)
+	at org.eclipse.jface.dialogs.MessageDialog.openError
+(MessageDialog.java:285)
+	at org.eclipse.jface.util.SafeRunnable.handleException
+(SafeRunnable.java:50)
+	at org.eclipse.ui.internal.Workbench$11.handleException
+(Workbench.java:1224)
+	at org.eclipse.core.internal.runtime.InternalPlatform.handleException
+(InternalPlatform.java:381)
+	at org.eclipse.core.internal.runtime.InternalPlatform.run
+(InternalPlatform.java:815)
+	at org.eclipse.core.runtime.Platform.run(Platform.java:457)
+	at org.eclipse.ui.internal.Workbench.openPreviousWorkbenchState
+(Workbench.java:1171)
+	at org.eclipse.ui.internal.Workbench.init(Workbench.java:870)
+	at org.eclipse.ui.internal.Workbench.runUI(Workbench.java:1459)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench
+(Workbench.java:246)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:139)
+	at org.eclipse.ui.internal.ide.IDEApplication.run
+(IDEApplication.java:47)
+	at org.eclipse.core.internal.runtime.PlatformActivator$1.run
+(PlatformActivator.java:226)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run
+(EclipseStarter.java:85)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke
+(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke
+(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:324)
+	at org.eclipse.core.launcher.Main.basicRun(Main.java:279)
+	at org.eclipse.core.launcher.Main.run(Main.java:742)
+	at org.eclipse.core.launcher.Main.main(Main.java:581)
+!ENTRY org.eclipse.ui 4 4 Jan 23, 2004 20:15:30.826
+!MESSAGE Unhandled event loop exception
+!ENTRY org.eclipse.ui 4 0 Jan 23, 2004 20:15:30.826
+!MESSAGE Failed to execute runnable (java.lang.NullPointerException)
+!STACK 0
+org.eclipse.swt.SWTException: Failed to execute runnable 
+(java.lang.NullPointerException)
+	at org.eclipse.swt.SWT.error(SWT.java:2592)
+	at org.eclipse.swt.widgets.Synchronizer.runAsyncMessages
+(Synchronizer.java:105)
+	at org.eclipse.swt.widgets.Display.runAsyncMessages(Display.java:2288)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:1996)
+	at org.eclipse.jface.window.Window.runEventLoop(Window.java:586)
+	at org.eclipse.jface.window.Window.open(Window.java:566)
+	at org.eclipse.jface.dialogs.MessageDialog.openError
+(MessageDialog.java:285)
+	at org.eclipse.jface.util.SafeRunnable.handleException
+(SafeRunnable.java:50)
+	at org.eclipse.ui.internal.Workbench$11.handleException
+(Workbench.java:1224)
+	at org.eclipse.core.internal.runtime.InternalPlatform.handleException
+(InternalPlatform.java:381)
+	at org.eclipse.core.internal.runtime.InternalPlatform.run
+(InternalPlatform.java:815)
+	at org.eclipse.core.runtime.Platform.run(Platform.java:457)
+	at org.eclipse.ui.internal.Workbench.openPreviousWorkbenchState
+(Workbench.java:1171)
+	at org.eclipse.ui.internal.Workbench.init(Workbench.java:870)
+	at org.eclipse.ui.internal.Workbench.runUI(Workbench.java:1459)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench
+(Workbench.java:246)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:139)
+	at org.eclipse.ui.internal.ide.IDEApplication.run
+(IDEApplication.java:47)
+	at org.eclipse.core.internal.runtime.PlatformActivator$1.run
+(PlatformActivator.java:226)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run
+(EclipseStarter.java:85)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke
+(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke
+(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:324)
+	at org.eclipse.core.launcher.Main.basicRun(Main.java:279)
+	at org.eclipse.core.launcher.Main.run(Main.java:742)
+	at org.eclipse.core.launcher.Main.main(Mai"
+50555,, [CVS UI] SSH2 Connection pref pages do not have mnemonics  ,,ymnk@jcraft.com,normal,P3,1/25/2004 2:16,4/10/2004 17:45,,38,All controls should sport suitable mnemonics.
+50572,, [RCP] Proposed changes to support branding and layout control in an RCP application  ,,nick_edgar@ca.ibm.com,enhancement,P3,1/25/2004 15:21,4/27/2005 9:40,,42,"The attachment details some changes we experimented with to support fixed 
+layouts, branding of UI elements such as views and tabs, and dynamic 
+perspectives.  Following is an outline of the changes.
+
+View behavior changes 
+- hide titlebar
+- hide close button
+- disable dragging
+- support for view titlebars without icons
+
+Workbench Window behavior changes
+- Applying RTL style to the WorkbenchWindow via –RTL command line switch
+- Launching the Workbench with the Window hidden, a.k.a. nogui.
+
+Workbench Themes
+- New extension point 
+- Allows custom look and feel of views and folders
+
+New hook in WorkbenchAdvisor to support custom contribution managers, a.k.a. 
+Custom StatusBar"
+50631,, Hook for resource scheduling rule factory  ,,Michael_Valenta@ca.ibm.com,normal,P1,1/26/2004 13:57,5/18/2004 13:55,,402,"I20040121
+
+I have released new API that allows clients to ask for the scheduling rule for
+various operations (copy, move, delete, validateEdit, setContents, etc).  Many
+of these rule requirements actually vary based on the repository provider (for
+example CVS needs to lock the parent folder for most operations).  Core needs to
+expose something in the TeamHook to allow repository providers to provide a rule
+factory."
+51085,, [Workbench] Plug-ins can't be Run as Run-time Workbench  ,,michaelvanmeekeren@yahoo.ca,major,P3,2/2/2004 17:03,10/22/2004 15:49,,22,"This is on a Windows 2000 workstation with SP4 installed. I tried cleaning out 
+a re-installing 3.0M6 many times. Other people I know who were using 2.1.x did 
+not have this problem. I finally reverted to 2.1.2 and everything worked fine.
+
+I followed every possible example of how to create a plug-in, including using 
+the example projects provided. Everything works fine until I try to Run or 
+Debug as Run-time Workbench. The UI launches, the splash screen appears, the 
+program terminates, and the splash screen is still open. It can only be shut 
+down by killing the process. The .log file shows:
+
+!SESSION Jan 27, 2004 14:31:20.262 ---------------------------------------------
+java.version=1.4.1_02
+java.vendor=Sun Microsystems Inc.
+BootLoader constants: OS=win32, ARCH=x86, WS=win32, NL=en_US
+Command-line arguments: -pdelaunch -dev bin -os win32 -ws win32 -arch x86 -nl 
+en_US
+!ENTRY org.eclipse.core.runtime 4 13 Jan 27, 2004 14:31:20.262
+!MESSAGE Unable to locate application extension: org.eclipse.ui.workbench
+!STACK 0
+java.lang.RuntimeException: Unable to locate application extension: 
+org.eclipse.ui.workbench
+	at org.eclipse.core.internal.runtime.PlatformActivator$1.run
+(PlatformActivator.java:205)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run
+(EclipseStarter.java:85)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.eclipse.core.launcher.Main.basicRun(Main.java:279)
+	at org.eclipse.core.launcher.Main.run(Main.java:742)
+	at org.eclipse.core.launcher.Main.main(Main.java:581)"
+63616,," [SSH2] Don't need ""(yes no)"" in host key error message.  ",,ymnk@jcraft.com,normal,P3,5/23/2004 18:51,5/31/2005 14:15,,162,"In the attached message box, the ""(yes/no)"" is superfluous."
+63618,, Eclipse update site should be availble out of the box in the SDK  ,,platform-update-inbox@eclipse.org,normal,P2,5/23/2004 19:00,1/28/2005 15:17,,63,"The eclipse update site <a href=""http://download.eclipse.org/updates"">http://download.eclipse.org/updates</a> should be 
+available out of the box when I search for new features to install.
+
+This will open the door to make other add-on components easily available from 
+there for new users."
+63832,, [Workbench] Perspectives show up twice in chevron  ,,michaelvanmeekeren@yahoo.ca,normal,P3,5/25/2004 8:56,12/16/2004 12:04,,54,"M9
+
+If you select the chevron on the end of the perspective switcher it will show 
+some perspectives twice.
+
+STEPS
+1) Start Eclipse
+2) Switch to the CVS perspective
+3) Click on the chevron - Resource shows up twice."
+64362,, Dialogs that are delayed open should not open on a disposed parent  ,,Tod_Creasey@ca.ibm.com,normal,P2,5/27/2004 11:39,5/10/2005 14:54,,20,"Anything with setOpenOnRun() to false needs to be sure that it does not open 
+if the parentShell is disposed.
+
+The preferred method of repair is to just reset the parentShell if it is 
+disposed but this would be an API change which it is too late to do. I am 
+going to change the open method of ProgressMonitorFocusJobsDialog to only open 
+if the parent shell is null or disposed.
+
+This affects callers of busyCursorWhile. If they call this from a dialog we 
+will not open the progress monitor dialog if it has been closed. As a result 
+callers of it should disable thier buttons or close thier dialog (I will 
+update the javadoc)."
+67916,, [Intro] Chkpii errors in build 200406181804  ,,mfaraj@ca.ibm.com,normal,P3,6/18/2004 22:46,10/3/2005 11:47,,153,"The file introContentFileSpec.html in the schema folder contains chkpii errors.
+
+ECLIPSE\PLUGINS\ORG.ECLIPSE.PLATFORM.SOURCE_3.0.0\SRC\ORG.ECLIPSE.UI.INTRO_3.0.0\SCHEMA\
+  INTROCONTENTFILESPEC.HTML  HTML-40     841   STYLE section should not contain
+'font-family' information.  Line: 25           
+                                         841   STYLE section should not contain
+'font-family' information.  Line: 42           
+                                         841   STYLE section should not contain
+'font-family' information.  Line: 59           
+                                         841   STYLE section should not contain
+'font-family' information.  Line: 74           
+                                         841   STYLE section should not contain
+'font-family' information.  Line: 82           
+                                         841   STYLE section should not contain
+'font-family' information.  Line: 83           
+                                         801   Either '<br/' is an unsupported
+tag or replace '<' with '&lt;'.  Line: 207      
+                                         801   Either '<br/' is an unsupported
+tag or replace '<' with '&lt;'.  Line: 209      
+                                         801   Either '<br/' is an unsupported
+tag or replace '<' with '&lt;'.  Line: 211      
+                                         801   Either '<br/' is an unsupported
+tag or replace '<' with '&lt;'.  Line: 212      
+                                         801   Either '<br/' is an unsupported
+tag or replace '<' with '&lt;'.  Line: 213      
+                                         860   Blank line will split
+translatable text into 2 segments during translation.  Line: 214
+                                         801   Either '<extensionContent' is an
+unsupported tag or replace '<' with '&lt;'.  Line: 215
+                                         801   Either '<action' is an
+unsupported tag or replace '<' with '&lt;'.  Line: 252   
+                                         813   Invalid HTML symbol: &param2;. 
+Line: 252                                       
+                                         814   HTML symbol &param2  does not
+have ending semicolon.  Line: 252"
+68335,, ref-10.htm is out of date  ,,platform-doc-inbox@eclipse.org,normal,P3,6/23/2004 13:16,11/10/2005 15:50,,1858,"The screenshot shows an image of the Workbench preference page, but the options 
+listed have little to do with the screenshot. 
+ 
+I200406230010."
+68481,," editor gets confused, highlighting goes berserk, can't save  ",,platform-text-inbox@eclipse.org,normal,P3,6/24/2004 11:01,7/19/2004 11:17,,1551,"RC2 and RC3 have both had this behavior for me.  I am editing Java, with plain 
+vanilla eclipse (no plugins added).  I may have 10-20 editors open in 2 top-
+level windows.  Using Java perspective, sometimes with a debug perspsective 
+open also.  I'll be editing along, and suddenly all the highlighting goes 
+subtly wonky throughout one of the editors (others stay fine) - it ""seems"" to 
+be somewhat random.  Half of a large number of words will be a different 
+color, some words will be partially italicized, basically the syntax coloring 
+will be completely wrong, (with no syntax errors), etc.  This is the first 
+warning sign.  If I then try to save the file (ctrl-S) - nothing seems to 
+happen.  The file still shows the asterisk indicating it has unsaved changes.  
+File->save from the menu bar also appears to do nothing.  Ctrl-Shift-S also 
+does nothing.  If I try to exit, it prompts me about an unsaved file, but 
+trying to save at that point does nothing either.  Finally I copy/paste from 
+the screen to a notepad window and exit without saving.  Restart eclipse, 
+paste the file and save, and continue.  There is nothing in .log that I can 
+correlate to this.
+
+There is another variation too - if I close just the one file, without saving 
+changes, after the initial save attempt appears to do nothing, then re-open 
+the same file (without restarting eclipse), the file starts life with the 
+asterisk marker.  Sometimes, the changes I made in the earlier edit session 
+are there too, indicating that the initial save must have done something.  
+Sometimes (usually), if I hit save again at this point the file appears to 
+save, the asterisk disappears, and I can continue.  Usually though I am too 
+nervous about file integrity to do this and I restart eclipse anyway.
+
+Sorry for the symtoms-only report, but I have so far seen no exact correlation 
+with what I am doing in the UI to this problem occuring.  It happens at random 
+to a Java file I am actively editing.  It seems to happen relatively soon 
+after I switch the focus to that file, and I usually only have a few lines of 
+changes at risk.  It does not seem to matter how many editors I have open.  It 
+happens 4-5 times per day when I am using eclipse basically all day.  It may 
+happen the very first time I touch a particular file, or when I go to edit 
+that file for the 10th time that day."
+71747,, [RCP] Move progress view into ui.workbench plugin  ,,nick_edgar@ca.ibm.com,major,P3,8/10/2004 18:20,9/8/2004 16:17,,24,"The bulk of the concurrency UI is available directly in 
+org.eclipse.ui.workbench except for the progress view.  It appears to be 
+defined in org.eclipse.ui.ide and therefore if you wish to include the progress 
+view in your RCP app, you must include the ide plugin (and more plugins that 
+ide requires).  
+
+Can the progress view please be moved into a non-IDE plugin.  
+
+Currently, if you don't include these plugins, when you run a Job the progress 
+view button appears in the status line, but the progress view is not able to 
+open."

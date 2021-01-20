@@ -1,0 +1,2512 @@
+bug_id,Depends_On,Title,Milestone,assigned_to,bug_severity,priority,creation_ts,delta_ts,Duration,churned_loc,description
+39436,, [Tasks] No summary shown in status line  ,,debbie_wilson@ca.ibm.com,major,P2,6/27/2003 14:32,12/16/2003 11:27,,18,"build I20030625
+
+The old tasks view showed a summary of the number of tasks, errors, warnings 
+and infos in the status line.  This is missing in the reworked view."
+40017,, Live Synch view: Hard to use: buttons with independent states  ,,platform-vcm-inbox@eclipse.org,normal,P3,7/14/2003 9:31,10/30/2003 22:00,,16,"I20030710
+
+I waited for a while and tried to get used to the new Outgoing/Incoming buttons
+which can individually be enable and disable - as you can see I could not ;-)
+
+Most of the time I end up pressing two buttons to achieve a single thing. The UI
+from the old synch view with the three buttons is much easier (and with less
+clicks) to use."
+40050,, Need a trimmed-down org.eclipse.help  ,,konradk@ca.ibm.com,normal,P3,7/14/2003 14:29,1/21/2004 19:49,,20,"build I20030710
+
+As part of the refactoring for the Rich Client Platform (<a class=""bz_bug_link 
+          bz_status_RESOLVED  bz_closed""
+   title=""RESOLVED FIXED - [RCP] [Plan Item] Enable Eclipse to be used as a rich client platform""
+   href=""show_bug.cgi?id=36967"">bug 36967</a>) we would
+like to have a pared-down org.eclipse.help.
+
+We want to support the following scenarios:
+1. Application wants Help support, provided by the current Help UI (the current
+situation).
+2. Application does not need Help support at all.
+3. Application wants to provide its own Help UI.
+
+For all of these, it's important for the application footprint to be as small as
+possible.  Clients want to be able to make their apps available for download.
+The application should not have to ship with plugins that are never used, and
+the plugins that ship should not have large portions of unused code.
+
+The current org.eclipse.help plugin has a disk footprint of 267K (actually 528K
+if you take into account the 32K chunk size of FAT32 partitions), and also has
+dependencies on org.apache.lucene (197K) and org.eclipse.help.appserver (25K).
+
+From the Workbench's point of view, all we need is access to the IHelp API, and
+this is very simple.  
+
+The Help UI and everything that goes with it should be added on as an optional
+separate plug-in.  org.eclipse.help should have just the interfaces for IHelp,
+IContext, IHelpResource etc.  It should have a simple implementation of IHelp
+which starts the registered help UI (if any) and delegates to it.  It should not
+include anything else, or require any other plugins.
+
+This was the original design of Help, but some assumptions about the web-based
+UI seem to have leaked down to org.eclipse.help."
+40993,, Deadlock while refreshing from local  ,,platform-vcm-inbox@eclipse.org,normal,P3,7/31/2003 8:31,11/12/2003 14:59,,12,"I20030730
+
+Stack trace is:
+
+ThreadName=main(0003555C)
+Status=Running
+        In org/eclipse/swt/internal/win32/OS.WaitMessage()Z
+        In org/eclipse/swt/widgets/Display.sleep()Z
+        In org/eclipse/jface/operation/ModalContext$ModalContextThread.block()V
+        In org/eclipse/jface/operation/ModalContext.run
+(Lorg/eclipse/jface/operation/IRunnableWithProgress;ZLorg/eclipse/core/ru
+ntime/IProgressMonitor;Lorg/eclipse/swt/widgets/Display;)V
+        In org/eclipse/jface/dialogs/ProgressMonitorDialog.run
+(ZZLorg/eclipse/jface/operation/IRunnableWithProgress;)V
+        In org/eclipse/jdt/ui/actions/RefreshAction.run
+(Lorg/eclipse/jface/viewers/IStructuredSelection;)V
+        In org/eclipse/jdt/ui/actions/SelectionDispatchAction.dispatchRun
+(Lorg/eclipse/jface/viewers/ISelection;)V
+        In org/eclipse/jdt/ui/actions/SelectionDispatchAction.run()V
+        In org/eclipse/jface/action/Action.runWithEvent
+(Lorg/eclipse/swt/widgets/Event;)V
+        In 
+org/eclipse/jface/action/ActionContributionItem.handleWidgetSelection
+(Lorg/eclipse/swt/widgets/Event;Z)V
+        In org/eclipse/jface/action/ActionContributionItem.access$4
+(Lorg/eclipse/jface/action/ActionContributionItem;Lorg/eclips
+e/swt/widgets/Event;Z)V
+        In org/eclipse/jface/action/ActionContributionItem$6.handleEvent
+(Lorg/eclipse/swt/widgets/Event;)V
+        In org/eclipse/swt/widgets/EventTable.sendEvent
+(Lorg/eclipse/swt/widgets/Event;)V
+        In org/eclipse/swt/widgets/Widget.sendEvent
+(Lorg/eclipse/swt/widgets/Event;)V
+        In org/eclipse/swt/widgets/Display.runDeferredEvents()Z
+        In org/eclipse/swt/widgets/Display.readAndDispatch()Z
+        In org/eclipse/ui/internal/Workbench.runEventLoop
+(Lorg/eclipse/jface/window/Window$IExceptionHandler;)V
+        In org/eclipse/ui/internal/Workbench.run(Ljava/lang/Object;)
+Ljava/lang/Object;
+        In org/eclipse/core/internal/boot/InternalBootLoader.run
+(Ljava/lang/String;Ljava/net/URL;Ljava/lang/String;[Ljava/lang/S
+tring;Ljava/lang/Runnable;)Ljava/lang/Object;
+        In org/eclipse/core/boot/BootLoader.run
+(Ljava/lang/String;Ljava/net/URL;Ljava/lang/String;
+[Ljava/lang/String;Ljava/lang/
+Runnable;)Ljava/lang/Object;
+        In java/lang/reflect/AccessibleObject.invokeL(Ljava/lang/Object;
+[Ljava/lang/Object;)Ljava/lang/Object;
+        In java/lang/reflect/Method.invoke(Ljava/lang/Object;
+[Ljava/lang/Object;)Ljava/lang/Object;
+        In org/eclipse/core/launcher/Main.basicRun([Ljava/lang/String;)
+Ljava/lang/Object;
+        In org/eclipse/core/launcher/Main.run([Ljava/lang/String;)
+Ljava/lang/Object;
+        In org/eclipse/core/launcher/Main.main([Ljava/lang/String;)V
+
+ThreadName=Gc Thread(000356AC)
+Status=Waiting
+Monitor=00034B68 (System monitor)
+Count=0
+Owner=(00000000)
+
+ThreadName=Finalizer thread(00035700)
+Status=Waiting
+Monitor=00035168 (System monitor)
+Count=0
+Owner=(00000000)
+
+ThreadName=Java indexing(000357A8)
+Status=Waiting
+Monitor=02E3CD08 (Object monitor for 
+org/eclipse/jdt/internal/core/search/indexing/IndexManager @ 012704DC)
+Count=0
+Owner=(00000000)
+        In java/lang/Object.wait(JI)V
+        In java/lang/Object.wait()V
+        In org/eclipse/jdt/internal/core/search/processing/JobManager.run()V
+        In java/lang/Thread.run()V
+
+ThreadName=SeedGenerator Thread(000359A0)
+Status=Waiting
+Monitor=02E3D2A8 (Object monitor for sun/security/provider/SeedGenerator @ 
+01CBB744)
+Count=0
+Owner=(00000000)
+        In java/lang/Object.wait(JI)V
+        In java/lang/Object.wait()V
+        In sun/security/provider/SeedGenerator.run()V
+        In java/lang/Thread.run()V
+
+ThreadName=org.eclipse.jdt.internal.ui.text.JavaReconciler(000358F8)
+Status=Waiting
+Monitor=02E3D0C8 (Object monitor for 
+org/eclipse/jface/text/reconciler/DirtyRegionQueue @ 021028E0)
+Count=0
+Owner=(00000000)
+        In java/lang/Object.wait(JI)V
+        In java/lang/Object.wait(J)V
+        In 
+org/eclipse/jface/text/reconciler/AbstractReconciler$BackgroundThread.run()V
+
+ThreadName=Worker-10(000357FC)
+Status=Sleeping
+        In java/lang/Thread.sleep(JI)V
+        In java/lang/Thread.sleep(J)V
+        In org/eclipse/ui/internal/progress/AnimationItem.animateLoop
+(Lorg/eclipse/core/runtime/IProgressMonitor;)V
+        In org/eclipse/ui/internal/progress/AnimationItem$8.run
+(Lorg/eclipse/core/runtime/IProgressMonitor;)Lorg/eclipse/core/ru
+ntime/IStatus;
+        In org/eclipse/core/internal/jobs/Worker.run()V
+
+ThreadName=Worker-15(00035A9C)
+Status=Waiting
+Monitor=02E57820 (Object monitor for org/eclipse/core/internal/utils/Semaphore 
+@ 026B00E4)
+Count=0
+Owner=(00000000)
+        In java/lang/Object.wait(JI)V
+        In java/lang/Object.wait()V
+        In org/eclipse/core/internal/utils/Semaphore.acquire()V
+        In org/eclipse/core/resources/WorkspaceLock.acquire()Z
+        In org/eclipse/ui/internal/UIWorkspaceLock.acquire()Z
+        In org/eclipse/core/internal/resources/WorkManager.checkIn()V
+        In org/eclipse/core/internal/resources/Workspace.prepareOperation()V
+        In org/eclipse/core/internal/resources/Synchronizer.setSyncInfo
+(Lorg/eclipse/core/runtime/QualifiedName;Lorg/eclipse/cor
+e/resources/IResource;[B)V
+        In 
+org/eclipse/team/internal/ccvs/core/resources/SynchronizerSyncInfoCache.setCach
+edSyncBytes(Lorg/eclipse/core/resource
+s/IResource;[B)V
+        In 
+org/eclipse/team/internal/ccvs/core/resources/EclipseSynchronizer.cacheResource
+SyncForChildren(Lorg/eclipse/core/reso
+urces/IContainer;)V
+        In 
+org/eclipse/team/internal/ccvs/core/resources/EclipseSynchronizer.members
+(Lorg/eclipse/core/resources/IContainer;)[Lo
+rg/eclipse/core/resources/IResource;
+        In org/eclipse/team/internal/ccvs/core/resources/EclipseFolder.members
+(I)[Lorg/eclipse/team/internal/ccvs/core/ICVSResou
+rce;
+        In 
+org/eclipse/team/internal/ccvs/core/resources/EclipseFolder.calculateAndSaveChi
+ldModificationStates(Lorg/eclipse/core
+/runtime/IProgressMonitor;)Z
+        In 
+org/eclipse/team/internal/ccvs/core/resources/EclipseFolder.isModified
+(Lorg/eclipse/core/runtime/IProgressMonitor;)Z
+        In org/eclipse/team/internal/ccvs/ui/CVSLightweightDecorator.isDirty
+(Lorg/eclipse/team/internal/ccvs/core/ICVSResource;)
+Z
+        In org/eclipse/team/internal/ccvs/ui/CVSLightweightDecorator.isDirty
+(Lorg/eclipse/core/resources/IResource;)Z
+        In org/eclipse/team/internal/ccvs/ui/CVSLightweightDecorator.decorate
+(Ljava/lang/Object;Lorg/eclipse/jface/viewers/IDeco
+ration;)V
+        In 
+org/eclipse/ui/internal/decorators/LightweightDecoratorDefinition.decorate
+(Ljava/lang/Object;Lorg/eclipse/jface/viewe
+rs/IDecoration;)V
+        In 
+org/eclipse/ui/internal/decorators/LightweightDecoratorManager$LightweightRunna
+ble.run()V
+        In org/eclipse/core/internal/runtime/InternalPlatform.run
+(Lorg/eclipse/core/runtime/ISafeRunnable;)V
+        In org/eclipse/core/runtime/Platform.run
+(Lorg/eclipse/core/runtime/ISafeRunnable;)V
+        In 
+org/eclipse/ui/internal/decorators/LightweightDecoratorManager.decorate
+(Ljava/lang/Object;Lorg/eclipse/ui/internal/de
+corators/DecorationBuilder;Lorg/eclipse/ui/internal/decorators/LightweightDecor
+atorDefinition;)V
+        In 
+org/eclipse/ui/internal/decorators/LightweightDecoratorManager.getDecorations
+(Ljava/lang/Object;Lorg/eclipse/ui/inter
+nal/decorators/DecorationBuilder;)V
+        In org/eclipse/ui/internal/decorators/DecorationScheduler$1.run
+(Lorg/eclipse/core/runtime/IProgressMonitor;)Lorg/eclipse
+/core/runtime/IStatus;
+        In org/eclipse/core/internal/jobs/Worker.run()V
+
+ThreadName=Snapshot(00035B44)
+Status=Waiting
+Monitor=040CAA90 (Object monitor for 
+org/eclipse/core/internal/resources/DelayedSnapshotRunnable @ 08E111BC)
+Count=0
+Owner=(00000000)
+        In java/lang/Object.wait(JI)V
+        In java/lang/Object.wait(J)V
+        In org/eclipse/core/internal/resources/DelayedSnapshotRunnable.run()V
+        In java/lang/Thread.run()V
+
+ThreadName=ModalContext(00035850)
+Status=Waiting
+Monitor=040CAB80 (Object monitor for org/eclipse/core/internal/jobs/Semaphore 
+@ 026B0254)
+Count=0
+Owner=(00000000)
+        In java/lang/Object.wait(JI)V
+        In java/lang/Object.wait(J)V
+        In org/eclipse/core/internal/jobs/Semaphore.acquire(J)Z
+        In org/eclipse/core/internal/jobs/OrderedLock.doAcquire
+(Lorg/eclipse/core/internal/jobs/Semaphore;J)Z
+        In org/eclipse/core/internal/jobs/OrderedLock.acquire(J)Z
+        In org/eclipse/core/internal/jobs/OrderedLock.acquire()V
+        In 
+org/eclipse/team/internal/ccvs/core/resources/EclipseSynchronizer.beginOperatio
+n(Lorg/eclipse/core/runtime/IProgressM
+onitor;)V
+        In 
+org/eclipse/team/internal/ccvs/core/resources/EclipseSynchronizer.flush
+(Lorg/eclipse/core/resources/IContainer;ZZLorg
+/eclipse/core/runtime/IProgressMonitor;)V
+        In 
+org/eclipse/team/internal/ccvs/core/resources/EclipseSynchronizer.syncFilesChan
+ged([Lorg/eclipse/core/resources/ICont
+ainer;)V
+        In 
+org/eclipse/team/internal/ccvs/core/util/SyncFileChangeListener.resourceChanged
+(Lorg/eclipse/core/resources/IResource
+ChangeEvent;)V
+        In 
+org/eclipse/team/internal/ccvs/core/CVSProviderPlugin$1.resourceChanged
+(Lorg/eclipse/core/resources/IResourceChangeEv
+ent;)V
+        In org/eclipse/core/internal/events/NotificationManager$1.run()V
+        In org/eclipse/core/internal/runtime/InternalPlatform.run
+(Lorg/eclipse/core/runtime/ISafeRunnable;)V
+        In org/eclipse/core/runtime/Platform.run
+(Lorg/eclipse/core/runtime/ISafeRunnable;)V
+        In org/eclipse/core/internal/events/NotificationManager.notify
+([Lorg/eclipse/core/internal/events/ResourceChangeListener
+List$ListenerEntry;Lorg/eclipse/core/resources/IResourceChangeEvent;Z)V
+        In 
+org/eclipse/core/internal/events/NotificationManager.broadcastChanges
+(Lorg/eclipse/core/internal/watson/ElementTree;I
+ZZ)V
+        In org/eclipse/core/internal/resources/Workspace.broadcastChanges
+(Lorg/eclipse/core/internal/watson/ElementTree;IZZLorg/
+eclipse/core/runtime/IProgressMonitor;)V
+        In org/eclipse/core/internal/resources/Workspace.endOperation
+(ZLorg/eclipse/core/runtime/IProgressMonitor;)V
+        In org/eclipse/core/internal/resources/Workspace.run
+(Lorg/eclipse/core/resources/IWorkspaceRunnable;Lorg/eclipse/core/ru
+ntime/IProgressMonitor;)V
+        In org/eclipse/jdt/core/JavaCore.run
+(Lorg/eclipse/core/resources/IWorkspaceRunnable;Lorg/eclipse/core/runtime/IProg
+ressM
+onitor;)V
+        In org/eclipse/jdt/internal/ui/actions/WorkbenchRunnableAdapter.run
+(Lorg/eclipse/core/runtime/IProgressMonitor;)V
+        In org/eclipse/jface/operation/ModalContext$ModalContextThread.run()V"
+41325,, [Tasks] Filters are not applied to Problems view after eclipse start  ,,sxenos@gmail.com,normal,P3,8/8/2003 9:02,12/16/2003 15:06,,9,"The Problems view filters are not applied when Eclipse first starts up and the Problems view is present in 
+the perspective. Simply opening the filters and clicking OK is enough for the filters to be applied.
+
+Channing"
+41509,, Synchronizing with repository breaks synch view  ,,jean-michel_lemieux@ca.ibm.com,major,P3,8/13/2003 14:54,2/10/2015 8:54,,15,"Build 20030806
+
+1. Open the new synchronize view in the Java perspective.
+2. Do some work (change some files).
+3. The changes appear in the view as you go.
+4. Right click on a subset of the files and choose ""Team->Synchronize with 
+Repository"".
+5. You're taken to the Team Synchronizing Perspective and presented with another 
+copy of the view, now only showing the files you chose.
+6. Commit your changes and go back to the Java perspective to resume work.
+7. The view is now empty and I can't find a way to get it to show my outgoing 
+changes again as it did in step 3. ""Refresh View Contents"" doesn't work and 
+neither does the button to refresh with the repository."
+41738,, Comparing two remote versions can result in many connections  ,,Michael_Valenta@ca.ibm.com,normal,P3,8/20/2003 12:20,10/22/2003 11:06,,18,"The removal of Session.run() means that comparing two remote versions of a
+project can result in many connections (and could look like a DOS attack to the
+server). We can probably get away without fixing this for M3 as the operation is
+not commonly used but we need to fix this for M4. The best approach is probably
+to use the cvs diff command."
+41883,," [Live Sync View] After crash, some outgoing additions don't appear  ",,Michael_Valenta@ca.ibm.com,normal,P3,8/22/2003 16:19,11/25/2003 21:55,,9,"I was modifing some files when Eclipse crashed (dealock). After killing and 
+restarting, the outgoing changes in one of the projects I was working on did 
+not appear in the view. Refreshing the subscriber did not help (not 
+surprising). Selecting the refresh view from the view menu fixed the problem. 
+I can't understand why the outgoing changes didn't appear in the first place 
+since the files were decorated properly in the navigator."
+42230,, [validateEdit] Read only files in Java editor  ,,platform-text-inbox@eclipse.org,major,P2,8/28/2003 13:43,11/19/2003 10:56,,93,"Build: I20030826 
+When I try to edit read-only files in java editor, content of the file is 
+replaced by the window with one line inside:  ""File ........... is read-only."" I 
+have to close and open that file again in order to see the source.
+
+Regards."
+42367,, StyledText - StringIndexOutOfBoundsException in StyledTextRenderer  ,,grant_gayed@ca.ibm.com,normal,P3,9/2/2003 5:38,10/30/2003 12:24,,15,"200308281813
+
+When hovering over the quick diff ruler to display the diff hover. Not
+reproducable, but consistently failing for a certain hover (I suspect an empty
+hover message, but not sure).
+
+java.lang.StringIndexOutOfBoundsException: String index out of range: -1
+	at java.lang.Throwable.<init>(Throwable.java)
+	at java.lang.Throwable.<init>(Throwable.java)
+	at
+java.lang.StringIndexOutOfBoundsException.<init>(StringIndexOutOfBoundsException.java:67)
+	at java.lang.String.substring(String.java)
+	at org.eclipse.swt.custom.DisplayRenderer.getStyledTextWidth(DisplayRenderer.java)
+	at org.eclipse.swt.custom.StyledTextRenderer.getTextWidth(StyledTextRenderer.java)
+	at
+org.eclipse.swt.custom.StyledText$ContentWidthCache.contentWidth(StyledText.java)
+	at org.eclipse.swt.custom.StyledText$ContentWidthCache.calculate(StyledText.java)
+	at org.eclipse.swt.custom.StyledText.computeSize(StyledText.java:2116)
+	at org.eclipse.swt.layout.GridLayout.calculateGridDimensions(GridLayout.java)
+	at org.eclipse.swt.layout.GridLayout.computeLayoutSize(GridLayout.java)
+	at org.eclipse.swt.layout.GridLayout.computeSize(GridLayout.java)
+	at org.eclipse.swt.widgets.Composite.computeSize(Composite.java)
+	at org.eclipse.swt.widgets.Control.computeSize(Control.java)
+	at
+org.eclipse.jdt.internal.ui.text.java.hover.SourceViewerInformationControl.computeSizeHint(SourceViewerInformationControl.java:315)
+	at
+org.eclipse.jdt.internal.ui.text.CustomSourceInformationControl.computeSizeHint(CustomSourceInformationControl.java:70)
+	at
+org.eclipse.jface.text.AbstractInformationControlManager.internalShowInformationControl(AbstractInformationControlManager.java:708)
+	at
+org.eclipse.jface.text.AbstractInformationControlManager.presentInformation(AbstractInformationControlManager.java:677)
+	at
+org.eclipse.jface.text.AbstractHoverInformationControlManager.presentInformation(AbstractHoverInformationControlManager.java:423)
+	at
+org.eclipse.jface.text.AbstractInformationControlManager.setInformation(AbstractInformationControlManager.java:224)
+	at
+org.eclipse.jface.text.source.AnnotationBarHoverManager.computeInformation(AnnotationBarHoverManager.java:97)
+	at
+org.eclipse.jface.text.AbstractInformationControlManager.doShowInformation(AbstractInformationControlManager.java:661)
+	at
+org.eclipse.jface.text.AbstractHoverInformationControlManager$MouseTracker.mouseHover(AbstractHoverInformationControlManager.java)
+	at org.eclipse.swt.widgets.TypedListener.handleEvent(TypedListener.java)
+	at org.eclipse.swt.widgets.EventTable.sendEvent(EventTable.java)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java)
+	at org.eclipse.swt.widgets.Display.runDeferredEvents(Display.java)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java)
+	at org.eclipse.ui.internal.Workbench.runEventLoop(Workbench.java:2036)
+	at org.eclipse.ui.internal.Workbench.run(Workbench.java:2019)
+	at
+org.eclipse.core.internal.boot.InternalBootLoader.run(InternalBootLoader.java:858)
+	at org.eclipse.core.boot.BootLoader.run(BootLoader.java:461)
+	at java.lang.reflect.AccessibleObject.invokeL(AccessibleObject.java:207)
+	at java.lang.reflect.Method.invoke(Method.java:271)
+	at org.eclipse.core.launcher.Main.basicRun(Main.java:295)
+	at org.eclipse.core.launcher.Main.run(Main.java:751)
+	at org.eclipse.core.launcher.Main.main(Main.java:587)"
+42415,, 'Completing the install' on every start  ,,birsan@ca.ibm.com,major,P3,9/2/2003 16:23,10/14/2003 13:00,,8,"Whenever I start 3.0M3 (gtk) I get the 'Please wait... completing the install'.  I'm starting 
+eclipse with the following script: 
+-------------- 
+#! /bin/sh -x 
+ 
+ECLIPSE_DIR=/usr/local/eclipse-SDK-3.0M3 
+ 
+exec $ECLIPSE_DIR/eclipse -data $HOME/.eclipse-3.0M3 -vm 
+/usr/local/j2sdk1.4.2/jre/bin/java 
+------------- 
+so you can see this can't (I don't think...) be a permission problem.  On the second run 
+of the program, the 'completing the install' popup never went away and the ui was 
+fouled up (technically speaking).  I can't remember the exact symptomps, sorry.  I'm 
+sure I'll be re-installing again soon (with 2.1.1 I average once a day) and will update 
+this description at that time."
+42456,, [Workbench] Startup extension point should have class attribute  ,,debbie_wilson@ca.ibm.com,normal,P3,9/3/2003 11:43,12/10/2003 11:47,,28,"3.0 M3
+
+The Startup extension point currently looks to the plugin class for the 
+IStartup interface.  It should allow a class= attribute like other extension 
+points.  Without this, startup extensions cannot be added by fragments."
+42796,, [CVS Workspace Subscriber] Sync info change events  ,,Michael_Valenta@ca.ibm.com,normal,P3,9/9/2003 11:29,11/7/2003 12:31,,66,"There are several TODOs in the CVSWorkspaceSubscriber related to sync info 
+change events. Here is a summary of them in question form. For each question, 
+if the answer is yes, we need to do work and if the answer is no, we should 
+remove the TODO.
+
+1) Should the change event management be move to the subscriber from the 
+plugin class?
+
+2) Can we be smarter about reconciling the reote tree with local sync info 
+changes? Currently, we just clear the remote."
+42847,, CVS dialogs do not honour dialog font preferences  ,,jean-michel_lemieux@ca.ibm.com,normal,P3,9/10/2003 2:03,10/10/2003 17:01,,66,"Build: I-20030909
+
+the commit and 'replace with' dialogs do not honour the dialog font 
+preferences.
+
+1. Window > Prefernces > Workbench > Fonts.
+2. Change Dialog fonts to Italic of size 12, for example.
+3. Do a replace with or a commit, and you will see that only the OK and Cancel 
+button have adopted the Italic 12 font.  the rest still has the default font."
+42946,, [Live Sync View] Useless decorators in new sync view  ,,platform-vcm-inbox@eclipse.org,enhancement,P3,9/11/2003 9:20,11/25/2003 10:56,,82,"The modified (the small yellow on black star) and the repository decorator (the
+small yellow cylinder?) in the sync view lay on top of the outgoing change black
+arrow, and in case of additions and deletions almost obscuring the the ""+"" ""-""
+signs that may be present in the arrow.
+I think that those decorators are redundant and clutter uselessly the view since
+if the resource is present in the view it implicitly means that some change is
+outstanding and the black arrow itself is enough to show the type of change
+that's going  in the repository."
+42969,, [Live Sync View] handle remote revision # smaller than local  ,,Michael_Valenta@ca.ibm.com,normal,P3,9/11/2003 13:57,11/7/2003 11:17,,6,"There are cases when Eclipse crashes when the local revision # (stored in the
+CVs/Entries) file is greater than that stored in the remote sync tree used by
+the CVS subscriber for remembering remote revision numbers.
+
+This case should be handled (e.g. lower remote revision number) by forgetting
+about the remote and waiting for the next refresh with remote to re-initialize
+the remote state."
+43108,, StyledText - Scrollwheel event interferes with last caret placement  ,,grant_gayed@ca.ibm.com,minor,P4,9/15/2003 11:54,11/4/2003 11:31,,35,"Styled text remembers the last horizontal offset of the caret in a line.  If 
+you are at the end of a really long line, and you press DOWN to a short line, 
+then UP, the caret's placement is recalled and it is at the end of the line 
+again.
+
+But, if you press DOWN to a short line, then use the scrollwheel, which does 
+NOT move the caret, then press UP, the caret's location is not recalled."
+43152,, Stack overflow when launching runtime workspace  ,,kim_horne@ca.ibm.com,normal,P3,9/16/2003 11:26,4/1/2004 15:41,,64,"If I try and launch a runtime workbench using the latest code (core + ui) from
+HEAD (as of ~10:30AM on Tuesday, Sept 16th) on Sun 1.4.1 without clearing the
+workspace before launch the eclipse splash screen will occasionally stay up
+forever and the runtime workbench never launches.  Once this happens for the
+first time it will happen consistantly until I clear the workspace prior to
+launch.  If I try on J9 sidecar I get the same behaviour but I also get a
+message to System.err that reads:
+
+java.lang.StackOverflowError
+	at java.lang.Throwable.fillInStackTrace(Native Method)
+	at java.lang.Throwable.<init>(Throwable.java:106)
+	at java.lang.Exception.<init>(Exception.java:53)
+	at java.lang.ClassNotFoundException.<init>(ClassNotFoundException.java:80)
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:243)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:521)
+	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:441)
+	at org.eclipse.core.launcher.Main.main(Main.java:587)
+
+When this occurs the runtime workspace no longer has a .registry file in the
+.metadata directory."
+43205,, New indications in sync view  ,,platform-vcm-inbox@eclipse.org,trivial,P3,9/17/2003 4:10,10/30/2003 22:02,,213,"I20030916
+
+The header of the new sync view now contains icons and text about the changes
+- why is the sequence different than the sequence of the buttons?
+- the first thing which attracts my eye focus is the red icon in the top left
+corner. Could we make it less intrusive i.e. I don't need to see any red status
+or conflict icon if there are no conflicts. I would also like the conflict
+toggle to be disabled if there are no conflicts.
+- why duplicate the icons? Couldn't we add the text to the toolbar beside the
+already existing buttons?"
+43251,, DragDetect event should have x and y coordinates  ,,grant_gayed@ca.ibm.com,normal,P3,9/17/2003 16:14,11/7/2003 17:32,,51,DragDetect event should have x and y coordinates
+43332,, String Substitution Support - org.eclipse.core.variables  ,,Darin_Wright@ca.ibm.com,normal,P2,9/18/2003 21:28,11/3/2003 16:28,,42,"* re-work the API to avoid use of resources (to allow us to push the support 
+down to a new plug-in that Ant can use)
+* support recursive string substitution
+* support value (simple) variables 
+* support context (dynamic) variables"
+43494,, [CVS UI] Orphaned CVS folders remain until auto-build  ,,Michael_Valenta@ca.ibm.com,normal,P3,9/23/2003 8:59,10/17/2003 13:41,,77,"With the switch to background auto-build, the delta listener which cleans up 
+orphaned CVS folders will not get executed until the build takes place. This 
+can result in improperly decorated resources (no big deal) and improper menu 
+enablement. In the latter case, it is probably best to handle this if an 
+action is run instead of in the enablement code (since enablement must be 
+fast). We can add a pre-check to the actions that ensures that the selected 
+resources are managed all the way up the folder chain to the project."
+43559,, [Decorators] cause flashing in back ground build  ,,Michael_Valenta@ca.ibm.com,normal,P3,9/24/2003 6:12,10/29/2003 10:19,,35,"I20030923
+
+- enable decorators
+- execute a rebuild all in a workspace with lots of source files
+
+observe: the package explorer redraws it decoration many times."
+43657,, [KeyBindings] Delete selection in key entry widget  ,,douglas.pollock@gmail.com,normal,P1,9/25/2003 10:37,11/20/2003 10:33,,48,"Should be able to delete the current selection in the key entry widget by
+pressing backspace.  In general, if there is a selection, it should be removed
+first (and the text corrected for invalid sequence fragments), and then the rest
+of the behaviour should be carried out.
+
+This is a nice to have, but can get really complicated:
+
+""Ctrl+R K"" then type Backspace should give ""Ctrl+R""
+""[Ctrl+R K]"" then type Backspace should give """"
+""[Ctrl+R] K"" then type ""Ctrl+G"" should give ""Ctrl+G K""
+""Ctrl+[R] K"" then type ""G"" should give ""Ctrl+G K""
+""Ct[rl+R] K"" then type ""G"" should give ""G K""
+
+etc...."
+43749,," Compare With Branch or Version dialog -- With should be capitalized; Elipsis after ""Configure Tags""  ",,jean-michel_lemieux@ca.ibm.com,normal,P4,9/26/2003 11:06,11/22/2003 6:09,,14,"open head stream of any location
+
+context menu of CVSROOT or any other folder: Compare With..."
+43798,43952, Incessant dialogs when trying to set the JRE for Ant config  ,,jared_burns@us.ibm.com,normal,P3,9/27/2003 12:45,11/17/2003 21:24,,10,"When I click the radio button to select an Alternate JRE, a dialog appears ""With 
+changes to the Ant JRE, the classpath will likely need to be updated..."". I 
+click OK and then try to select the JRE, but everytime I try to select something 
+from the pulldown, the dialog pops up again before I can finish. Just mousing 
+over an item in the pulldown makes the dialog pop up."
+43801,, [KeyBindings] Can't assign Esc Backspace  ,,douglas.pollock@gmail.com,normal,P1,9/27/2003 17:17,11/20/2003 10:34,,64,"build I20030917 + latest from head
+
+In the Keys pref page, can't enter Esc Backspace in the key sequence field 
+since it eats Backspace."
+43804,43657, [KeyBindings] Entering key sequence appends to previous by default  ,,douglas.pollock@gmail.com,normal,P1,9/27/2003 22:22,11/20/2003 10:37,,26,"build I20030917 + latest from head for UI
+
+- In Keys pref page, select a command with an existing binding, e.g. File > 
+Close.
+- Select one of the assignments, e.g. Ctrl+F4.  It fills in the key sequence 
+field.
+- Give focus to the key sequence field, either by tabbing or by clicking with 
+the mouse.
+- Type a new key binding, e.g. Ctrl+W.
+- It appends the new key to the old one, rather than replacing it, e.g. 
+Ctrl+F4 Ctrl+W.
+
+It is far more common to associate single key sequences to commands than multi 
+key sequences.
+When the key sequence field is given focus, it should assume that any key 
+entered is to replace the old binding, not to be appended to it.
+This should be indicated by automatically selecting the whole existing key 
+binding (e.g. as is done in the Address field of a web browser).
+Only if the user enters two keys (or key combinations) after the field is 
+given focus should it accept a multi key sequence."
+43952,, Improve launch tab interface notification  ,,jared_burns@us.ibm.com,normal,P3,9/30/2003 17:15,11/10/2003 17:12,,5,"Currently, a launch tab is asked to apply its changes (i.e. its current state, 
+via #applyChanges) to a launch configuration when the tab is exited. When a tab 
+is entered, the tab's ""initializeFrom"" method is called, such that the tab 
+displays for the launch configuration. This allows for inter-tab communication.
+
+The drawbacks with this interface:
+* Innefficient - invoking performApply and initializeFrom can be costly for 
+tabs that do not rely on inter-tab communication
+* Insufficient - a tab cannot tell the difference between ""initializing"" itself 
+for a newly displayed config (or when revert is pressed), and when it is simply 
+entered (a tab may want to do this for efficiency reasons - i.e. only perform 
+expensive operations once, when a new tab is displayed).
+
+For this reason, we propose that two new methods be added to 
+ILaunchConfigurationTab - #tabEntered() and #tabExited(). The methods will be 
+called as tabs are exited and entered. As well, #performApply() will only be 
+called (by the framework) when a configuration is saved, and #initializeFrom() 
+will only be called when a new config is to be displayed, or REVERT has been 
+pressed in the dialog. The two new methods will be implemented in the base 
+abstract tab class, to do nothing by default.
+
+Tabs that do not rely on inter-tab communication (i.e. do not rely on 
+attributes set in other tabs), should not be effected by this change. They will 
+just become more efficient. Tabs that do rely on attributes set on other tabs 
+will need to override the ""tabEntered()"" method to update as required. This 
+allows tabs to be selective in their updating."
+44012,, missing closed notification for console line tracker  ,,Darin_Swanson@us.ibm.com,normal,P3,10/1/2003 12:24,10/20/2003 18:55,,10,"It is possible that the ""closed"" notification can be missed for a console line 
+tracker, if the ""terminate"" event is never received for a process, or if it is 
+recieved before the console is connected to the process."
+44031,, Schema Ext. Point Documents have invalid copyright formatting  ,,platform-resources-inbox@eclipse.org,normal,P3,10/1/2003 15:17,10/15/2003 10:37,,148,"Re:  All schema docs in core.resources and core.runtime 
+
+Extension Point Schema documents have undergone a slight (but better!) 
+formatting change in that we are utilizing book.css in platform.doc.isv.
+
+However, the new stylesheet gives text properties to the <p> tag (i.e. black, 
+Arial font).  The main discrepancy is found in copyright statements which 
+starts off with a <p> tag in some or all of your schema files.  The result is 
+a poorly formatted copyright disclaimer.
+
+As a solution, here are two copyright templates I have found while traversing 
+through other schema documents.  Either of these copyright disclaimers should 
+be acceptable since they do the trick and do not contain a <p> tag anywhere.
+
+TEMPLATE 1: (may wrap)
+<a href=""hglegal.htm"">
+<img SRC=""ngibmcpy.gif"" ALT=""Copyright IBM Corp. 2000, 2003.  All Rights 
+Reserved."" BORDER=0 height=14 width=324>
+</a>
+
+TEMPLATE 2: (may wrap)
+Copyright (c) 2000, 2003 IBM Corporation and others.<br>
+All rights reserved. This program and the accompanying materials are made 
+available under the terms of the Common Public License v1.0 which accompanies 
+this distribution, and is available at 
+<a href=""<a href=""http://www.eclipse.org/legal/cpl-v10.html"">http://www.eclipse.org/legal/cpl-v10.html</a>"">
+<a href=""http://www.eclipse.org/legal/cpl-v10.html"">http://www.eclipse.org/legal/cpl-v10.html</a></a>
+
+You should be able the see the copyrights as a smaller-sized, blue text (if 
+using template #2) via previewing the schema or generating the docs (Windows-
+<span class=""quote"">>Prefs->PDE->Compilers->Schemas).</span >
+
+Please note:  It would be best to make these small adjustments by M4 to ensure 
+formatting of online help docs are correct :)"
+44040,, IConsoleLineTrackerExtension and after consoleClosed  ,,Darin_Swanson@us.ibm.com,normal,P3,10/1/2003 16:48,10/14/2003 21:09,,5681,"I see no enforcement of the javadoc claim that no more lines will be appended 
+after consoleClosed is called."
+44081,, [Navigator] Resource Navigator has sticky duplicate item after rename  ,,kim_horne@ca.ibm.com,major,P2,10/2/2003 11:19,4/1/2004 15:42,,30,"I20030930
+Resource Navigator has sticky duplicate item after rename
+
+Steps:
+- create new workspace
+- in the Resource Navigator, create new simple project ""prj""
+- create folder ""folder"" inside ""prj""
+- create file ""file.txt"" inside ""folder""
+- in the Resource Navigator, select file ""file.txt""
+- choose menu File > Rename (or press F2) and change the name to ""fool.txt""
+
+-> In ""folder"", I have two items ""fool.txt"" which both represent the same file.
+When I delete one of the tree items, the file is deleted from the filesystem.
+One of the tree items ""fool.txt"" inside ""folder"" stays there and can't be
+removed, not even by a refresh. It only goes away when I rename ""folder"" or
+restart eclipse.
+
+Note: the same problem seems to exist for *all* files and folders on the second
+level (""thing"" inside a folder inside a project)
+
+Note2: this might be related to <a class=""bz_bug_link 
+          bz_status_VERIFIED  bz_closed""
+   title=""VERIFIED FIXED - Package Explorer doesn't show new file""
+   href=""show_bug.cgi?id=44066"">bug 44066</a>."
+44093,, Tests for external tool builder migration  ,,Darin_Swanson@us.ibm.com,normal,P3,10/2/2003 13:22,11/17/2003 22:55,,30,"Several times we have broken the external tool builder migration and it is not 
+caught until the build is out.
+
+We need tests."
+44099,, organize favorites...  ,,jared_burns@us.ibm.com,normal,P3,10/2/2003 14:37,10/27/2003 19:31,,96,"The ""Launch History"" preference page should be removed. Instead there should be 
+an option on each launch drop-down to ""Organize Favorites..."". This should 
+present a dialog specific to the associated launch mode (similar to a single 
+tab in the launch history preference page).
+
+Issue: should we allow a launch history size per launch group, or one launch 
+history size?"
+44100,, UI blocked removing breakpoints from breakpoints view with other jobs  ,,jared_burns@us.ibm.com,major,P2,10/2/2003 15:11,11/6/2003 17:37,,204,"I20030930
+
+Start refreshing resources for cvs
+Go to the breakpoints view, select some breakpoints, hit the remove button
+
+The UI blocks for some undeterminate time."
+44103,, [Live sync View] Mark as merged should batch and not run in UI  ,,Michael_Valenta@ca.ibm.com,normal,P3,10/2/2003 16:10,11/7/2003 16:53,,24,"The operation iterates over nodes and marks them. It should instead batch this
+work and maybe run as a job. Also, since they are not batched, commitCache is
+called for each resource marked."
+44104,, disconnect is not thread safe  ,,Michael_Valenta@ca.ibm.com,normal,P3,10/2/2003 16:17,11/7/2003 16:37,,24,"I was disconnecting a project and got this exception in the log. (b.t.w I
+selected to delete meta-info from disk). Looks like a race condition between
+decorators and the disconnect. The project can't be shared afterwards. It's in a
+half-shared state that is invalid.
+
+org.eclipse.team.internal.ccvs.core.CVSException: Project DECO1_OTHER does not
+contain CVS folder meta-information
+at
+org.eclipse.team.internal.ccvs.core.CVSTeamProvider.setProject(CVSTeamProvider.java:197)
+at
+org.eclipse.team.core.RepositoryProvider.mapNewProvider(RepositoryProvider.java:174)
+at org.eclipse.team.core.RepositoryProvider.getProvider(RepositoryProvider.java:415)
+at
+org.eclipse.team.internal.ccvs.ui.CVSLightweightDecorator.getCVSProviderFor(CVSLightweightDecorator.java:126)
+at
+org.eclipse.team.internal.ccvs.ui.CVSLightweightDecorator.decorate(CVSLightweightDecorator.java:163)
+at
+org.eclipse.ui.internal.decorators.LightweightDecoratorDefinition.decorate(LightweightDecoratorDefinition.java:158)
+at
+org.eclipse.ui.internal.decorators.LightweightDecoratorManager$LightweightRunnable.run(LightweightDecoratorManager.java:59)
+at
+org.eclipse.core.internal.runtime.InternalPlatform.run(InternalPlatform.java:1034)
+at org.eclipse.core.runtime.Platform.run(Platform.java:432)
+at
+org.eclipse.ui.internal.decorators.LightweightDecoratorManager.decorate(LightweightDecoratorManager.java:212)
+at
+org.eclipse.ui.internal.decorators.LightweightDecoratorManager.getDecorations(LightweightDecoratorManager.java:195)
+at
+org.eclipse.ui.internal.decorators.DecorationScheduler$1.run(DecorationScheduler.java:257)
+at org.eclipse.core.internal.jobs.Worker.run(Worker.java:61)"
+44212,, FocusEvents KeyEvents from Scale not delivered  ,,grant_gayed@ca.ibm.com,normal,P3,10/6/2003 4:28,10/7/2003 12:38,,9,"A scale does not respond to any KeyEvents or FocusEvents. Exactly the same code
+works for linux-gtk.
+System used: debian/stable
+j2sdk1.4.2 eclipse-platform3.03M-linux-motif
+problem occurs in every combination of KeyListeners / KeyAdapters and a scale object"
+44223,, Group widget doesn't pass focus when pressing mnemonic  ,,grant_gayed@ca.ibm.com,normal,P3,10/6/2003 9:30,10/15/2003 14:59,,40,"Javadoc for org.eclipse.swt.widgets.Group#setText(String) says:
+""When the user presses a key sequence that matches the mnemonic, focus is
+assgned to the first child of the group."".
+
+Unfortunately, that doesn't work.
+
+Group.checkStyle (int style) begins with
+    { style |= SWT.NO_FOCUS; ...,
+which prevents
+    boolean mnemonicHit (char key) {
+        return setFocus ();
+    }
+from setting focus to the first child of the group."
+44244,, New Java Project wizard does not honor project creation Preference  ,,kim_horne@ca.ibm.com,minor,P3,10/6/2003 15:07,4/1/2004 15:40,,524,"Steps to recreate:
+1) Open Java perspective.
+2) Create new Java project.
+3) You are asked to switch perspectives, wich IMHO, is incorrect since I am 
+already in the Java perspective. 
+4) Say Yes to swtiching perspectives, another Java perspective is opned in the 
+same window. This seems confusing, and redundant. Staying in the Java 
+perspective should have been the end result. 
+ie: if I am in the Java perspective already, I should have not been prompted. 
+If I was in another pespective, only open a Java perspective if one is not 
+there already, otheriwse, just switch.
+
+Version 3.0.0
+Build id: 200308281813"
+44271,, Update OutlinePreparingHandler for deprecations in IDocument  ,,eclipse@skyluc.org,normal,P3,10/6/2003 23:25,10/20/2003 19:18,,100,"The method search(int, String, boolean, boolean, boolean) from the type 
+IDocument has been deprecated.  
+We need to update to use the new FindReplaceDocumentAdapter."
+44301,, SashForm - Sashes have no borders  ,,veronika_irvine@ca.ibm.com,normal,P3,10/7/2003 10:08,6/13/2005 9:54,,171,"1) SashForm creates the Sash widgets without the style SWT.BORDER
+2) SashForm has a default width of 3 pixels - on WIndows XP, at this width no 
+border is drawn (event if the SWT.BORDER is applied to the Sashes).  A minimum 
+width of 4 is required."
+44324,," ""Open External File"" should be ""Open External File...""  ",,kai-uwe_maetzel@ch.ibm.com,normal,P3,10/7/2003 12:10,11/17/2003 5:12,,26,"""Open External File"" should be ""Open External File..."".
+Menu items which open a cancellable dialog traditionally end in ""...""."
+44368,, Space between buttons on Ant tasks and types page  ,,jared_burns@us.ibm.com,normal,P3,10/7/2003 18:07,10/24/2003 16:42,,28,"On the Ant tasks and types preference pages there is space between the Edit 
+Type and Remove button. This space is not needed and is different from the 
+other preference pages."
+44369,, Duplicate mneumonic on the Ant Editor Code Assist page  ,,eclipse@skyluc.org,normal,P3,10/7/2003 18:10,10/16/2003 15:04,,98,"d' is used for both ""Auto activation &delay"" and ""Restore &Defaults""."
+44386,, [Bookmarks] Should not go to bookmark on single click  ,,debbie_wilson@ca.ibm.com,normal,P3,10/7/2003 23:08,12/16/2003 11:32,,126,"build N20031003
+
+- create a bookmark in a text editor
+- show bookmarks view
+- select bookmark
+- it activates the editor, taking focus away from the view
+
+Should work the same as the Problems and Tasks views."
+44409,, Can't discard CVS connection  ,,platform-vcm-inbox@eclipse.org,normal,P3,10/8/2003 6:31,10/8/2003 9:53,,107,"20031007
+
+I select a CVS connection and choose 'Discard location' from the context menu.
+Nothing happens, the connection stays there."
+44443,, [Tasks] Problems View should 'filter' more efficiently  ,,sxenos@gmail.com,normal,P2,10/8/2003 10:35,9/23/2004 14:55,,333,"Each time a change occurs in the Problems View, the filtering mechanism is 
+called too often (3 times at least).  Each time getElements() is called, all 
+the problem markers are retrieved and the filters applied to the whole list.  
+This happens even for updating the title of the view (to tell you how many 
+items are in the view).  This is causing serious performance degradation if 
+there are many problem markers in total (i.e. about 1000 problems).  
+
+See also:
+<a class=""bz_bug_link 
+          bz_status_VERIFIED  bz_closed""
+   title=""VERIFIED FIXED - [Problems View] Time response while debugging slows down when several perspectives are opened""
+   href=""show_bug.cgi?id=44069"">bug 44069</a> - [Problems View] Time response while debugging slows down when 
+several perspectives are opened
+<a class=""bz_bug_link 
+          bz_status_VERIFIED  bz_closed""
+   title=""VERIFIED FIXED - [Tasks] No summary shown in status line""
+   href=""show_bug.cgi?id=39436"">bug 39436</a> - [Tasks] No summary shown in status line
+<a class=""bz_bug_link 
+          bz_status_RESOLVED  bz_closed""
+   title=""RESOLVED FIXED - Performance regression on Mac""
+   href=""show_bug.cgi?id=43721"">bug 43721</a> - Performance regression on Mac"
+44446,, NPE in setCachedSyncBytes() while running Override and Update  ,,Michael_Valenta@ca.ibm.com,normal,P1,10/8/2003 10:42,10/15/2003 12:07,,10,"!SESSION Oct 08, 2003 09:51:39.945 --------------------------------------------
+-
+java.version=1.4.2
+java.vendor=Sun Microsystems Inc.
+BootLoader constants: OS=win32, ARCH=x86, WS=win32, NL=en_US
+Command-line arguments: -os win32 -ws win32 -arch x86 -data 
+D:\Eclipse\Eclipse3.0\workspace -showlocation -detach -install 
+file:D:/Eclipse/Eclipse3.0/ide/eclipse/
+!ENTRY org.eclipse.core.resources 2 1 Oct 08, 2003 09:51:39.945
+!MESSAGE Skipping builder org.eclipse.releng.tools.mapFileValidator for 
+project org.eclipse.releng. Either the builder is missing from the install, or 
+it belongs to a project nature that is missing or disabled.
+!ENTRY org.eclipse.team.cvs.core 2 2 Oct 08, 2003 09:54:16.380
+!MESSAGE The incoming changes of CVS Workspace subscriber in the Synchronize 
+view may be stale. Perform a Refresh with Remote on 
+resource /org.eclipse.swt.win32/bin/os/win32/x86/javaw.exe.manifest
+!ENTRY org.eclipse.team.cvs.core 2 2 Oct 08, 2003 09:54:16.380
+!MESSAGE The incoming changes of CVS Workspace subscriber in the Synchronize 
+view may be stale. Perform a Refresh with Remote on 
+resource /org.eclipse.swt.win32/bin/os/win32/x86/swt-win32-3023.dll
+!ENTRY org.eclipse.team.cvs.core 2 2 Oct 08, 2003 09:54:16.380
+!MESSAGE The incoming changes of CVS Workspace subscriber in the Synchronize 
+view may be stale. Perform a Refresh with Remote on 
+resource /org.eclipse.swt.win32/bin/os/win32/x86/swt-awt-win32-3023.dll
+!ENTRY org.eclipse.ui 4 4 Oct 08, 2003 09:58:09.873
+!MESSAGE Unhandled exception caught in event loop.
+!ENTRY org.eclipse.ui 4 0 Oct 08, 2003 09:58:09.888
+!MESSAGE java.lang.NullPointerException
+!STACK 0
+java.lang.NullPointerException
+	at 
+org.eclipse.team.internal.ccvs.core.syncinfo.ResourceSyncInfo.isFolder
+(ResourceSyncInfo.java:611)
+	at 
+org.eclipse.team.internal.ccvs.core.resources.SessionPropertySyncInfoCache.setC
+achedSyncBytes(SessionPropertySyncInfoCache.java:384)
+	at 
+org.eclipse.team.internal.ccvs.core.resources.EclipseSynchronizer.setCachedSync
+Bytes(EclipseSynchronizer.java:999)
+	at 
+org.eclipse.team.internal.ccvs.core.resources.EclipseSynchronizer.deleteResourc
+eSync(EclipseSynchronizer.java:352)
+	at 
+org.eclipse.team.internal.ccvs.core.resources.EclipseResource.unmanage
+(EclipseResource.java:243)
+	at org.eclipse.team.internal.ccvs.core.resources.EclipseFile.access$0
+(EclipseFile.java:1)
+	at org.eclipse.team.internal.ccvs.core.resources.EclipseFile$3.run
+(EclipseFile.java:490)
+	at 
+org.eclipse.team.internal.ccvs.core.resources.EclipseSynchronizer.run
+(EclipseSynchronizer.java:1362)
+	at org.eclipse.team.internal.ccvs.core.resources.EclipseFolder$3.run
+(EclipseFolder.java:300)
+	at org.eclipse.core.internal.resources.Workspace.run
+(Workspace.java:1555)
+	at org.eclipse.team.internal.ccvs.core.resources.EclipseFolder.run
+(EclipseFolder.java:297)
+	at org.eclipse.team.internal.ccvs.core.resources.EclipseFile.run
+(EclipseFile.java:556)
+	at org.eclipse.team.internal.ccvs.core.resources.EclipseFile.unmanage
+(EclipseFile.java:488)
+	at 
+org.eclipse.team.internal.ccvs.core.util.PrepareForReplaceVisitor.visitFile
+(PrepareForReplaceVisitor.java:54)
+	at org.eclipse.team.internal.ccvs.core.resources.EclipseFile.accept
+(EclipseFile.java:166)
+	at 
+org.eclipse.team.internal.ccvs.core.resources.EclipseFolder.acceptChildren
+(EclipseFolder.java:137)
+	at 
+org.eclipse.team.internal.ccvs.core.util.PrepareForReplaceVisitor.visitFolder
+(PrepareForReplaceVisitor.java:75)
+	at org.eclipse.team.internal.ccvs.core.resources.EclipseFolder.accept
+(EclipseFolder.java:149)
+	at 
+org.eclipse.team.internal.ccvs.core.resources.EclipseFolder.acceptChildren
+(EclipseFolder.java:141)
+	at 
+org.eclipse.team.internal.ccvs.core.util.PrepareForReplaceVisitor.visitFolder
+(PrepareForReplaceVisitor.java:75)
+	at org.eclipse.team.internal.ccvs.core.resources.EclipseFolder.accept
+(EclipseFolder.java:149)
+	at 
+org.eclipse.team.internal.ccvs.core.util.PrepareForReplaceVisitor$1.run
+(PrepareForReplaceVisitor.java:105)
+	at 
+org.eclipse.team.internal.ccvs.core.resources.EclipseSynchronizer.run
+(EclipseSynchronizer.java:1362)
+	at org.eclipse.team.internal.ccvs.core.resources.EclipseFolder$3.run
+(EclipseFolder.java:300)
+	at org.eclipse.core.internal.resources.Workspace.run
+(Workspace.java:1555)
+	at org.eclipse.team.internal.ccvs.core.resources.EclipseFolder.run
+(EclipseFolder.java:297)
+	at 
+org.eclipse.team.internal.ccvs.core.util.PrepareForReplaceVisitor.visitResource
+s(PrepareForReplaceVisitor.java:96)
+	at org.eclipse.team.internal.ccvs.core.CVSTeamProvider.get
+(CVSTeamProvider.java:651)
+	at org.eclipse.team.internal.ccvs.core.CVSTeamProvider.get
+(CVSTeamProvider.java:635)
+	at 
+org.eclipse.team.internal.ccvs.ui.actions.ReplaceWithRemoteAction.performReplac
+e(ReplaceWithRemoteAction.java:66)
+	at 
+org.eclipse.team.internal.ccvs.ui.actions.ReplaceWithRemoteAction$1.execute
+(ReplaceWithRemoteAction.java:43)
+	at org.eclipse.ui.actions.WorkspaceModifyOperation$1.run
+(WorkspaceModifyOperation.java:71)
+	at org.eclipse.core.internal.resources.Workspace.run
+(Workspace.java:1555)
+	at org.eclipse.core.internal.resources.Workspace.run
+(Workspace.java:1572)
+	at org.eclipse.ui.actions.WorkspaceModifyOperation.run
+(WorkspaceModifyOperation.java:85)
+	at org.eclipse.team.internal.ccvs.ui.repo.RepositoryManager.run
+(RepositoryManager.java:802)
+	at org.eclipse.team.internal.ccvs.ui.actions.CVSAction$1.run
+(CVSAction.java:242)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run
+(ModalContext.java:101)
+!ENTRY org.eclipse.ui 4 4 Oct 08, 2003 09:58:24.152
+!MESSAGE Unhandled exception caught in event loop.
+!ENTRY org.eclipse.ui 4 0 Oct 08, 2003 09:58:24.152
+!MESSAGE java.lang.NullPointerException
+!STACK 0
+java.lang.NullPointerException
+	at 
+org.eclipse.team.internal.ccvs.core.syncinfo.ResourceSyncInfo.isFolder
+(ResourceSyncInfo.java:611)
+	at 
+org.eclipse.team.internal.ccvs.core.resources.SessionPropertySyncInfoCache.setC
+achedSyncBytes(SessionPropertySyncInfoCache.java:384)
+	at 
+org.eclipse.team.internal.ccvs.core.resources.EclipseSynchronizer.setCachedSync
+Bytes(EclipseSynchronizer.java:999)
+	at 
+org.eclipse.team.internal.ccvs.core.resources.EclipseSynchronizer.deleteResourc
+eSync(EclipseSynchronizer.java:352)
+	at 
+org.eclipse.team.internal.ccvs.core.resources.EclipseResource.unmanage
+(EclipseResource.java:243)
+	at org.eclipse.team.internal.ccvs.core.resources.EclipseFile.access$0
+(EclipseFile.java:1)
+	at org.eclipse.team.internal.ccvs.core.resources.EclipseFile$3.run
+(EclipseFile.java:490)
+	at 
+org.eclipse.team.internal.ccvs.core.resources.EclipseSynchronizer.run
+(EclipseSynchronizer.java:1362)
+	at org.eclipse.team.internal.ccvs.core.resources.EclipseFolder$3.run
+(EclipseFolder.java:300)
+	at org.eclipse.core.internal.resources.Workspace.run
+(Workspace.java:1555)
+	at org.eclipse.team.internal.ccvs.core.resources.EclipseFolder.run
+(EclipseFolder.java:297)
+	at org.eclipse.team.internal.ccvs.core.resources.EclipseFile.run
+(EclipseFile.java:556)
+	at org.eclipse.team.internal.ccvs.core.resources.EclipseFile.unmanage
+(EclipseFile.java:488)
+	at 
+org.eclipse.team.internal.ccvs.core.util.PrepareForReplaceVisitor.visitFile
+(PrepareForReplaceVisitor.java:54)
+	at org.eclipse.team.internal.ccvs.core.resources.EclipseFile.accept
+(EclipseFile.java:166)
+	at 
+org.eclipse.team.internal.ccvs.core.resources.EclipseFolder.acceptChildren
+(EclipseFolder.java:137)
+	at 
+org.eclipse.team.internal.ccvs.core.util.PrepareForReplaceVisitor.visitFolder
+(PrepareForReplaceVisitor.java:75)
+	at org.eclipse.team.internal.ccvs.core.resources.EclipseFolder.accept
+(EclipseFolder.java:149)
+	at 
+org.eclipse.team.internal.ccvs.core.resources.EclipseFolder.acceptChildren
+(EclipseFolder.java:141)
+	at 
+org.eclipse.team.internal.ccvs.core.util.PrepareForReplaceVisitor.visitFolder
+(PrepareForReplaceVisitor.java:75)
+	at org.eclipse.team.internal.ccvs.core.resources.EclipseFolder.accept
+(EclipseFolder.java:149)
+	at 
+org.eclipse.team.internal.ccvs.core.util.PrepareForReplaceVisitor$1.run
+(PrepareForReplaceVisitor.java:105)
+	at 
+org.eclipse.team.internal.ccvs.core.resources.EclipseSynchronizer.run
+(EclipseSynchronizer.java:1362)
+	at org.eclipse.team.internal.ccvs.core.resources.EclipseFolder$3.run
+(EclipseFolder.java:300)
+	at org.eclipse.core.internal.resources.Workspace.run
+(Workspace.java:1555)
+	at org.eclipse.team.internal.ccvs.core.resources.EclipseFolder.run
+(EclipseFolder.java:297)
+	at 
+org.eclipse.team.internal.ccvs.core.util.PrepareForReplaceVisitor.visitResource
+s(PrepareForReplaceVisitor.java:96)
+	at org.eclipse.team.internal.ccvs.core.CVSTeamProvider.get
+(CVSTeamProvider.java:651)
+	at org.eclipse.team.internal.ccvs.core.CVSTeamProvider.get
+(CVSTeamProvider.java:635)
+	at 
+org.eclipse.team.internal.ccvs.ui.actions.ReplaceWithRemoteAction.performReplac
+e(ReplaceWithRemoteAction.java:66)
+	at 
+org.eclipse.team.internal.ccvs.ui.actions.ReplaceWithRemoteAction$1.execute
+(ReplaceWithRemoteAction.java:43)
+	at org.eclipse.ui.actions.WorkspaceModifyOperation$1.run
+(WorkspaceModifyOperation.java:71)
+	at org.eclipse.core.internal.resources.Workspace.run
+(Workspace.java:1555)
+	at org.eclipse.core.internal.resources.Workspace.run
+(Workspace.java:1572)
+	at org.eclipse.ui.actions.WorkspaceModifyOperation.run
+(WorkspaceModifyOperation.java:85)
+	at org.eclipse.team.internal.ccvs.ui.repo.RepositoryManager.run
+(RepositoryManager.java:802)
+	at org.eclipse.team.internal.ccvs.ui.actions.CVSAction$1.run
+(CVSAction.java:242)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run
+(ModalContext.java:101)
+!ENTRY org.eclipse.ui 4 4 Oct 08, 2003 09:58:35.760
+!MESSAGE Unhandled exception caught in event loop.
+!ENTRY org.eclipse.ui 4 0 Oct 08, 2003 09:58:35.760
+!MESSAGE java.lang.NullPointerException
+!STACK 0
+java.lang.NullPointerException
+	at 
+org.eclipse.team.internal.ccvs.core.syncinfo.ResourceSyncInfo.isFolder
+(ResourceSyncInfo.java:611)
+	at 
+org.eclipse.team.internal.ccvs.core.resources.SessionPropertySyncInfoCache.setC
+achedSyncBytes(SessionPropertySyncInfoCache.java:384)
+	at 
+org.eclipse.team.internal.ccvs.core.resources.EclipseSynchronizer.setCachedSync
+Bytes(EclipseSynchronizer.java:999)
+	at 
+org.eclipse.team.internal.ccvs.core.resources.EclipseSynchronizer.deleteResourc
+eSync(EclipseSynchronizer.java:352)
+	at 
+org.eclipse.team.internal.ccvs.core.resources.EclipseResource.unmanage
+(EclipseResource.java:243)
+	at org.eclipse.team.internal.ccvs.core.resources.EclipseFile.access$0
+(EclipseFile.java:1)
+	at org.eclipse.team.internal.ccvs.core.resources.EclipseFile$3.run
+(EclipseFile.java:490)
+	at 
+org.eclipse.team.internal.ccvs.core.resources.EclipseSynchronizer.run
+(EclipseSynchronizer.java:1362)
+	at org.eclipse.team.internal.ccvs.core.resources.EclipseFolder$3.run
+(EclipseFolder.java:300)
+	at org.eclipse.core.internal.resources.Workspace.run
+(Workspace.java:1555)
+	at org.eclipse.team.internal.ccvs.core.resources.EclipseFolder.run
+(EclipseFolder.java:297)
+	at org.eclipse.team.internal.ccvs.core.resources.EclipseFile.run
+(EclipseFile.java:556)
+	at org.eclipse.team.internal.ccvs.core.resources.EclipseFile.unmanage
+(EclipseFile.java:488)
+	at 
+org.eclipse.team.internal.ccvs.core.util.PrepareForReplaceVisitor.visitFile
+(PrepareForReplaceVisitor.java:54)
+	at org.eclipse.team.internal.ccvs.core.resources.EclipseFile.accept
+(EclipseFile.java:166)
+	at 
+org.eclipse.team.internal.ccvs.core.resources.EclipseFolder.acceptChildren
+(EclipseFolder.java:137)
+	at 
+org.eclipse.team.internal.ccvs.core.util.PrepareForReplaceVisitor.visitFolder
+(PrepareForReplaceVisitor.java:75)
+	at org.eclipse.team.internal.ccvs.core.resources.EclipseFolder.accept
+(EclipseFolder.java:149)
+	at 
+org.eclipse.team.internal.ccvs.core.resources.EclipseFolder.acceptChildren
+(EclipseFolder.java:141)
+	at 
+org.eclipse.team.internal.ccvs.core.util.PrepareForReplaceVisitor.visitFolder
+(PrepareForReplaceVisitor.java:75)
+	at org.eclipse.team.internal.ccvs.core.resources.EclipseFolder.accept
+(EclipseFolder.java:149)
+	at 
+org.eclipse.team.internal.ccvs.core.util.PrepareForReplaceVisitor$1.run
+(PrepareForReplaceVisitor.java:105)
+	at 
+org.eclipse.team.internal.ccvs.core.resources.EclipseSynchronizer.run
+(EclipseSynchronizer.java:1362)
+	at org.eclipse.team.internal.ccvs.core.resources.EclipseFolder$3.run
+(EclipseFolder.java:300)
+	at org.eclipse.core.internal.resources.Workspace.run
+(Workspace.java:1555)
+	at org.eclipse.team.internal.ccvs.core.resources.EclipseFolder.run
+(EclipseFolder.java:297)
+	at 
+org.eclipse.team.internal.ccvs.core.util.PrepareForReplaceVisitor.visitResource
+s(PrepareForReplaceVisitor.java:96)
+	at org.eclipse.team.internal.ccvs.core.CVSTeamProvider.get
+(CVSTeamProvider.java:651)
+	at org.eclipse.team.internal.ccvs.core.CVSTeamProvider.get
+(CVSTeamProvider.java:635)
+	at 
+org.eclipse.team.internal.ccvs.ui.actions.ReplaceWithRemoteAction.performReplac
+e(ReplaceWithRemoteAction.java:66)
+	at 
+org.eclipse.team.internal.ccvs.ui.actions.ReplaceWithRemoteAction$1.execute
+(ReplaceWithRemoteAction.java:43)
+	at org.eclipse.ui.actions.WorkspaceModifyOperation$1.run
+(WorkspaceModifyOperation.java:71)
+	at org.eclipse.core.internal.resources.Workspace.run
+(Workspace.java:1555)
+	at org.eclipse.core.internal.resources.Workspace.run
+(Workspace.java:1572)
+	at org.eclipse.ui.actions.WorkspaceModifyOperation.run
+(WorkspaceModifyOperation.java:85)
+	at org.eclipse.team.internal.ccvs.ui.repo.RepositoryManager.run
+(RepositoryManager.java:802)
+	at org.eclipse.team.internal.ccvs.ui.actions.CVSAction$1.run
+(CVSAction.java:242)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run
+(ModalContext.java:101)
+!ENTRY org.eclipse.ui 4 4 Oct 08, 2003 09:58:56.803
+!MESSAGE Unhandled exception caught in event loop.
+!ENTRY org.eclipse.ui 4 0 Oct 08, 2003 09:58:56.803
+!MESSAGE java.lang.NullPointerException
+!STACK 0
+java.lang.NullPointerException
+	at 
+org.eclipse.team.internal.ccvs.core.syncinfo.ResourceSyncInfo.isFolder
+(ResourceSyncInfo.java:611)
+	at 
+org.eclipse.team.internal.ccvs.core.resources.SessionPropertySyncInfoCache.setC
+achedSyncBytes(SessionPropertySyncInfoCache.java:384)
+	at 
+org.eclipse.team.internal.ccvs.core.resources.EclipseSynchronizer.setCachedSync
+Bytes(EclipseSynchronizer.java:999)
+	at 
+org.eclipse.team.internal.ccvs.core.resources.EclipseSynchronizer.deleteResourc
+eSync(EclipseSynchronizer.java:352)
+	at 
+org.eclipse.team.internal.ccvs.core.resources.EclipseResource.unmanage
+(EclipseResource.java:243)
+	at org.eclipse.team.internal.ccvs.core.resources.EclipseFile.access$0
+(EclipseFile.java:1)
+	at org.eclipse.team.internal.ccvs.core.resources.EclipseFile$3.run
+(EclipseFile.java:490)
+	at 
+org.eclipse.team.internal.ccvs.core.resources.EclipseSynchronizer.run
+(EclipseSynchronizer.java:1362)
+	at org.eclipse.team.internal.ccvs.core.resources.EclipseFolder$3.run
+(EclipseFolder.java:300)
+	at org.eclipse.core.internal.resources.Workspace.run
+(Workspace.java:1555)
+	at org.eclipse.team.internal.ccvs.core.resources.EclipseFolder.run
+(EclipseFolder.java:297)
+	at org.eclipse.team.internal.ccvs.core.resources.EclipseFile.run
+(EclipseFile.java:556)
+	at org.eclipse.team.internal.ccvs.core.resources.EclipseFile.unmanage
+(EclipseFile.java:488)
+	at 
+org.eclipse.team.internal.ccvs.core.util.PrepareForReplaceVisitor.visitFile
+(PrepareForReplaceVisitor.java:54)
+	at org.eclipse.team.internal.ccvs.core.resources.EclipseFile.accept
+(EclipseFile.java:166)
+	at 
+org.eclipse.team.internal.ccvs.core.resources.EclipseFolder.acceptChildren
+(EclipseFolder.java:137)
+	at 
+org.eclipse.team.internal.ccvs.core.util.PrepareForReplaceVisitor.visitFolder
+(PrepareForReplaceVisitor.java:75)
+	at org.eclipse.team.internal.ccvs.core.resources.EclipseFolder.accept
+(EclipseFolder.java:149)
+	at 
+org.eclipse.team.internal.ccvs.core.resources.EclipseFolder.acceptChildren
+(EclipseFolder.java:141)
+	at 
+org.eclipse.team.internal.ccvs.core.util.PrepareForReplaceVisitor.visitFolder
+(PrepareForReplaceVisitor.java:75)
+	at org.eclipse.team.internal.ccvs.core.resources.EclipseFolder.accept
+(EclipseFolder.java:149)
+	at 
+org.eclipse.team.internal.ccvs.core.util.PrepareForReplaceVisitor$1.run
+(PrepareForReplaceVisitor.java:105)
+	at 
+org.eclipse.team.internal.ccvs.core.resources.EclipseSynchronizer.run
+(EclipseSynchronizer.java:1362)
+	at org.eclipse.team.internal.ccvs.core.resources.EclipseFolder$3.run
+(EclipseFolder.java:300)
+	at org.eclipse.core.internal.resources.Workspace.run
+(Workspace.java:1555)
+	at org.eclipse.team.internal.ccvs.core.resources.EclipseFolder.run
+(EclipseFolder.java:297)
+	at 
+org.eclipse.team.internal.ccvs.core.util.PrepareForReplaceVisitor.visitResource
+s(PrepareForReplaceVisitor.java:96)
+	at org.eclipse.team.internal.ccvs.core.CVSTeamProvider.get
+(CVSTeamProvider.java:651)
+	at org.eclipse.team.internal.ccvs.core.CVSTeamProvider.get
+(CVSTeamProvider.java:635)
+	at 
+org.eclipse.team.internal.ccvs.ui.actions.ReplaceWithRemoteAction.performReplac
+e(ReplaceWithRemoteAction.java:66)
+	at 
+org.eclipse.team.internal.ccvs.ui.actions.ReplaceWithRemoteAction$1.execute
+(ReplaceWithRemoteAction.java:43)
+	at org.eclipse.ui.actions.WorkspaceModifyOperation$1.run
+(WorkspaceModifyOperation.java:71)
+	at org.eclipse.core.internal.resources.Workspace.run
+(Workspace.java:1555)
+	at org.eclipse.core.internal.resources.Workspace.run
+(Workspace.java:1572)
+	at org.eclipse.ui.actions.WorkspaceModifyOperation.run
+(WorkspaceModifyOperation.java:85)
+	at org.eclipse.team.internal.ccvs.ui.repo.RepositoryManager.run
+(RepositoryManager.java:802)
+	at org.eclipse.team.internal.ccvs.ui.actions.CVSAction$1.run
+(CVSAction.java:242)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run
+(ModalContext.java:101)
+!ENTRY org.eclipse.core.runtime 4 2 Oct 08, 2003 09:59:17.752
+!MESSAGE An internal error occurred during: ""Performing CVS update on 28 
+resources."".
+!STACK 0
+java.lang.NullPointerException
+	at 
+org.eclipse.team.internal.ccvs.core.syncinfo.ResourceSyncInfo.isFolder
+(ResourceSyncInfo.java:611)
+	at 
+org.eclipse.team.internal.ccvs.core.resources.SessionPropertySyncInfoCache.setC
+achedSyncBytes(SessionPropertySyncInfoCache.java:384)
+	at 
+org.eclipse.team.internal.ccvs.core.resources.EclipseSynchronizer.setCachedSync
+Bytes(EclipseSynchronizer.java:999)
+	at 
+org.eclipse.team.internal.ccvs.core.resources.EclipseSynchronizer.deleteResourc
+eSync(EclipseSynchronizer.java:352)
+	at 
+org.eclipse.team.internal.ccvs.core.resources.EclipseResource.unmanage
+(EclipseResource.java:243)
+	at org.eclipse.team.internal.ccvs.core.resources.EclipseFile.access$0
+(EclipseFile.java:1)
+	at org.eclipse.team.internal.ccvs.core.resources.EclipseFile$3.run
+(EclipseFile.java:490)
+	at 
+org.eclipse.team.internal.ccvs.core.resources.EclipseSynchronizer.run
+(EclipseSynchronizer.java:1362)
+	at org.eclipse.team.internal.ccvs.core.resources.EclipseFolder$3.run
+(EclipseFolder.java:300)
+	at org.eclipse.core.internal.resources.Workspace.run
+(Workspace.java:1555)
+	at org.eclipse.team.internal.ccvs.core.resources.EclipseFolder.run
+(EclipseFolder.java:297)
+	at org.eclipse.team.internal.ccvs.core.resources.EclipseFile.run
+(EclipseFile.java:556)
+	at org.eclipse.team.internal.ccvs.core.resources.EclipseFile.unmanage
+(EclipseFile.java:488)
+	at 
+org.eclipse.team.internal.ccvs.ui.subscriber.WorkspaceUpdateAction.unmanage
+(WorkspaceUpdateAction.java:81)
+	at 
+org.eclipse.team.internal.ccvs.ui.subscriber.WorkspaceUpdateAction.runUpdateDel
+etions(WorkspaceUpdateAction.java:51)
+	at 
+org.eclipse.team.internal.ccvs.ui.subscriber.SafeUpdateAction.safeUpdate
+(SafeUpdateAction.java:187)
+	at org.eclipse.team.internal.ccvs.ui.subscriber.SafeUpdateAction.run
+(SafeUpdateAction.java:66)
+	at 
+org.eclipse.team.internal.ccvs.ui.subscriber.CVSSubscriberAction$2.run
+(CVSSubscriberAction.java:153)
+	at 
+org.eclipse.team.internal.ccvs.core.resources.EclipseSynchronizer.run
+(EclipseSynchronizer.java:1362)
+	at org.eclipse.team.internal.ccvs.core.resources.EclipseFolder$3.run
+(EclipseFolder.java:300)
+	at org.eclipse.core.internal.resources.Workspace.run
+(Workspace.java:1555)
+	at org.eclipse.team.internal.ccvs.core.resources.EclipseFolder.run
+(EclipseFolder.java:297)
+	at 
+org.eclipse.team.internal.ccvs.ui.subscriber.CVSSubscriberAction$1.run
+(CVSSubscriberAction.java:149)
+	at 
+org.eclipse.team.internal.ccvs.ui.operations.CVSNonblockingRunnableContext.run
+(CVSNonblockingRunnableContext.java:47)
+	at 
+org.eclipse.team.internal.ccvs.ui.operations.CVSNonblockingRunnableContext$2.ru
+nInWorkspace(CVSNonblockingRunnableContext.java:67)
+	at org.eclipse.core.internal.resources.InternalWorkspaceJob.run
+(InternalWorkspaceJob.java:37)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:62)
+!ENTRY org.eclipse.core.runtime 4 2 Oct 08, 2003 09:59:28.484
+!MESSAGE An internal error occurred during: ""Performing CVS operation on 21 
+resources."".
+!STACK 0
+java.lang.NullPointerException
+	at 
+org.eclipse.team.internal.ccvs.core.syncinfo.ResourceSyncInfo.isFolder
+(ResourceSyncInfo.java:611)
+	at 
+org.eclipse.team.internal.ccvs.core.resources.SessionPropertySyncInfoCache.setC
+achedSyncBytes(SessionPropertySyncInfoCache.java:384)
+	at 
+org.eclipse.team.internal.ccvs.core.resources.EclipseSynchronizer.setCachedSync
+Bytes(EclipseSynchronizer.java:999)
+	at 
+org.eclipse.team.internal.ccvs.core.resources.EclipseSynchronizer.deleteResourc
+eSync(EclipseSynchronizer.java:352)
+	at 
+org.eclipse.team.internal.ccvs.core.resources.EclipseResource.unmanage
+(EclipseResource.java:243)
+	at org.eclipse.team.internal.ccvs.core.resources.EclipseFile.access$0
+(EclipseFile.java:1)
+	at org.eclipse.team.internal.ccvs.core.resources.EclipseFile$3.run
+(EclipseFile.java:490)
+	at 
+org.eclipse.team.internal.ccvs.core.resources.EclipseSynchronizer.run
+(EclipseSynchronizer.java:1362)
+	at org.eclipse.team.internal.ccvs.core.resources.EclipseFolder$3.run
+(EclipseFolder.java:300)
+	at org.eclipse.core.internal.resources.Workspace.run
+(Workspace.java:1555)
+	at org.eclipse.team.internal.ccvs.core.resources.EclipseFolder.run
+(EclipseFolder.java:297)
+	at org.eclipse.team.internal.ccvs.core.resources.EclipseFile.run
+(EclipseFile.java:556)
+	at org.eclipse.team.internal.ccvs.core.resources.EclipseFile.unmanage
+(EclipseFile.java:488)
+	at 
+org.eclipse.team.internal.ccvs.core.util.PrepareForReplaceVisitor.visitFile
+(PrepareForReplaceVisitor.java:54)
+	at org.eclipse.team.internal.ccvs.core.resources.EclipseFile.accept
+(EclipseFile.java:166)
+	at 
+org.eclipse.team.internal.ccvs.core.util.PrepareForReplaceVisitor$1.run
+(PrepareForReplaceVisitor.java:105)
+	at 
+org.eclipse.team.internal.ccvs.core.resources.EclipseSynchronizer.run
+(EclipseSynchronizer.java:1362)
+	at org.eclipse.team.internal.ccvs.core.resources.EclipseFolder$3.run
+(EclipseFolder.java:300)
+	at org.eclipse.core.internal.resources.Workspace.run
+(Workspace.java:1555)
+	at org.eclipse.team.internal.ccvs.core.resources.EclipseFolder.run
+(EclipseFolder.java:297)
+	at 
+org.eclipse.team.internal.ccvs.core.util.PrepareForReplaceVisitor.visitResource
+s(PrepareForReplaceVisitor.java:96)
+	at 
+org.eclipse.team.internal.ccvs.ui.operations.ReplaceOperation.executeCommand
+(ReplaceOperation.java:73)
+	at 
+org.eclipse.team.internal.ccvs.ui.operations.SingleCommandOperation.execute
+(SingleCommandOperation.java:44)
+	at 
+org.eclipse.team.internal.ccvs.ui.operations.RepositoryProviderOperation.execut
+e(RepositoryProviderOperation.java:63)
+	at org.eclipse.team.internal.ccvs.ui.operations.CVSOperation.run
+(CVSOperation.java:128)
+	at 
+org.eclipse.team.internal.ccvs.ui.subscriber.OverrideAndUpdateAction.run
+(OverrideAndUpdateAction.java:43)
+	at 
+org.eclipse.team.internal.ccvs.ui.subscriber.CVSSubscriberAction$2.run
+(CVSSubscriberAction.java:153)
+	at 
+org.eclipse.team.internal.ccvs.core.resources.EclipseSynchronizer.run
+(EclipseSynchronizer.java:1362)
+	at org.eclipse.team.internal.ccvs.core.resources.EclipseFolder$3.run
+(EclipseFolder.java:300)
+	at org.eclipse.core.internal.resources.Workspace.run
+(Workspace.java:1555)
+	at org.eclipse.team.internal.ccvs.core.resources.EclipseFolder.run
+(EclipseFolder.java:297)
+	at 
+org.eclipse.team.internal.ccvs.ui.subscriber.CVSSubscriberAction$1.run
+(CVSSubscriberAction.java:149)
+	at 
+org.eclipse.team.internal.ccvs.ui.operations.CVSNonblockingRunnableContext.run
+(CVSNonblockingRunnableContext.java:47)
+	at 
+org.eclipse.team.internal.ccvs.ui.operations.CVSNonblockingRunnableContext$2.ru
+nInWorkspace(CVSNonblockingRunnableContext.java:67)
+	at org.eclipse.core.internal.resources.InternalWorkspaceJob.run
+(InternalWorkspaceJob.java:37)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:62)"
+44448,," Should not tell user operation is blocked by ""implicit job""  ",,john_arthorne@ca.ibm.com,normal,P3,10/8/2003 10:45,10/27/2003 16:50,,56,"Build: I20031008
+
+When an operation is blocked in the UI, it often tells the user it is blocked by
+""Implicit Job"".  This message should be made more generic and not reference the
+job name when using implicit jobs."
+44459,, First Link (Help > Welcome...) on Welcome Page doesn't work  ,,nick_edgar@ca.ibm.com,minor,P3,10/8/2003 11:42,11/21/2003 10:14,,844,"I20031008
+
+- start eclipse with new workspace
+- in the Eclipse Platform Welcome page, click on the first link ""Help > Welcome...""
+
+!ENTRY org.eclipse.ui 4 4 Oct 08, 2003 17:34:25.512
+!MESSAGE Unable to load class org.eclipse.ui
+org.eclipse.ui.internal.QuickStartAction
+Unable to load class org.eclipse.ui org.eclipse.ui.internal.QuickStartAction"
+44460,, [Keybindings] Open Type keybinding opens Type Hierarchy in non-java perspectives  ,,douglas.pollock@gmail.com,normal,P3,10/8/2003 11:42,11/20/2003 10:40,,12,"I20031008: Basically, when CTRL+SHIRT+T is pressed in a java editor in a 
+perspective that doesn't have the java navigate actions enabled the editor 
+instead opens the in-place type hierarchy. Before, it would simply not run 
+anything because the action wasn't enabled (e.g. isn't visible under Navigate 
+menu). Now instead, it open the in-place type hierarchy which is bound to 
+CTRL+T. This could be a problem with the keybinding service, maybe you could 
+confirm:
+
+To reproduce:
+
+1. Start with a clean workspace
+2. Create a java project and a class, don't change to the java perspective.
+3. Open the new java file in an editor and press Ctrl+Shirt+T."
+44479,, Exception when trying to start RuntimeWorkbench while workspace is building  ,,Darin_Wright@ca.ibm.com,major,P2,10/8/2003 12:52,11/17/2003 22:00,,24,"I20031008
+Start Eclipse with an empty workspace
+Switch to java perspective
+Import > External plugins > Project with source folders > Add all
+
+Eclipse imports the projects and starts building the workspace.
+While the workspace is being built, Run As > Runtime workbench
+
+Another Eclipse is started but never comes up. An error dialog is displayed 
+and/or an exception is displayed in the main eclipse console.
+
+Maybe it should not be possible to start an application when the workspace is 
+being built - or at least not throw exceptions as it is currently the case.
+
+See screenshots below."
+44494,, Remove direct dependancies on the Xerces plugin  ,,Darin_Wright@ca.ibm.com,normal,P3,10/8/2003 16:05,10/24/2003 9:58,,76,"All of the Ant code should be moved to use the JAXP interfaces etc.
+Should only impact the Ant UI."
+44689,," [KeyBindings] Alt+[A-Z] do not work to change view, editor or perspective  ",,douglas.pollock@gmail.com,minor,P1,10/11/2003 6:37,11/20/2003 10:42,,3,"Eclipse M3 have bug that don't be modified Ctrl+F6->Ctrl+Tab. 
+
+so, I modified keybinding
+ Ctrl+F6 -> Alt+Q
+ Ctrl+F7 -> Alt+S
+
+Unexpect!, This position is so comfortalble.
+but, Eclipse M4 don't perfectly be modified expectly operation keybinding."
+44692,, Deadlock using Tab for block indent  ,,eclipse@tom.eicher.name,major,P2,10/11/2003 8:22,11/20/2003 5:39,,3,"Eclipse 3.0M4
+
+When using tab to indent a code block, I was able to experience three deadlocks 
+on four attempts. Attached is the output from the JavaVM."
+44705,," Synchronize View Right-Click ""Commit"" menu item missing ""...""  ",,platform-vcm-inbox@eclipse.org,normal,P3,10/11/2003 18:58,10/16/2003 16:48,,4,"In the Synchronize View, right-click on the root node and the ""Commit"" menu item
+is missing the ""..."" postfix."
+44740,, Merge not detecting all files to be merged (M4)  ,,jean-michel_lemieux@ca.ibm.com,normal,P3,10/13/2003 7:12,11/6/2003 14:43,,3,"In the CVS I have a branch zrv_full_import that has been created using
+""Team/Branch..."", with a corresponding Root_zrv_full_import tag. There are 3
+files with changes in that branch. My workspace contains HEAD.
+
+When I use Eclipse build M4 and choose ""Team/Merge..."" on my src folder,
+specifying said branch, it does not detect any of those changes to be merged.
+Doing the same with build M3 correctly yields the 3 files. 
+
+Updating with those changes using M3 leads to strange behaviour (progress
+indicator changing forever with nothing to see in the Progress View), though,
+but that seems to be a different problem."
+44778,, TableItem.getImage periodically throws ArrayOutOfBoundsException  ,,grant_gayed@ca.ibm.com,normal,P3,10/13/2003 16:26,10/15/2003 14:58,,30,"In the final call to imageList.get (imageIndex), sometimes imageIndex == -1.
+This causes an ArrayIndexOutOfBounds exception in the call to imageList.get.
+This is happening because the index of ptr [0] is not in the table. Would it be
+possible to put in a check for this? It causes a bunch of other downstream errors."
+44809,, Marker sets not thread safe  ,,john_arthorne@ca.ibm.com,normal,P2,10/14/2003 9:00,11/4/2003 18:17,,72,"3.0 M4
+
+Sorry no steps - found in .log
+
+!ENTRY org.eclipse.core.resources 4 2 Okt 14, 2003 14:50:20.621
+!MESSAGE Problems occurred when invoking code from plug-in:
+""org.eclipse.core.resources"".
+!STACK 0
+java.lang.NullPointerException
+	at
+org.eclipse.jdt.internal.core.builder.JavaBuilder.isClasspathBroken(JavaBuilder.java:487)
+	at
+org.eclipse.jdt.internal.core.builder.JavaBuilder.isWorthBuilding(JavaBuilder.java:498)
+	at org.eclipse.jdt.internal.core.builder.JavaBuilder.build(JavaBuilder.java:132)
+	at org.eclipse.core.internal.events.BuildManager$2.run(BuildManager.java:475)
+	at
+org.eclipse.core.internal.runtime.InternalPlatform.run(InternalPlatform.java:1018)
+	at org.eclipse.core.runtime.Platform.run(Platform.java:461)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:130)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:201)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:156)
+	at org.eclipse.core.internal.events.BuildManager$1.run(BuildManager.java:182)
+	at
+org.eclipse.core.internal.runtime.InternalPlatform.run(InternalPlatform.java:1018)
+	at org.eclipse.core.runtime.Platform.run(Platform.java:461)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:185)
+	at
+org.eclipse.core.internal.events.BuildManager.basicBuildLoop(BuildManager.java:219)
+	at org.eclipse.core.internal.events.BuildManager.build(BuildManager.java:247)
+	at org.eclipse.core.internal.events.AutoBuildJob.doBuild(AutoBuildJob.java:76)
+	at org.eclipse.core.internal.events.AutoBuildJob.run(AutoBuildJob.java:109)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:62)
+!ENTRY org.eclipse.core.resources 4 2 Okt 14, 2003 14:50:20.651
+!MESSAGE Problems occurred when invoking code from plug-in:
+""org.eclipse.core.resources"".
+!STACK 0
+java.lang.NullPointerException
+	at
+org.eclipse.jdt.internal.core.builder.JavaBuilder.isClasspathBroken(JavaBuilder.java:487)
+	at
+org.eclipse.jdt.internal.core.builder.JavaBuilder.isWorthBuilding(JavaBuilder.java:529)
+	at org.eclipse.jdt.internal.core.builder.JavaBuilder.build(JavaBuilder.java:132)
+	at org.eclipse.core.internal.events.BuildManager$2.run(BuildManager.java:475)
+	at
+org.eclipse.core.internal.runtime.InternalPlatform.run(InternalPlatform.java:1018)
+	at org.eclipse.core.runtime.Platform.run(Platform.java:461)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:130)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:201)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:156)
+	at org.eclipse.core.internal.events.BuildManager$1.run(BuildManager.java:182)
+	at
+org.eclipse.core.internal.runtime.InternalPlatform.run(InternalPlatform.java:1018)
+	at org.eclipse.core.runtime.Platform.run(Platform.java:461)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:185)
+	at
+org.eclipse.core.internal.events.BuildManager.basicBuildLoop(BuildManager.java:219)
+	at org.eclipse.core.internal.events.BuildManager.build(BuildManager.java:247)
+	at org.eclipse.core.internal.events.AutoBuildJob.doBuild(AutoBuildJob.java:76)
+	at org.eclipse.core.internal.events.AutoBuildJob.run(AutoBuildJob.java:109)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:62)
+!ENTRY org.eclipse.core.resources 4 2 Okt 14, 2003 14:50:20.741
+!MESSAGE Problems occurred when invoking code from plug-in:
+""org.eclipse.core.resources"".
+!STACK 0
+java.lang.NullPointerException
+	at
+org.eclipse.jdt.internal.core.builder.JavaBuilder.isClasspathBroken(JavaBuilder.java:487)
+	at
+org.eclipse.jdt.internal.core.builder.JavaBuilder.isWorthBuilding(JavaBuilder.java:529)
+	at org.eclipse.jdt.internal.core.builder.JavaBuilder.build(JavaBuilder.java:132)
+	at org.eclipse.core.internal.events.BuildManager$2.run(BuildManager.java:475)
+	at
+org.eclipse.core.internal.runtime.InternalPlatform.run(InternalPlatform.java:1018)
+	at org.eclipse.core.runtime.Platform.run(Platform.java:461)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:130)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:201)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:156)
+	at org.eclipse.core.internal.events.BuildManager$1.run(BuildManager.java:182)
+	at
+org.eclipse.core.internal.runtime.InternalPlatform.run(InternalPlatform.java:1018)
+	at org.eclipse.core.runtime.Platform.run(Platform.java:461)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:185)
+	at
+org.eclipse.core.internal.events.BuildManager.basicBuildLoop(BuildManager.java:219)
+	at org.eclipse.core.internal.events.BuildManager.build(BuildManager.java:247)
+	at org.eclipse.core.internal.events.AutoBuildJob.doBuild(AutoBuildJob.java:76)
+	at org.eclipse.core.internal.events.AutoBuildJob.run(AutoBuildJob.java:109)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:62)
+!ENTRY org.eclipse.core.resources 4 2 Okt 14, 2003 14:50:20.792
+!MESSAGE Problems occurred when invoking code from plug-in:
+""org.eclipse.core.resources"".
+!STACK 0
+java.lang.NullPointerException
+	at
+org.eclipse.jdt.internal.core.builder.JavaBuilder.isClasspathBroken(JavaBuilder.java:487)
+	at
+org.eclipse.jdt.internal.core.builder.JavaBuilder.isWorthBuilding(JavaBuilder.java:529)
+	at org.eclipse.jdt.internal.core.builder.JavaBuilder.build(JavaBuilder.java:132)
+	at org.eclipse.core.internal.events.BuildManager$2.run(BuildManager.java:475)
+	at
+org.eclipse.core.internal.runtime.InternalPlatform.run(InternalPlatform.java:1018)
+	at org.eclipse.core.runtime.Platform.run(Platform.java:461)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:130)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:201)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:156)
+	at org.eclipse.core.internal.events.BuildManager$1.run(BuildManager.java:182)
+	at
+org.eclipse.core.internal.runtime.InternalPlatform.run(InternalPlatform.java:1018)
+	at org.eclipse.core.runtime.Platform.run(Platform.java:461)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:185)
+	at
+org.eclipse.core.internal.events.BuildManager.basicBuildLoop(BuildManager.java:219)
+	at org.eclipse.core.internal.events.BuildManager.build(BuildManager.java:247)
+	at org.eclipse.core.internal.events.AutoBuildJob.doBuild(AutoBuildJob.java:76)
+	at org.eclipse.core.internal.events.AutoBuildJob.run(AutoBuildJob.java:109)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:62)
+!ENTRY org.eclipse.core.resources 2 75 Okt 14, 2003 14:50:21.152
+!MESSAGE Errors during build.
+!SUBENTRY 1 org.eclipse.jdt.core 2 75 Okt 14, 2003 14:50:21.152
+!MESSAGE java.lang.NullPointerException encountered while running
+org.eclipse.jdt.internal.core.builder.JavaBuilder.
+!STACK 0
+java.lang.NullPointerException
+	at
+org.eclipse.jdt.internal.core.builder.JavaBuilder.isClasspathBroken(JavaBuilder.java:487)
+	at
+org.eclipse.jdt.internal.core.builder.JavaBuilder.isWorthBuilding(JavaBuilder.java:498)
+	at org.eclipse.jdt.internal.core.builder.JavaBuilder.build(JavaBuilder.java:132)
+	at org.eclipse.core.internal.events.BuildManager$2.run(BuildManager.java:475)
+	at
+org.eclipse.core.internal.runtime.InternalPlatform.run(InternalPlatform.java:1018)
+	at org.eclipse.core.runtime.Platform.run(Platform.java:461)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:130)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:201)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:156)
+	at org.eclipse.core.internal.events.BuildManager$1.run(BuildManager.java:182)
+	at
+org.eclipse.core.internal.runtime.InternalPlatform.run(InternalPlatform.java:1018)
+	at org.eclipse.core.runtime.Platform.run(Platform.java:461)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:185)
+	at
+org.eclipse.core.internal.events.BuildManager.basicBuildLoop(BuildManager.java:219)
+	at org.eclipse.core.internal.events.BuildManager.build(BuildManager.java:247)
+	at org.eclipse.core.internal.events.AutoBuildJob.doBuild(AutoBuildJob.java:76)
+	at org.eclipse.core.internal.events.AutoBuildJob.run(AutoBuildJob.java:109)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:62)
+!SUBENTRY 1 org.eclipse.jdt.core 2 75 Okt 14, 2003 14:50:21.152
+!MESSAGE java.lang.NullPointerException encountered while running
+org.eclipse.jdt.internal.core.builder.JavaBuilder.
+!STACK 0
+java.lang.NullPointerException
+	at
+org.eclipse.jdt.internal.core.builder.JavaBuilder.isClasspathBroken(JavaBuilder.java:487)
+	at
+org.eclipse.jdt.internal.core.builder.JavaBuilder.isWorthBuilding(JavaBuilder.java:529)
+	at org.eclipse.jdt.internal.core.builder.JavaBuilder.build(JavaBuilder.java:132)
+	at org.eclipse.core.internal.events.BuildManager$2.run(BuildManager.java:475)
+	at
+org.eclipse.core.internal.runtime.InternalPlatform.run(InternalPlatform.java:1018)
+	at org.eclipse.core.runtime.Platform.run(Platform.java:461)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:130)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:201)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:156)
+	at org.eclipse.core.internal.events.BuildManager$1.run(BuildManager.java:182)
+	at
+org.eclipse.core.internal.runtime.InternalPlatform.run(InternalPlatform.java:1018)
+	at org.eclipse.core.runtime.Platform.run(Platform.java:461)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:185)
+	at
+org.eclipse.core.internal.events.BuildManager.basicBuildLoop(BuildManager.java:219)
+	at org.eclipse.core.internal.events.BuildManager.build(BuildManager.java:247)
+	at org.eclipse.core.internal.events.AutoBuildJob.doBuild(AutoBuildJob.java:76)
+	at org.eclipse.core.internal.events.AutoBuildJob.run(AutoBuildJob.java:109)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:62)
+!SUBENTRY 1 org.eclipse.jdt.core 2 75 Okt 14, 2003 14:50:21.152
+!MESSAGE java.lang.NullPointerException encountered while running
+org.eclipse.jdt.internal.core.builder.JavaBuilder.
+!STACK 0
+java.lang.NullPointerException
+	at
+org.eclipse.jdt.internal.core.builder.JavaBuilder.isClasspathBroken(JavaBuilder.java:487)
+	at
+org.eclipse.jdt.internal.core.builder.JavaBuilder.isWorthBuilding(JavaBuilder.java:529)
+	at org.eclipse.jdt.internal.core.builder.JavaBuilder.build(JavaBuilder.java:132)
+	at org.eclipse.core.internal.events.BuildManager$2.run(BuildManager.java:475)
+	at
+org.eclipse.core.internal.runtime.InternalPlatform.run(InternalPlatform.java:1018)
+	at org.eclipse.core.runtime.Platform.run(Platform.java:461)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:130)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:201)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:156)
+	at org.eclipse.core.internal.events.BuildManager$1.run(BuildManager.java:182)
+	at
+org.eclipse.core.internal.runtime.InternalPlatform.run(InternalPlatform.java:1018)
+	at org.eclipse.core.runtime.Platform.run(Platform.java:461)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:185)
+	at
+org.eclipse.core.internal.events.BuildManager.basicBuildLoop(BuildManager.java:219)
+	at org.eclipse.core.internal.events.BuildManager.build(BuildManager.java:247)
+	at org.eclipse.core.internal.events.AutoBuildJob.doBuild(AutoBuildJob.java:76)
+	at org.eclipse.core.internal.events.AutoBuildJob.run(AutoBuildJob.java:109)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:62)
+!SUBENTRY 1 org.eclipse.jdt.core 2 75 Okt 14, 2003 14:50:21.152
+!MESSAGE java.lang.NullPointerException encountered while running
+org.eclipse.jdt.internal.core.builder.JavaBuilder.
+!STACK 0
+java.lang.NullPointerException
+	at
+org.eclipse.jdt.internal.core.builder.JavaBuilder.isClasspathBroken(JavaBuilder.java:487)
+	at
+org.eclipse.jdt.internal.core.builder.JavaBuilder.isWorthBuilding(JavaBuilder.java:529)
+	at org.eclipse.jdt.internal.core.builder.JavaBuilder.build(JavaBuilder.java:132)
+	at org.eclipse.core.internal.events.BuildManager$2.run(BuildManager.java:475)
+	at
+org.eclipse.core.internal.runtime.InternalPlatform.run(InternalPlatform.java:1018)
+	at org.eclipse.core.runtime.Platform.run(Platform.java:461)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:130)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:201)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:156)
+	at org.eclipse.core.internal.events.BuildManager$1.run(BuildManager.java:182)
+	at
+org.eclipse.core.internal.runtime.InternalPlatform.run(InternalPlatform.java:1018)
+	at org.eclipse.core.runtime.Platform.run(Platform.java:461)
+	at org.eclipse.core.internal.events.BuildManager.basicBuild(BuildManager.java:185)
+	at
+org.eclipse.core.internal.events.BuildManager.basicBuildLoop(BuildManager.java:219)
+	at org.eclipse.core.internal.events.BuildManager.build(BuildManager.java:247)
+	at org.eclipse.core.internal.events.AutoBuildJob.doBuild(AutoBuildJob.java:76)
+	at org.eclipse.core.internal.events.AutoBuildJob.run(AutoBuildJob.java:109)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:62)"
+44812,, Create a Scale field editor  ,,kim_horne@ca.ibm.com,enhancement,P3,10/14/2003 9:09,4/1/2004 15:41,,42,Create a Field Editor based on a Slider control.
+44818,, wsLock should not be held when calling team hooks  ,,john_arthorne@ca.ibm.com,major,P3,10/14/2003 10:22,10/14/2003 16:24,,48,"Build: 3.0 M4
+
+The workspace lock is currently held when we call team hook methods such as
+moveDeleteHook and validateSave.  We should try to avoid holding this lock when
+calling any third party code."
+44828,, Possibility of deadlock on startup  ,,Michael_Valenta@ca.ibm.com,normal,P1,10/14/2003 12:00,10/14/2003 14:38,,28,"I got a deadlock on startup that involved creating subscribers. If team is 
+loading subscribers at the same time the CVS plugin is creating the workspace 
+subscriber, a sycnrhonized deadlock can occur. Basically the two threads are
+
+Team
+Restore subscribers (synchronized on Team)
+Create merge subscriber
+Create workspace subscriber (synchronized on CVS)
+
+CVS
+create workspace subscriber (synchronized on CVS)
+register with Team (synchronized on Team)"
+44829,, jface text plugin: contributed format action doesn't work with new builds  ,,platform-text-inbox@eclipse.org,major,P3,10/14/2003 12:00,11/20/2003 6:23,,28,"I've been developing a jface text plugin, and in that plugin I contribute a format action to the edit 
+menu.  With all 3.0 stream builds before the 20030924 nightly build, my contributed format action 
+works fine.  With all builds including and after the 20030924 nightly build, clicking on the format 
+action in the edit menu in my plugin does not envoke my IFormattingStrategy methods.  For more 
+detail please see below.
+
+
+__________________________
+public class XMLConfiguration extends SourceViewerConfiguration
+{ ...
+    public IContentFormatter getContentFormatter(ISourceViewer sourceViewer)
+    {
+        System.out.println(""XMLConfiguration:getContentFormatter"");
+        ContentFormatter formatter = new ContentFormatter();
+        formatter.setDocumentPartitioning(
+                    getConfiguredDocumentPartitioning(sourceViewer));
+        formatter.enablePartitionAwareFormatting(false);
+        formatter.setFormattingStrategy(new GarbageFormattingStrategy(), 
+IDocument.DEFAULT_CONTENT_TYPE);
+        return formatter;
+    }
+
+__________________________
+public class GarbageFormattingStrategy implements IFormattingStrategy
+{
+    public void formatterStarts(String initialIndentation)
+    {
+        System.out.println(""GarbageFormattingStrategy:formatterStarts"");
+    }
+
+    public String format(
+        String content,
+        boolean isLineStart,
+        String indentation,
+        int[] positions)
+    {
+        System.out.println(""GarbageFormattingStrategy:format"");
+        return ""test"";
+    }
+
+    public void formatterStops()
+    {
+        System.out.println(""GarbageFormattingStrategy:formatterStops"");
+    }
+}
+__________________________
+
+This code run in the Run-time workbench in builds before 20030924 produces the following in the 
+console after clicking edit -> format within my plugin's context:
+
+XMLConfiguration:getContentFormatter
+GarbageFormattingStrategy:formatterStarts
+GarbageFormattingStrategy:format
+GarbageFormattingStrategy:formatterStops
+
+This code run in the Run-time workbench in build 20030924 and all subsequent builds produces 
+the following in the console after clicking edit -> format within my plugin's context:
+
+XMLConfiguration:getContentFormatter"
+44842,," On startup, persisted merge subscriber is empty  ",,Michael_Valenta@ca.ibm.com,normal,P3,10/14/2003 14:39,10/14/2003 16:55,,14,"If I shutdown Eclipse after creating a merge subscriber and, on the next 
+startup, the merge subscriber in the sync view is empty. In case it's related, 
+the only change I have is a conflict that doesn't exist locally but does in 
+the merge endpoint."
+45034,, Refresh in merge dialog leaves Next enabled  ,,jean-michel_lemieux@ca.ibm.com,normal,P3,10/16/2003 14:17,11/4/2003 14:03,,8,"build I20031015
+
+- select a project
+- Team > Merge
+- notice that Next is disabled
+- select a start version
+- Next is enabled
+- Refresh
+- the selection is cleared, but Next is still enabled"
+45152,, NPE from AbstractDocument.search  ,,platform-text-inbox@eclipse.org,major,P2,10/17/2003 23:09,11/19/2003 12:06,,56,"I know that this is deprecated but the current code throws an NPE when the 
+FindReplaceDocumentAdapter returns null when there was no match."
+45180,, Unable to edit java file in external source path...  ,,kai-uwe_maetzel@ch.ibm.com,blocker,P3,10/19/2003 16:48,11/20/2003 7:06,,300,"I did a new and totally fresh install of I20031015.
+
+This bug is similar to <a href=""<a href=""https://bugs.eclipse.org/bugs/show_bug.cgi"">https://bugs.eclipse.org/bugs/show_bug.cgi</a>?
+id=44690""><a class=""bz_bug_link 
+          bz_status_VERIFIED  bz_closed""
+   title=""VERIFIED FIXED - Impossible to open java file in external source path ...""
+   href=""show_bug.cgi?id=44690"">bug #44690</a></a>
+
+Followed the steps in <a href=""show_bug.cgi?id=45180#c2"">comment #2</a> for <a class=""bz_bug_link 
+          bz_status_VERIFIED  bz_closed""
+   title=""VERIFIED FIXED - Impossible to open java file in external source path ...""
+   href=""show_bug.cgi?id=44690"">bug #44690</a>, i.e. created a Java project 
+and a Java file in an external source path. The file opens and shows correctly, 
+but I can't edit it. Then I created a Java project under workspace and moved 
+the Java file to it. It opens and edits nicely."
+45213,, NPE using infocenter 3.0M4  ,,konradk@ca.ibm.com,major,P3,10/20/2003 10:34,10/20/2003 10:37,,105,"<span class=""quote"">> java.lang.NullPointerException
+> at 
+> org.eclipse.help.internal.toc.TocManager.isTocInRole(TocManager.java:52)
+> at</span >"
+45219,, File gets read-only  ,,kai-uwe_maetzel@ch.ibm.com,major,P2,10/20/2003 12:24,11/19/2003 12:03,,8,"I20031015 + plug-in export
+
+1. open a file which is not read-only
+2. make it dirty
+3. delete it from the Navigator
+4. activate editor from step 1
+==> file is dirty and read-only"
+45242,, ActionContributionItem should support text-only actions  ,,nick_edgar@ca.ibm.com,normal,P3,10/20/2003 17:05,11/11/2003 1:07,,136,"build I20031015
+
+- create an Action which has text but no images
+- add it to a toolbar
+- it shows a red box indicating it has no images
+- it should show the text in this case"
+45285,, Multi-select in AntView  ,,eclipse@skyluc.org,normal,P3,10/21/2003 11:48,10/24/2003 14:01,,24,Multi-select in the Antview provides no functionality and just adds confusion.
+45288,, Help: Running Ant buildfiles programmatically incorrect  ,,Darin_Wright@ca.ibm.com,normal,P3,10/21/2003 11:57,10/27/2003 10:30,,25,"The example of how to run buildfiles using the AntRunner class will not work 
+and really is not helpful."
+45307,, [find replace] Find dialog cannot match backslash  ,,daniel_megert@ch.ibm.com,normal,P2,10/21/2003 13:22,11/19/2003 6:59,,40,"This is with eclipse 3.0M4
+
+With regex disabled, the find/replace dialog can no longer find a backslash ""\""
+character in the editor.
+
+i.e. say I want to do a search and replace of \ to / for all filenames in the
+editor, the dialog never matches the single \
+
+If I enable regex, then I can match \\
+
+This probably has something to do with the backslash escaping needed for regex
+support."
+45363,, javadoc in zip problem  ,,konradk@ca.ibm.com,normal,P2,10/22/2003 7:43,11/5/2003 14:34,,229,"I tried to use the new javadoc in zip feature in build 200310101454 (I use 
+properties on my jar in the package explorer) , but I encounter the following 
+problem: the validate button tells me that the location is valid (I specified 
+both the archive path and the path within archive), but the browser opened 
+then tells me that the page is not displayable. The url given to the browser 
+seemed to be of the following form :
+jar:file:/D:\Downloads\java\lib\commons-collections-2.1.zip!\commons-
+collections-2.1\docs\api\index.html
+This URL does not work in my version of IE (6.0.2800.1106.xpsp2.030422-1633), 
+even when lauch separately: the error given by IE is ""syntax error"".
+Hope this helps.
+Xavier"
+45378,, Dragging Files Into Pkg Nav Explorer Causes Eclipse To Freeze (Infinite Loop)  ,,john_arthorne@ca.ibm.com,major,P3,10/22/2003 10:48,12/5/2003 10:17,,72,"Test Case
+---------
+
+1. Open the 'Navigator View'.  Create a new 'Java' Project using the     
+File>New>Project workbench menu option.  Give the project a name.
+
+2. Create a new package under the project.   Use the File>New>Package workbench 
+menu option.
+
+3. Open the 'Package Explorer' view. If not alread opened by previous steps.
+
+4. Take a java source file from your desktop and drag and drop it over 
+the 'Package Explorer' view into the package you created. 
+
+Expected Result
+---------------
+The source file is added to the Package.
+
+Problem
+-------
+The workbench freezes.  It appears to go into an infinite loop.  The CPU usage 
+goes to almost 100%.  The user needs to kill the java console to get out of it.
+
+This problem is reproducible only in WindowsNT.  It seems to work fine on Win2K 
+and WinXP.
+
+NOTE(S):  
+- This problem was found in 2.1.2RC1.  I couldn't set the version to this 
+release in the bug report.
+- OS used was Windows NT SP6 with all windows updates applied.
+- JRE was 1.4.1_03"
+45379,, Half-busy cursor should be shown when over info label in sync view  ,,jean-michel_lemieux@ca.ibm.com,normal,P3,10/22/2003 11:23,11/3/2003 22:03,,40,"build I20031022
+
+- do a background sync
+- move cursor over the info label while this is happening
+- it shows the regular cursor
+
+Should show the half-busy cursor when over any part of the view's contents."
+45418,, background refresh fails when projects closed concurrently  ,,Michael_Valenta@ca.ibm.com,normal,P3,10/22/2003 17:26,11/7/2003 12:31,,21,"Build: I20031022
+
+- Start a background repo refresh on on the workspace
+- while refresh is running, close all projects
+
+-> Sometimes this causes an error because the project has been closed.
+Presumably this happens if the project closes after the workspace refresh has
+started, but before the job for refreshing that project has started.
+
+You should probably check IProject.isAccessible after obtaining the project
+rule, and then just abort silently if the project has been deleted or closed."
+45419,, [browser] add api to read html from memory on Photon Browser  ,,cdm@qnx.com,normal,P3,10/22/2003 18:19,1/19/2004 18:02,,99,"1. Implement the following api:
+
+public boolean setText(String html);
+where html contains plain html as in:
+String html = ""<HTML><HEAD><TITLE>HTML example</TITLE></HEAD><BODY><H1>HTML 
+example</H1><P>This is a really cool page</P></BODY></HTML>"";
+browser.setText(html); // render this page
+
+2. Investigate if the following api could be implemented on Photon:
+
+public boolean setText(String html, String urlSource);
+where html is an html document that may refer to links relative to the 
+location url (for examples, images).
+
+public boolean setText(InputStream data, String mime, String url);
+where data is a binary stream containing a document to be interpreted by a 
+reader for the given mime type (html, text, etc). If this is relevant to the 
+given mime type, relative links are relative to the given url argument."
+45450,, Rework the presentation of the Ant classpath  ,,jared_burns@us.ibm.com,normal,P3,10/23/2003 11:54,11/6/2003 18:07,,32,"As a proving ground for the changes for <a class=""bz_bug_link 
+          bz_status_VERIFIED  bz_closed""
+   title=""VERIFIED FIXED - allow a launch configuration classpath to be ""default plus""""
+   href=""show_bug.cgi?id=34297"">bug 34297</a>, rework the presentation of 
+the Ant classpath.
+
+The view of the classpath will change to a tree presentation with two top level 
+nodes: Ant home entries and Global Ant entries.  
+
+At the global level, the user can configure Ant home and the globel entries.
+
+At the local level the user can configure the Ant home, add or remove the 
+global ant entries (as a unit or as individual entries), and add local entries 
+as needed.
+
+With this change I also plan to always have an Ant home associated with the Ant 
+builds. In the past this was not the case (mostly because we could not provide 
+a default setting...but that was fixed with <a class=""bz_bug_link 
+          bz_status_VERIFIED  bz_closed""
+   title=""VERIFIED FIXED - ant.home is not set""
+   href=""show_bug.cgi?id=37653"">bug 37653</a>)."
+45454,, [tests] test failure in LinkedResourceTest.testCopy  ,,john_arthorne@ca.ibm.com,normal,P3,10/23/2003 12:36,10/24/2003 15:36,,20,"I20031023
+
+We have a transient test failure in LinkedResourceTest.testCopy. The test is
+attempting to copy a linked folder to a project.
+
+source = F/ExistingProject/nonExistingFolderInExistingProject
+Dest = /NonProject
+deep = true
+monitor = canceling monitor"
+45473,, AntRunner.setMessageOutputLevel should only set when changed from dflt  ,,jared_burns@us.ibm.com,normal,P3,10/23/2003 17:01,10/24/2003 17:11,,61,"This code is old, does nothing and should be deprecated.
+It is from when there was an External tool ui for setting the output level.
+
+The deprecation should indicate the workaround: set a ant argument for the 
+desired Ant output level.
+workingCopy.setAttribute(IExternalToolConstants.ATTR_TOOL_ARGUMENTS, ""-
+verbose"");"
+45509,45615, Allow to disable icons in vertical ruler  ,,daniel_megert@ch.ibm.com,enhancement,P3,10/24/2003 11:03,10/27/2003 12:23,,70,"I20031023
+
+A feature for Dirk"
+45513,, Fix core variables plugin for build  ,,eclipse@skyluc.org,normal,P3,10/24/2003 11:28,10/27/2003 14:20,,138,"The core variables plugin is not set up properly for the build
+It has no build.properties."
+45521,, Update UI should not extend IWorkbenchWindow  ,,konradk@ca.ibm.com,normal,P3,10/24/2003 12:41,10/31/2003 10:39,,25,"This is a reminder to rework 'Manage Configuration...' window in Update UI to 
+stop extending IWorkbenchWindow. We made it this way so we can move two views 
+from the Update Manager perspective in 2.1 to a standalone window, but without 
+the need to register views and perspectives in the manifest. This is not 
+really needed. We can create JFace tree viewer, sash and preview widgets 
+directly without the need to use views. That would allow us to use application 
+window directly and stop extending IWorkbenchWindow interface.
+
+In case some additional support is required from RCP, let Nick know as soon as 
+you discover it."
+45524,, Artwork for array partitions  ,,jared_burns@us.ibm.com,normal,P3,10/24/2003 13:06,11/11/2003 13:45,,1627,"Support has been added to the debug platform for automatic partitioning of 
+arrays. We should provide a new icon for array partitions (currently we use the 
+default variable icon)."
+45602,, Some IResource methods lock the workspace  ,,john_arthorne@ca.ibm.com,normal,P1,10/27/2003 10:42,2/3/2006 7:10,,73,"The following methods lock the workspace root (and cause CVS test failures):
+
+Sychnonizer#flush()
+Resource#copy - must lock the destination
+Resource#move - must lock both the source and destination since move/delete 
+hook may need to do so."
+45628,, cannot traverse to ToolBar items  ,,grant_gayed@ca.ibm.com,normal,P3,10/27/2003 16:02,10/30/2003 12:23,,68, 
+45644,, NumberFormatException if multiline build errors in remote VM build  ,,Darin_Wright@ca.ibm.com,normal,P3,10/27/2003 20:04,11/10/2003 21:23,,3,"Multiline build errors are not marshalled correctly from the RemoteAntBuildLogger.
+
+Results in truncated error message."
+45651,, NPE in Synch view  ,,jean-michel_lemieux@ca.ibm.com,normal,P3,10/28/2003 3:19,10/30/2003 22:05,,44,"I20031023
+
+After startup, the Synch view was gray with something written in it. I tried to
+change the working set and got an NPE:
+
+!SESSION Okt 28, 2003 09:00:38.449 ---------------------------------------------
+java.version=1.4.2
+java.vendor=Sun Microsystems Inc.
+BootLoader constants: OS=win32, ARCH=x86, WS=win32, NL=de_CH
+Command-line arguments: -update -showlocation -data
+c:\eclipse\workspaces\Development_2_2\plugins -install
+file:C:/eclipse/drops/I20031023/
+!ENTRY org.eclipse.ui 4 4 Okt 28, 2003 09:00:38.449
+!MESSAGE Unhandled exception caught in event loop.
+!ENTRY org.eclipse.ui 4 0 Okt 28, 2003 09:00:38.449
+!MESSAGE java.lang.NullPointerException
+!STACK 0
+java.lang.NullPointerException
+	at
+org.eclipse.team.internal.ui.sync.views.SynchronizeView.workingSetChanged(SynchronizeView.java:789)
+	at
+org.eclipse.team.internal.ui.sync.actions.SyncViewerActions$3.propertyChange(SyncViewerActions.java:141)
+	at
+org.eclipse.ui.actions.WorkingSetFilterActionGroup.setWorkingSet(WorkingSetFilterActionGroup.java:147)
+	at
+org.eclipse.ui.internal.WorkingSetMenuContributionItem$1.widgetSelected(WorkingSetMenuContributionItem.java:70)
+	at org.eclipse.swt.widgets.TypedListener.handleEvent(TypedListener.java:89)
+	at org.eclipse.swt.widgets.EventTable.sendEvent(EventTable.java:82)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:847)
+	at org.eclipse.swt.widgets.Display.runDeferredEvents(Display.java:2173)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:1863)
+	at org.eclipse.ui.internal.Workbench.runEventLoop(Workbench.java:1579)
+	at org.eclipse.ui.internal.Workbench.run(Workbench.java:1562)
+	at
+org.eclipse.core.internal.boot.InternalBootLoader.run(InternalBootLoader.java:858)
+	at org.eclipse.core.boot.BootLoader.run(BootLoader.java:461)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at
+sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:324)
+	at org.eclipse.core.launcher.Main.basicRun(Main.java:299)
+	at org.eclipse.core.launcher.Main.run(Main.java:765)
+	at org.eclipse.core.launcher.Main.main(Main.java:599)
+!ENTRY org.eclipse.ui 4 4 Okt 28, 2003 09:00:40.422
+!MESSAGE Unhandled exception caught in event loop.
+!ENTRY org.eclipse.ui 4 0 Okt 28, 2003 09:00:40.432
+!MESSAGE java.lang.NullPointerException
+!STACK 0
+java.lang.NullPointerException
+	at
+org.eclipse.team.internal.ui.sync.views.SynchronizeView.workingSetChanged(SynchronizeView.java:789)
+	at
+org.eclipse.team.internal.ui.sync.actions.SyncViewerActions$3.propertyChange(SyncViewerActions.java:145)
+	at
+org.eclipse.ui.actions.WorkingSetFilterActionGroup.setWorkingSet(WorkingSetFilterActionGroup.java:147)
+	at
+org.eclipse.ui.internal.actions.ClearWorkingSetAction.run(ClearWorkingSetAction.java:48)
+	at org.eclipse.jface.action.Action.runWithEvent(Action.java:842)
+	at
+org.eclipse.jface.action.ActionContributionItem.handleWidgetSelection(ActionContributionItem.java:547)
+	at
+org.eclipse.jface.action.ActionContributionItem.access$4(ActionContributionItem.java:494)
+	at
+org.eclipse.jface.action.ActionContributionItem$6.handleEvent(ActionContributionItem.java:466)
+	at org.eclipse.swt.widgets.EventTable.sendEvent(EventTable.java:82)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:847)
+	at org.eclipse.swt.widgets.Display.runDeferredEvents(Display.java:2173)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:1863)
+	at org.eclipse.ui.internal.Workbench.runEventLoop(Workbench.java:1579)
+	at org.eclipse.ui.internal.Workbench.run(Workbench.java:1562)
+	at
+org.eclipse.core.internal.boot.InternalBootLoader.run(InternalBootLoader.java:858)
+	at org.eclipse.core.boot.BootLoader.run(BootLoader.java:461)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at
+sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:324)
+	at org.eclipse.core.launcher.Main.basicRun(Main.java:299)
+	at org.eclipse.core.launcher.Main.run(Main.java:765)
+	at org.eclipse.core.launcher.Main.main(Main.java:599)"
+45652,, Sync stops if one project fails to connect  ,,Michael_Valenta@ca.ibm.com,critical,P3,10/28/2003 3:36,11/7/2003 12:30,,18,"I20031023
+
+I clicked on the refresh button of the synch view. Unfortunately it could not
+connect to the first out of over 40 projects and the whole operation failed! I
+had to manually select/find out which project could connect and update those.
+
+This is not very friendly e.g. when working from home where some of the projects
+cannot be accessed."
+45684,, release tool: should not use old Synchronize view  ,,platform-releng-inbox@eclipse.org,normal,P3,10/28/2003 14:30,11/20/2003 15:09,,24,"tool v2.1
+
+The RelEng release tool should not use the old Synchronize view. It should be
+migrated to take advantage of the Live Synchronize view."
+45703,, [tests] BeginEndRuleTest.testSimpleRuleStarting failing  ,,john_arthorne@ca.ibm.com,normal,P3,10/28/2003 19:33,11/12/2003 14:30,,20,"I20031028 + latest from HEAD
+
+This test is failing on Linux GTK, so I've removed it from the builds for now.
+The problem occurs during tearDown, complaining that done() has not been called
+on the fussy progress monitor. I haven't had time to investigate fully. 
+
+I'm also suspicious of testSimpleOtherThreadAccess that forks threads but never
+joins them.  It looks like these threads will continue running after the test
+has ended. I don't see any assertions in this test method. Although it's not
+failing, I'm also pulling this test out of the build for now as well."
+45730,44671, Properties dialog not respecting activity enablement.  ,,kim_horne@ca.ibm.com,normal,P3,10/29/2003 10:19,4/1/2004 15:41,,63,The workbench property dialog is not respecting the role/activity system.
+45731,, release tool: workspace out of sync with repository  ,,Michael_Valenta@ca.ibm.com,critical,P3,10/29/2003 10:45,10/29/2003 17:11,,71,"tool version 2.1
+
+There has been at least 2 reported cases (ui and core-variables) where the user
+has used the release tool to version the projects in the repository but they
+weren't actually versioned.
+
+In the latest case, the workspace was out of sync with the repository....when
+browsing versions in the CVS Repositories view the version existed but when
+looking at the repository through viewcvs (or from another workspace), the
+version was not created.
+
+The thought is that maybe the project was checked out under read-only access and
+there was a write error when trying to version. We need to ensure that:
+- the ""don't have write permissions"" error message is appropriately conveyed to
+the user
+- the version information is not incorrectly cached in the workspace
+
+Marking as critical severity as this has potential (and has) to break builds.
+
+This could be coordinated with the Platform/Team team."
+45761,, PerspectiveMenu has bad null check.  ,,kim_horne@ca.ibm.com,minor,P3,10/29/2003 16:09,4/1/2004 15:41,,819,"It's possible that a NPE may be thrown in getPerspectiveShortcuts() if the
+current perspectives's perspectiveActionIds field is null.  Patch forthcoming."
+45781,, tools.jar on classpath  ,,eclipse@skyluc.org,normal,P3,10/30/2003 4:24,12/1/2003 20:28,,378,"If I add tools.jar to ""Global Entries"" on the ""Classpath"" tab on the Ant/Runtime
+preference page I get the error message:
+
+BUILD FAILED: file:c:/workspace/test/build.xml:43: Unable to find a javac
+compiler; com.sun.tools.javac.Main is not on the classpath. Perhaps JAVA_HOME
+does not point to the JDK
+
+The target is:
+
+	<target name=""compile"">
+		<javac srcdir=""${src.dir}"" destdir=""${build.dir}"">
+			<patternset refid=""non.test.sources""/>
+			<classpath refid=""project.class.path""/>
+		</javac>
+	</target>
+
+Now if I add tools.jar to ""Ant Home Entries"" I won't get that error message.
+
+@@@@
+
+Is that working as intedend? -- tools.jar should only be added to ""Ant Home
+Entries"" and not ""Global Entries""?
+
+If so there should be an error/informational message displayed somewhere stating
+""please add tools.jar to your ""Ant Home Entries""."
+45800,, Tracker (RESIZE) with multiple Rectangles losing precision  ,,grant_gayed@ca.ibm.com,normal,P3,10/30/2003 10:07,10/30/2003 12:22,,81,the resulting behaviour is unusable
+45821,, UI nits  ,,platform-vcm-inbox@eclipse.org,normal,P3,10/30/2003 14:40,10/30/2003 21:50,,104,"Some points on the Sync views/perspective
+- It would be cool if the the <> < > counts/icons at the top of the sync view 
+were actually buttons.  I keep going to click on them to see what they are 
+telling me about.
+
+- Related to the above, the numbers reported should be in the same order as the 
+buttons that show the various views.  That is, currently the buttons are < > <> 
+but the counts are <> < >.
+
+- I seem to recall in a previous UI, when comparing local and remove during a 
+normal sync workflow, you could see at the top of the remote's pane, the 
+author/committer of the remove revision.  This is no longer there.  It was very 
+useful to add context to understanding the changes.  That is, knowing that the 
+changes were done by Bob helps set the context."
+45834,, FileDialog API spec problems  ,,grant_gayed@ca.ibm.com,normal,P3,10/30/2003 17:20,10/31/2003 15:17,,30,"Build 200310230800
+
+DOC PROBLEM:
+
+The FileDialog(Shell) method documentation indicates that null can be passed in 
+as the Shell parameter, which is not true.
+
+
+INCONSISTENT API BEHAVIOR:
+
+The following code acts differently on Windows vs. Linux Motif.  Run the code 
+and cancel the dialog.  On Windows names is an empty array, on Linux it's null.
+
+Note that the JUnit test case expects an empty array, so the JUnit test case 
+fails on Linux-Motif.
+
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.FileDialog;
+import org.eclipse.swt.widgets.Shell;
+
+public class TestFileDialog {
+	public static void main (String [] args) {
+		Shell shell = new Shell();
+		FileDialog fd = new FileDialog(shell, SWT.NULL);
+		fd.open();
+		String[] names = fd.getFileNames();
+		if (names == null) System.out.println(""null value"");
+		else System.out.println(""non-null value"");
+	}	
+}"
+45844,, Ant problems in I20031029 when no tools.jar  ,,jared_burns@us.ibm.com,normal,P3,10/31/2003 5:25,10/31/2003 18:19,,85,"I20031029
+
+Since upgrading to I20031029 I'm not able to use my Ant launch configurations.
+Here is the list of problems I'm experiencing:
+- running existing Ant launch configs results in an error dialog (<span class=""""><a href=""attachment.cgi?id=1"" name=""attach_1"" title=""Java file where the problem occurred"">attachment #1</a> <a href=""attachment.cgi?id=1&action=edit"" title=""Java file where the problem occurred"">[details]</a></span>)
+   but no output in the console view and no entry in the .log file.
+- opening ""External Tools.."" results in an error dialog. For the .log entry see <span class=""""><a href=""attachment.cgi?id=2"" name=""attach_2"" title="".log file with walkback"">attachment #2</a> <a href=""attachment.cgi?id=2&action=edit"" title="".log file with walkback"">[details]</a></span>
+   However, the dialog then opens.
+- opening the tab ""Classpath"" of my configuration shows a tree with two nodes
+  where all labels are blank (see <span class=""""><a href=""attachment.cgi?id=3"" name=""attach_3"" title=""F3 on java.lang.Math -> NPE"">attachment #3</a> <a href=""attachment.cgi?id=3&action=edit"" title=""F3 on java.lang.Math -> NPE"">[details]</a></span>)"
+45855,, ResourcePlugin.shutdown trigger resource change event  ,,john_arthorne@ca.ibm.com,normal,P3,10/31/2003 9:15,11/6/2003 13:01,,108,"I20031029
+
+While debugging the shutdown in Java plugin I noticed that the shutdown 
+process of the resources plugin generates a resource change event. Is this 
+dangerous assuming that there might be listeners of already shut down plug-ins 
+which are notified. I know that those listeners shouldn't exist, but IMO they 
+very likely do."
+45858,, User gets prompted multiple times to save the same resources  ,,jared_burns@us.ibm.com,normal,P3,10/31/2003 9:49,11/6/2003 18:04,,251,"I have the same .java file open in 2 different workbench windows.  When I 
+launch my target, I get prompted twice to save the same file.  Why don't you 
+just create one dialog which contains every dirty editor?"
+45861,, Compare from resource history compares entire project  ,,Michael_Valenta@ca.ibm.com,normal,P1,10/31/2003 10:13,11/4/2003 7:47,,163,"Build 20031029
+
+1. Select a file that is under CVS version control
+2. Show in resource history
+3. Select 2 tags and compare
+Observe: It checks the whole project instead of just the selected file"
+45864,, Cannot cancel deadlocked job  ,,platform-resources-inbox@eclipse.org,normal,P3,10/31/2003 10:33,11/21/2003 13:22,,353,"<a class=""bz_bug_link 
+          bz_status_RESOLVED  bz_closed""
+   title=""RESOLVED FIXED - Deadlock during replace involving CVS and JDT""
+   href=""show_bug.cgi?id=45863"">Bug 45863</a> reports a case of dealock in a background job. I tried to cancel the 
+job but, of course, this didn't work. Would it be possible, on cancel, to 
+detect that the job is blocked on an OrderedLock or scheduling rule and 
+trigger an exception from the blockage in order to truely cancel the job?"
+45881,, NPE in AntCorePreferences  ,,jared_burns@us.ibm.com,normal,P3,10/31/2003 12:58,10/31/2003 18:17,,39,"Build 20031029
+
+I was getting an NPE in AntCorePreferences#getURLs from the code that reads:
+    IAntClasspathEntry entry = additionalEntries[i];
+    result.add(entry.getEntryURL());
+
+This was happening because the additionalEntries array contained a single 
+element, which was null. The null element came from 
+AntCorePreferences#restoreAdditionalEntries(Preferences):
+    additionalEntries = new IAntClasspathEntry[]{getToolsJarEntry()};
+
+The method getToolsJarEntry() can return null."
+45899,, Make build in separate VM the default setting for Ant launch configs  ,,jared_burns@us.ibm.com,normal,P3,10/31/2003 18:14,11/19/2003 17:54,,125,"Instead of the current behavior of having Ant builds occur by default in the 
+same VM as Eclispe we should build in separate VM by default."
+45903,, Breakpoint incorrectly enabled after activity filtering  ,,Darin_Swanson@us.ibm.com,normal,P3,10/31/2003 19:35,11/14/2003 17:10,,12,"Have a Java breakpoint that is enabled.
+Disabled the Java Development activity so the breakpoint is filtered.
+Enable the Java development activity.
+
+The breakpoint shows as disabled."
+45933,, Autobuild kicks in and stops  ,,john_arthorne@ca.ibm.com,normal,P3,11/2/2003 22:11,11/11/2003 18:21,,60,"Build: I-20031029
+Fresh workspace. No classpath containers, no nothing.
+Import org.eclipse.ui and all its pre-reqs as source.
+The projects are all imported successfully.  All the classpaths are set 
+correctly.  Then autobuild starts, and abruptly ends.  You will see 1-2 
+warnings and that is it.
+Invoke a full build manually, and you will see all warnings, etc. and 
+everything will be fine."
+45943,, [Fonts] Java Compare Text Font fails to Map To Other Font  ,,kim_horne@ca.ibm.com,normal,P2,11/3/2003 6:57,4/1/2004 15:41,,12,"This similar to <a class=""bz_bug_link 
+          bz_status_RESOLVED  bz_closed""
+   title=""RESOLVED DUPLICATE - Workbench not respecting font choices""
+   href=""show_bug.cgi?id=36360"">bug 36360</a> bug that bug does not contain much info
+and refers to version 2.1 so I am raising this a new bug.
+
+I have basic setup. From installation the only font change I make
+is to 'Text Font', increasing it to size 14.
+At this point 'Java Compare Text Font' reads 'currently mapped
+to Java Editor Text Font'
+and 'Java Editor Text Font' reads 'currently mapped to Text Font'
+(Hence java compare text font should be mapped twice to end up being
+size 14)
+
+However when I run a compare on a java file. Right click on file in
+package explore and chooose compare | local history
+The resulting comparsion window uses a 'default?' font size of approx.
+10 (maybee 8). 
+
+If I change the 'Java compare Text Font' to be explicitly 14 rather than
+the default 'mapped to' which should be 14. Then re do the comparison
+I get the correct (14 in this case) sized font. 
+
+If you want more info just say.
+
+Rob"
+45995,, Setting Ant home adds jars in reverse order  ,,jared_burns@us.ibm.com,normal,P3,11/3/2003 17:13,11/19/2003 17:58,,16,"With the changes from <a class=""bz_bug_link 
+          bz_status_VERIFIED  bz_closed""
+   title=""VERIFIED FIXED - Rework the presentation of the Ant classpath""
+   href=""show_bug.cgi?id=45450"">bug 45450</a>, when the user sets Ant home, the jars are 
+added in reverse order."
+46007,, Merge changes not shown in Sync view  ,,jean-michel_lemieux@ca.ibm.com,critical,P3,11/3/2003 23:50,11/5/2003 17:23,,7,"build N20031031
+
+- org.eclipse.ui.workbench loaded from RCP_WORK_1 stream
+- org.eclipse.ui.activities folder's content has tag RCP_PRE_MERGE_20031103
+- Team > Merge, choose v20031015 as the base version, and v20031028 as the 
+version to merge with
+- it computes the delta, flashes something in the sync view, then the sync view 
+is cleared
+- in repo view, comparing v20031015 and v20031028 of this folder shows many 
+changes, including added, removed and changed files
+- back in sync view, change the comparison method to revision numbers
+- it shows the changes
+- open a few files
+- they have content changes, and not just whitespace changes
+
+I first encountered this when merging the whole project.  It was only later, 
+after I thought I had completed the merge, when I tried building and found 
+there were compile errors because the merge was not complete in this folder."
+46027,, [misc] ClassCastException in isSynchronized of FileDocumentProvider  ,,platform-text-inbox@eclipse.org,critical,P2,11/4/2003 10:06,11/19/2003 12:03,,21,"Since I upgraded from version 2.1.1 to version 3.0M4, I have been getting 
+ClassCastExceptions intermittently, although I have found a way to reproduce 
+it. The culprit is the 'isSynchronized' method of FileDocumentProvider in 
+package org.eclipse.ui.editors.text:
+
+	/*
+	 * @see 
+org.eclipse.ui.texteditor.IDocumentProviderExtension3#isSynchronized
+(java.lang.Object)
+	 * @since 3.0
+	 */
+	public boolean isSynchronized(Object element) {
+		Object elementInfo= getElementInfo(element);
+		if (elementInfo instanceof FileInfo) {
+			FileEditorInput input= (FileEditorInput) element;
+			IResource resource= input.getFile();
+			return resource.isSynchronized(IResource.DEPTH_ZERO);
+		}
+		return false;
+	}
+
+That cast is not safe, why not use 'instanceof' on 'element' instead 
+of 'elementInfo' to guard it properly? Why bother getting the 'element into', 
+whatever that is, at all. It isn't used. Anyways, the solution that you guys 
+might want is to cast 'element' to 'IFileEditorInput' instead 
+of 'FileEditorInput'. I have my own editor input that is an 'IFileEditorInput' 
+but not a 'FileEditorInput', and so I get a ClassCastException.
+
+This would be my rewrite:
+
+	public boolean isSynchronized(Object element) {
+		if (element instanceof IFileEditorInput) {
+			FileEditorInput input= (FileEditorInput) element;
+			IResource resource= input.getFile();
+			return resource.isSynchronized(IResource.DEPTH_ZERO);
+		}
+		return false;
+	}"
+46031,, [Dialogs] NPE in DialogSettings.save  ,,kim_horne@ca.ibm.com,major,P3,11/4/2003 10:29,4/1/2004 15:41,,199,"build N20031031
+
+Noticed the following in my log.  Looks like it might be due to the move away 
+from Xerces.
+
+
+!ENTRY org.eclipse.core.runtime 4 2 Nov 04, 2003 09:33:37.51
+!MESSAGE Problems occurred when invoking code from plug-
+in: ""org.eclipse.core.runtime"".
+!STACK 0
+java.lang.NullPointerException
+	at org.apache.xalan.serialize.SerializerToXML.writeAttrString
+(SerializerToXML.java:2340)
+	at org.apache.xalan.serialize.SerializerToXML.processAttribute
+(SerializerToXML.java:1099)
+	at org.apache.xalan.serialize.SerializerToXML.startElement
+(SerializerToXML.java:959)
+	at org.apache.xalan.transformer.TransformerIdentityImpl.startElement
+(TransformerIdentityImpl.java:1020)
+	at org.apache.xml.utils.TreeWalker.startNode(TreeWalker.java:379)
+	at org.apache.xml.utils.TreeWalker.traverse(TreeWalker.java:191)
+	at org.apache.xalan.transformer.TransformerIdentityImpl.transform
+(TransformerIdentityImpl.java:325)
+	at org.eclipse.jface.dialogs.DialogSettings.save
+(DialogSettings.java:333)
+	at org.eclipse.jface.dialogs.DialogSettings.save
+(DialogSettings.java:351)
+	at org.eclipse.ui.plugin.AbstractUIPlugin.saveDialogSettings
+(AbstractUIPlugin.java:764)
+	at org.eclipse.ui.plugin.AbstractUIPlugin.shutdown
+(AbstractUIPlugin.java:803)
+	at org.eclipse.team.internal.ccvs.ui.CVSUIPlugin.shutdown
+(CVSUIPlugin.java:671)
+	at org.eclipse.core.internal.plugins.PluginRegistry$2.run
+(PluginRegistry.java:298)
+	at org.eclipse.core.internal.runtime.InternalPlatform.run
+(InternalPlatform.java:954)
+	at org.eclipse.core.internal.plugins.PluginRegistry$1.visit
+(PluginRegistry.java:311)
+	at org.eclipse.core.internal.plugins.PluginRegistry.accept
+(PluginRegistry.java:61)
+	at org.eclipse.core.internal.plugins.PluginRegistry.shutdownPlugins
+(PluginRegistry.java:314)
+	at org.eclipse.core.internal.plugins.PluginRegistry.shutdown
+(PluginRegistry.java:280)
+	at org.eclipse.core.internal.runtime.InternalPlatform.loaderShutdown
+(InternalPlatform.java:575)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke
+(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke
+(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:324)
+	at org.eclipse.core.internal.boot.InternalBootLoader.shutdown
+(InternalBootLoader.java:1017)
+	at org.eclipse.core.internal.boot.InternalBootLoader.run
+(InternalBootLoader.java:863)
+	at org.eclipse.core.boot.BootLoader.run(BootLoader.java:461)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke
+(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke
+(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:324)
+	at org.eclipse.core.launcher.Main.basicRun(Main.java:299)
+	at org.eclipse.core.launcher.Main.run(Main.java:767)
+	at org.eclipse.core.launcher.Main.main(Main.java:601)"
+46805,, prepare Compare for encoding support  ,,andre_weinand@ch.ibm.com,normal,P2,11/17/2003 16:57,11/20/2003 4:22,,14,"I20031111
+
+The Compare plugin only supports the global workspace encoding.
+It does not support encodings per file."
+46819,, enable disable builder bug - cannot cancel  ,,Darin_Wright@ca.ibm.com,normal,P3,11/17/2003 22:39,11/17/2003 22:59,,16,"* Open the ""Builders"" properties on a project.
+* Select the ""java"" builder and press disable
+* press ""Cancel""
+* open the builder tab - the builder shows as dislabed, although cancel was 
+pressed. It seems that the builder still runs too (until I actually press OK), 
+which is doubly strange."
+46858,, FileLink needs to resolve an editorId  ,,Darin_Swanson@us.ibm.com,normal,P2,11/18/2003 13:53,11/18/2003 14:59,,18,"our FileLink implementation accepts a null value for the editorId. With the 
+changes in IWorkbenchPage, null is no longer an acceptable value for the 
+editorId when opening an editor.
+
+if the FileLink is passed a null editorId we should look up the default editor 
+for the editor input."
+47043,, Update the classpath for a separate JRE leads to a NPE  ,,jared_burns@us.ibm.com,normal,P3,11/19/2003 17:04,11/19/2003 17:57,,104,"Using 11191547, I got the following exception when I tried to update the
+classpath of a separate JRE in the external tool launcher.
+java.lang.NullPointerException
+	at
+org.eclipse.ant.internal.ui.launchConfigurations.AntJRETab.getEntries(AntJRETab.java:264)
+	at
+org.eclipse.ant.internal.ui.launchConfigurations.AntJRETab.updateClasspath(AntJRETab.java:205)
+	at
+org.eclipse.ant.internal.ui.launchConfigurations.AntJRETab.access$1(AntJRETab.java:177)
+	at
+org.eclipse.ant.internal.ui.launchConfigurations.AntJRETab$1.widgetSelected(AntJRETab.java:106)
+	at org.eclipse.swt.widgets.TypedListener.handleEvent(TypedListener.java:89)
+	at org.eclipse.swt.widgets.EventTable.sendEvent(EventTable.java:82)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:847)
+	at org.eclipse.swt.widgets.Display.runDeferredEvents(Display.java:2187)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:1877)
+	at org.eclipse.jface.window.Window.runEventLoop(Window.java:586)
+	at org.eclipse.jface.window.Window.open(Window.java:566)
+	at
+org.eclipse.debug.internal.ui.launchConfigurations.LaunchConfigurationsDialog.open(LaunchConfigurationsDialog.java:442)
+	at org.eclipse.debug.ui.DebugUITools$1.run(DebugUITools.java:390)
+	at org.eclipse.swt.custom.BusyIndicator.showWhile(BusyIndicator.java:84)
+	at
+org.eclipse.debug.ui.DebugUITools.openLaunchConfigurationDialogOnGroup(DebugUITools.java:394)
+	at
+org.eclipse.debug.ui.DebugUITools.openLaunchConfigurationDialogOnGroup(DebugUITools.java:336)
+	at
+org.eclipse.debug.ui.actions.OpenLaunchDialogAction.run(OpenLaunchDialogAction.java:79)
+	at org.eclipse.jface.action.Action.runWithEvent(Action.java:842)
+	at
+org.eclipse.jface.action.ActionContributionItem.handleWidgetSelection(ActionContributionItem.java:542)
+	at
+org.eclipse.jface.action.ActionContributionItem.access$4(ActionContributionItem.java:494)
+	at
+org.eclipse.jface.action.ActionContributionItem$6.handleEvent(ActionContributionItem.java:466)
+	at org.eclipse.swt.widgets.EventTable.sendEvent(EventTable.java:82)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:847)
+	at org.eclipse.swt.widgets.Display.runDeferredEvents(Display.java:2187)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:1877)
+	at org.eclipse.ui.internal.Workbench.runEventLoop(Workbench.java:1405)
+	at org.eclipse.ui.internal.Workbench.runUI(Workbench.java:1381)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:237)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:139)
+	at org.eclipse.ui.internal.ide.IDEApplication.run(IDEApplication.java:47)
+	at
+org.eclipse.core.internal.boot.InternalBootLoader.run(InternalBootLoader.java:858)
+	at org.eclipse.core.boot.BootLoader.run(BootLoader.java:461)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at
+sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:324)
+	at org.eclipse.core.launcher.Main.basicRun(Main.java:299)
+	at org.eclipse.core.launcher.Main.run(Main.java:767)
+	at org.eclipse.core.launcher.Main.main(Main.java:601)"
+47046,, [KeyBindings] CapsLock == R ???  ,,douglas.pollock@gmail.com,normal,P1,11/19/2003 17:12,12/17/2003 13:45,,127,"M5 test candidate, observed on both motif and gtk
+
+- go to the Keys preference page
+- click in the Key Sequence - Name field
+- press CapsLock and R appears
+- others: ScrollLock = T, PrintScreen = W, Pause = U
+
+Is this expected?  I ran a small swt snippet that prints Key events, and I don't
+see much resemblance between those of CapsLock and R.  Interestingly, pressing
+Ctrl+CapsLock has the same affect in the java debugger as pressing Ctrl+R, so at
+least the preference page isn't lying <g>."
+47071,, Set instruction point layer to 6 in code  ,,Darin_Swanson@us.ibm.com,normal,P3,11/20/2003 6:51,11/20/2003 14:27,,12,"I20031119_2030
+
+You already changed the layer for instruction annotation in XML. Same change
+needs to be done in code as well (see <a class=""bz_bug_link 
+          bz_status_RESOLVED  bz_closed""
+   title=""RESOLVED FIXED - [implementation] Replace hard-coded layer with XML defined presentationLayer""
+   href=""show_bug.cgi?id=47070"">bug 47070</a>).
+
+See also <a class=""bz_bug_link 
+          bz_status_VERIFIED  bz_closed""
+   title=""VERIFIED FIXED - Poor choice of color""
+   href=""show_bug.cgi?id=46984"">bug 46984</a>."
+47072,, [painting] background highlighting not removed when removing annotation in Text Editor  ,,platform-text-inbox@eclipse.org,major,P3,11/20/2003 6:57,11/21/2003 5:51,,8,"I20031119 latest
+
+1) set Tasks to be background highlighted in text editor.
+2) open file in text editor
+3) add a task
+-> background highlight appears
+4) remove task
+-> background highlight still in the text"
+47116,, [Navigator] Exception on startup after crash  ,,nick_edgar@ca.ibm.com,normal,P3,11/20/2003 12:17,11/20/2003 22:53,,20,"I had to kill Eclipse due to a deadlock. On startup, the Navigator 
+contained ""An Error occurred creating this view"" and the log contained the 
+folloiwng exception (using 200311192030):
+
+org.eclipse.jface.util.Assert$AssertionFailedException: null argument;
+at org.eclipse.jface.util.Assert.isNotNull(Assert.java:139)
+at org.eclipse.jface.util.Assert.isNotNull(Assert.java:116)
+at org.eclipse.jface.viewers.StructuredViewer.assertElementsNotNull
+(StructuredViewer.java:219)
+at org.eclipse.jface.viewers.AbstractTreeViewer.setExpandedElements
+(AbstractTreeViewer.java:1323)
+at org.eclipse.ui.views.navigator.ResourceNavigator.restoreState
+(ResourceNavigator.java:915)
+at org.eclipse.ui.views.navigator.ResourceNavigator.createPartControl
+(ResourceNavigator.java:263)
+at org.eclipse.ui.internal.PartPane$4.run(PartPane.java:161)
+at org.eclipse.core.internal.runtime.InternalPlatform.run
+(InternalPlatform.java:1127)
+at org.eclipse.core.runtime.Platform.run(Platform.java:464)
+at org.eclipse.ui.internal.PartPane.createChildControl(PartPane.java:157)
+at org.eclipse.ui.internal.ViewPane.createChildControl(ViewPane.java:211)
+at org.eclipse.ui.internal.PartPane.createControl(PartPane.java:206)
+at org.eclipse.ui.internal.ViewPane.createControl(ViewPane.java:190)
+at org.eclipse.ui.internal.PartTabFolder.createPartTab(PartTabFolder.java:253)
+at org.eclipse.ui.internal.PartTabFolder.createControl(PartTabFolder.java:225)
+at org.eclipse.ui.internal.PartSashContainer.createControl
+(PartSashContainer.java:192)
+at org.eclipse.ui.internal.PerspectivePresentation.activate
+(PerspectivePresentation.java:130)
+at org.eclipse.ui.internal.Perspective.onActivate(Perspective.java:724)
+at org.eclipse.ui.internal.WorkbenchPage.onActivate(WorkbenchPage.java:1826)
+at org.eclipse.ui.internal.WorkbenchWindow$6.run(WorkbenchWindow.java:1590)
+at org.eclipse.swt.custom.BusyIndicator.showWhile(BusyIndicator.java:84)
+at org.eclipse.ui.internal.WorkbenchWindow.setActivePage
+(WorkbenchWindow.java:1577)
+at org.eclipse.ui.internal.WorkbenchWindow.restoreState
+(WorkbenchWindow.java:1432)
+at org.eclipse.ui.internal.Workbench.restoreState(Workbench.java:1239)
+at org.eclipse.ui.internal.Workbench.access$7(Workbench.java:1208)
+at org.eclipse.ui.internal.Workbench$7.run(Workbench.java:1128)
+at org.eclipse.core.internal.runtime.InternalPlatform.run
+(InternalPlatform.java:1127)
+at org.eclipse.core.runtime.Platform.run(Platform.java:464)
+at org.eclipse.ui.internal.Workbench.openPreviousWorkbenchState
+(Workbench.java:1080)
+at org.eclipse.ui.internal.Workbench.init(Workbench.java:858)
+at org.eclipse.ui.internal.Workbench.runUI(Workbench.java:1358)
+at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:237)
+at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:139)
+at org.eclipse.ui.internal.ide.IDEApplication.run(IDEApplication.java:47)
+at org.eclipse.core.internal.boot.InternalBootLoader.run
+(InternalBootLoader.java:858)
+at org.eclipse.core.boot.BootLoader.run(BootLoader.java:461)
+at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+at sun.reflect.NativeMethodAccessorImpl.invoke
+(NativeMethodAccessorImpl.java:39)
+at sun.reflect.DelegatingMethodAccessorImpl.invoke
+(DelegatingMethodAccessorImpl.java:25)
+at java.lang.reflect.Method.invoke(Method.java:324)
+at org.eclipse.core.launcher.Main.basicRun(Main.java:299)
+at org.eclipse.core.launcher.Main.run(Main.java:767)
+at org.eclipse.core.launcher.Main.main(Main.java:601)"
+47133,, Non-Java project Ant build defaults to same VM  ,,Darin_Wright@ca.ibm.com,normal,P3,11/20/2003 13:35,11/20/2003 15:02,,15,"The current code fails to set a default separate VM for projects that are not 
+Java projects.
+
+Candidate for M5 fix."

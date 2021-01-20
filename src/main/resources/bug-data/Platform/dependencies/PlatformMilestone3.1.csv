@@ -1,0 +1,418 @@
+bug_id,Depends_On,Title,Milestone,assigned_to,bug_severity,priority,creation_ts,delta_ts,Duration,churned_loc,description
+41848,," [typing] Revert to old instert overwrite behaviour for ""insert"" key  ",,platform-text-inbox@eclipse.org,enhancement,P5,8/22/2003 5:44,8/15/2006 10:33,,6,"I've got two Java files I'm editing. In one the cursor [ shape and the cursor 
+is indented correctly after pressing return. In the other the cursor has the | 
+shape and the cursor is not indented after pressing return.
+
+I'll attach pictures."
+44216,," [readme] Synchronize, Print, Add Bookmark broken for topic http:  www.mywebsite.com first.html  ",,konradk@ca.ibm.com,normal,P3,10/6/2003 6:57,5/26/2005 14:43,,77,"The following has been sent to platform-help-dev mailing list:
+
+Hi Help Developers:
+I have written a help plugin. And it can be correctly browsed in the help 
+browser . But if i push the synchronize button,  it can't synchronize the 
+navigation frame with the current topic.
+
+the toc file looks like the following:
+<topic label=""Ref1"" href=""<a href=""http://www.mywebsite.com/first.html"">http://www.mywebsite.com/first.html</a>"">
+      <topic label=""Ref1-1"" href=""<a href=""http://www.mywebsite.com/second.html"">http://www.mywebsite.com/second.html</a>"">
+...
+
+
+If i modify the toc file like this:
+  <topic label=""Ref1"" href=""html/ref1/first.html"">
+      <topic label=""Ref1-1"" href=""html/ref1/Ref1-1/second.html"">
+
+the synchronize button of help browser worked fine.
+
+What is the reason?
+
+Thanks in advance for any suggestions,
+Tin Ma"
+44724,, background content in debug views  ,,jared_burns@us.ibm.com,enhancement,P2,10/12/2003 15:09,1/19/2005 21:15,,4,"We should explore lazy population of the launch view contents. We now compute 
+labels in the background but it can also take a significant amount of time to 
+compute the structure of a launch with many threads, stack frames, etc.
+
+Investigate using the DeferredTreeContentManager. See Team's 
+RemoteContentProvider as an example."
+44788,, [find replace] Regular expression replace field has wrong hinting  ,,platform-text-inbox@eclipse.org,minor,P3,10/13/2003 21:32,7/5/2005 9:21,,28,"The ""Replace with"" fild should NOT have the regular expression hinting, but
+hinting for the $1 syntax. It took me a while (searching in bugzilla) to find
+out that references to the regular expressions are done with $1 and not with \1."
+45854,, [Workbench] Move workspace out of program directory  ,,michaelvanmeekeren@yahoo.ca,enhancement,P3,10/31/2003 9:14,5/27/2005 12:07,,28,"The workspace does not belong in the program directory.
+
+The user should be forced to explicitly choose where to place the workspace 
+folder upon the first launch of Eclipse.
+
+This way he could easily keep his my workspace across versions of Eclipse.
+
+(I'm using Windows, I don't know how this is dealt with under e.g. Linux).
+
+Øyvind"
+49037,, Modified variables lose their color when changing the color in the preference page  ,,platform-debug-inbox@eclipse.org,normal,P3,12/17/2003 11:22,7/6/2005 16:27,,14,"I20031216
+
+Debug a program to be in a state where at least one variable is marked as
+modified in the variables view (different foreground color). Go in the Run/Debug
+preference page, modify the color for ''changed variable. Validate the change.
+All variables in the variables view are now displayed in black."
+49486,, [About] Copy all to clipboard  ,,eclipse@jfront.com,enhancement,P3,1/3/2004 14:53,8/9/2004 16:16,,16,"I'd appreciate ""Copy All to Clipboard"" feature via a context-menu or button."
+63423,, Use StlyedText.getLineHeight instead for getFontMetric().getHeight()  ,,platform-text-inbox@eclipse.org,normal,P3,5/21/2004 10:59,5/26/2005 4:36,,19,"I200405210800
+
+details see <a class=""bz_bug_link 
+          bz_status_RESOLVED  bz_closed""
+   title=""RESOLVED FIXED - JavaEditor draws squiggle underline over the string""
+   href=""show_bug.cgi?id=63154"">bug 63154</a>"
+63537,, [Workbench] IWorkbenchWindowConfigurer.setShowPerspectiveBar not being honored  ,,michaelvanmeekeren@yahoo.ca,normal,P3,5/22/2004 12:57,7/14/2005 16:21,,11,"I just upgraded to M9 (great overall woork by the way!).  I have been building
+an RCP app on M8.  In my WorkbenchAdvisor implementation I have been using
+IWorkbenchWindowConfigurer.setShowPerspectiveBar(false) to not show the
+perspective bar.  In M9 this call appears to be being ignored.
+
+I am also using a cool bar in the application.  If I set the setShowCoolBar to
+false, both the cool bar and the perspective bar do not show."
+64370,, Fix setTitle deprecations  ,,Darin_Wright@ca.ibm.com,normal,P3,5/27/2004 11:50,8/5/2004 11:05,,105,"The Debug UI plugin has 4 deprecation warnings for setTitle:
+
+Severity	Description	Resource	In Folder	Location
+	Creation Time
+1	The method setTitle(String) from the type WorkbenchPart is deprecated
+	CommonSourceNotFoundEditor.java
+	org.eclipse.debug.ui/ui/org/eclipse/debug/internal/ui/sourcelookup
+	line 306	May 27, 2004 8:46:02 AM
+1	The method setTitle(String) from the type WorkbenchPart is deprecated
+	BreakpointsView.java
+	org.eclipse.debug.ui/ui/org/eclipse/debug/internal/ui/views/breakpoints
+	line 363	May 27, 2004 8:46:01 AM
+1	The method setTitle(String) from the type WorkbenchPart is deprecated
+	BreakpointsView.java
+	org.eclipse.debug.ui/ui/org/eclipse/debug/internal/ui/views/breakpoints
+	line 365	May 27, 2004 8:46:01 AM
+1	The method setTitle(String) from the type WorkbenchPart is deprecated
+	SourceNotFoundEditor.java
+	org.eclipse.debug.ui/ui/org/eclipse/debug/internal/ui/views/launch
+	line 103	May 27, 2004 8:46:00 AM"
+64420,, Need some source lookup functions to be public  ,,platform-debug-inbox@eclipse.org,enhancement,P3,5/27/2004 14:54,7/7/2005 12:03,,246,"It will be useful to make the following public for others to reuse:
+- JavaSourceLookupUtil.translate - translate runtime entries to source lookup 
+containers.
+- JavaSourceLookupDirector"
+66265,, [projection] javadoc blocks mutually confuse folding state  ,,platform-text-inbox@eclipse.org,normal,P3,6/9/2004 6:03,7/22/2005 10:20,,18,"I20040607
+
+Sometimes, DefaultJavaFoldingStructureProvider will match the wrong javadoc blocks:
+
+- Have this code:
+
+package rc1;
+
+public class DeleteLine
+{
+
+    /** A
+     *  B
+     *  C
+     *  D*/
+    /** E
+     *  F
+     *  G
+     *  H*/
+    
+    
+    public static void main ( String [ ] args )
+    {
+    }
+}
+
+
+- Fold the second javadoc region
+- Put the caret on the empty line before the first javadoc block
+- Press <RETURN> twice
+
+Observe:
+- the lines are inserted correctly
+- the first javadoc block is folded
+- the second block is unfolded"
+67165,, [Browser] HTML not rendered w XP style using javaw.exe.manifest comctl  ,,christophe_cornu@ca.ibm.com,major,P2,6/14/2004 21:29,7/20/2004 10:18,,12,"Other widgets created with the same jvm do reflect comctl 6.0 look & feel, but 
+the HTML in the browser is rendered old-style."
+67489,, CLabel does not save alignment in style bits  ,,veronika_irvine@ca.ibm.com,normal,P3,6/16/2004 13:05,7/7/2004 17:01,,80,"RC2
+
+Run this snippet. Note that the CLabel is right-aligned, but the getStyle() 
+says it is left-aligned. The problem is that RIGHT and CENTER style bits are 
+thrown away in checkStyle(). Is there a reason for this?
+
+import org.eclipse.swt.*;
+import org.eclipse.swt.graphics.*;
+import org.eclipse.swt.widgets.*;
+import org.eclipse.swt.layout.*;
+import org.eclipse.swt.events.*;
+import org.eclipse.swt.custom.*;
+
+public class CLabelAlignmentStyleTest {
+	static Display display;
+	static Shell shell;
+	static CLabel label;
+	
+	public static void main(String[] args) {
+		display = new Display();
+		shell = new Shell(display);
+		shell.setLayout(new FillLayout());
+		shell.setText(""CLabel Alignment Style Test"");
+		
+		label = new CLabel(shell, SWT.RIGHT);
+		label.setText(""CLabel"");
+		int style = label.getStyle();
+		System.out.println(""CLabel alignment="" +
+				((style & SWT.LEFT) != 0 ? ""LEFT"" :
+					(style & SWT.RIGHT) != 0 ? ""RIGHT"" :
+						(style & SWT.CENTER) != 
+0 ? ""CENTER"" : ""UNKNOWN""));
+
+		shell.pack();
+		shell.open();
+		while (!shell.isDisposed()) {
+			if (!display.readAndDispatch()) display.sleep();
+		}
+	}
+}"
+67798,, Drop to frame action enabled by default  ,,platform-debug-inbox@eclipse.org,minor,P3,6/18/2004 8:46,7/7/2005 12:17,,694,"200406180010
+
+The ""drop to frame"" action in the debug view is enabled on startup.  Clicking it
+results in an information dialog that reads ""the chosen operation is not
+available"".  The action then becomes disabled."
+67917,, [About] Value for eclipse.commands has invalid characters in config details  ,,eclipse@jfront.com,normal,P3,6/18/2004 23:02,8/9/2004 16:18,,99,"build I20040618-0800
+
+- Help > About > Configuration Details
+- the entry under System properties for eclipse.commands has boxes instead of spaces
+- these are apparently line delimiters, since it gets pasted as follows:
+
+eclipse.commands=-data
+d:\eclipse-new\plugins
+-showLocation
+-debug
+
+
+Assuming it's expected and valid for this property to have these characters (or
+even if it's not), the config details printout should handle this, e.g.
+converting to escaped characters."
+68170,, [Wizards] Help Working Set wizard is missing its icon  ,,konradk@ca.ibm.com,normal,P4,6/22/2004 11:03,5/4/2005 17:24,,739,"I am using 3.0RC3 on Mac OS X and Windows XP.
+
+Steps:
+- Open the Java Perspective
+- In the Package Explorer, select the pulldown menu and chose ""Select Working Set""
+- Select ""New"" in the working set wizard
+- Select ""Help"" and press enter
+- Notice that the wizard is missing its icon."
+68289,, Activity Editor doc does not mention that the contents of the activities.xml needs to be put into a plugin.xml to work  ,,ines@vt.edu,normal,P3,6/23/2004 9:03,6/25/2004 13:17,,9,"RC3
+
+The activities editor produces (and consumes) activity.xml files.  These need to
+be inserted/merged into plugin.xml files in order to work.  Ines, can you
+explain this better?"
+68419,, [R21PRES] Detached views never get the active shell appearance in R21 presentation  ,,eclipse@jfront.com,trivial,P3,6/23/2004 17:27,8/9/2004 16:20,,9,"RC3, with R21 presentation
+
+Detach a view, then give it focus. Notice that the gradient incorrectly shows
+the colour of an inactive shell even though the shell is active."
+68523,, missing `return' in org.eclipse.ui.internal.console.MessageConsolePartition  ,,Darin_Swanson@us.ibm.com,minor,P3,6/24/2004 14:32,7/27/2004 13:38,,233,"The equals method of org.eclipse.ui.internal.console.MessageConsolePartition 
+is missing a return in line 43. It first calls super.equlas, and then, if it 
+returns true, it checks if this stream name is equal to the other object's 
+stream name. But it ignores the last check and just returns false, always.
+
+Diff for MessageConsolePartition.java:
+
+43c43
+< 			fStream.equals(((MessageConsolePartition)
+partition).getStream());
+---
+<span class=""quote"">> 			return fStream.equals(((MessageConsolePartition)</span >
+partition).getStream());
+
+I haven't noticed any problems caused by this, so I've marked the severity as 
+minor."
+68667,, NPE in AddressBook example  ,,grant_gayed@ca.ibm.com,major,P3,6/25/2004 15:44,6/28/2004 10:19,,226,"RC4
+
+- run the AddressBook example
+- File -> Open Address Book... --> opens a FileDialog
+- change the file filter in the dialog to * to show all files (assuming you're
+on a platform whose FileDialog shows this filter)
+- select some random file that has nothing to do with the AddressBook example,
+Open
+- will get the following NPE:
+
+java.lang.NullPointerException
+	at
+org.eclipse.swt.examples.addressbook.AddressBook$RowComparator.compare(AddressBook.java:870)
+	at java.util.Arrays.mergeSort(Arrays.java:1278)
+	at java.util.Arrays.mergeSort(Arrays.java:1289)
+	at java.util.Arrays.mergeSort(Arrays.java:1289)
+	at java.util.Arrays.mergeSort(Arrays.java:1289)
+	at java.util.Arrays.mergeSort(Arrays.java:1289)
+	at java.util.Arrays.mergeSort(Arrays.java:1289)
+	at java.util.Arrays.sort(Arrays.java:1219)
+	at
+org.eclipse.swt.examples.addressbook.AddressBook.openAddressBook(AddressBook.java:326)
+	at
+org.eclipse.swt.examples.addressbook.AddressBook.access$9(AddressBook.java:268)
+	at
+org.eclipse.swt.examples.addressbook.AddressBook$9.widgetSelected(AddressBook.java:509)
+	at org.eclipse.swt.widgets.TypedListener.handleEvent(TypedListener.java:89)
+	at org.eclipse.swt.widgets.EventTable.sendEvent(EventTable.java:82)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:731)
+	at org.eclipse.swt.widgets.Display.runDeferredEvents(Display.java:2938)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:2642)
+	at org.eclipse.ui.internal.Workbench.runEventLoop(Workbench.java:1377)
+	at org.eclipse.ui.internal.Workbench.runUI(Workbench.java:1348)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:254)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:141)
+	at org.eclipse.ui.internal.ide.IDEApplication.run(IDEApplication.java:96)
+	at
+org.eclipse.core.internal.runtime.PlatformActivator$1.run(PlatformActivator.java:335)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:273)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:129)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at
+sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at
+sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:324)
+	at org.eclipse.core.launcher.Main.basicRun(Main.java:183)
+	at org.eclipse.core.launcher.Main.run(Main.java:644)
+	at org.eclipse.core.launcher.Main.main(Main.java:628)"
+68760,, Shared config should also share exploded jars.  ,,platform-runtime-inbox@eclipse.org,normal,P3,6/28/2004 11:15,10/25/2005 16:21,,186,"When bundles shipped as jars are run, they content of jar gets unzipped in the 
+configuration folder (org.eclipse.osgi/bundles/...). This is fine. 
+However when running out of a shared config, it means that every user will have 
+a copy of those jars whereas they could be shared.
+When doing this we should make sure that the bundleContext.getDataFile() is 
+located in the non shared area."
+69057,, Incorrect icon in Breakpoints view when breakpoint manager disabled  ,,krbarnes@ca.ibm.com,normal,P3,6/30/2004 14:22,7/7/2004 11:58,,24,"Steps to reproduce:
+Open breakpoints view and enable ""Skip all Breakpoints). Breakpoints are marked with ""-"" icon
+Close breakpoints view
+Create a new breakpoint
+Open breakpoints view. new breakpoint has checkmark, even though it's really disabled."
+69365,, Non NLS'd string shipped with eclipse 3.0  ,,billy.biggs@eclipse.org,normal,P3,7/6/2004 8:46,7/12/2004 16:41,,18,"Version 1.10 of BasicStackList introduced a non-NLS'd string (""motif"").  This
+should probably be addressed in 3.0.1.  I've fixed it in HEAD."
+69904,, [preferences] Editor Annotations Preference Page shows only one of two annotation with same name  ,,platform-text-inbox@eclipse.org,normal,P3,7/13/2004 7:09,7/13/2004 9:15,,26,"The Editor Annotations Preference Page shows only one of two annotation with the
+same name. I declare an ""Occurrences"" Annotation in my plugin with:
+
+      <specification
+            annotationType=""examples.recipeeditor.highlightannotation""
+            verticalRulerPreferenceKey=""highlight.rulers.vertical""
+            textPreferenceKey=""highlight.text""
+            colorPreferenceKey=""highlight.color""
+            highlightPreferenceKey=""highlight.background""
+            textPreferenceValue=""false""
+            textStylePreferenceValue=""UNDERLINE""
+            overviewRulerPreferenceKey=""highlight.rulers.overview""
+            presentationLayer=""4""
+            highlightPreferenceValue=""true""
+            label=""Occurrences""
+            icon=""icons/occ_match.gif""
+            colorPreferenceValue=""253,255,157""
+            verticalRulerPreferenceValue=""true""
+            overviewRulerPreferenceValue=""false""
+            textStylePreferenceKey=""highlight.text.style"">
+      </specification>
+
+When I run the plugin in a workbench which also contains the jdt.ui plugin, the
+preference page shows only one Annotation with name ""Occurrences"" (the one from
+jdt.ui). Using another label in my plugin resolves the problem.
+
+The framework should detect such conflicts and at least show both ""Occurrences"".
+Even better would be to append the contributing plug-ins' names in this case."
+69952,, ILaunchConfigurationListener's launchConfigurationRemoved gets a configuration that doesn't exist  ,,krbarnes@ca.ibm.com,enhancement,P3,7/13/2004 13:58,8/4/2004 11:01,,20,"When a listener is added to a launch manager and launchConfigurationRemoved() is
+called, it's ILaunchConfiguration object exists, holds the data to get a
+configuration... and that configuration no longer exists on disk. By the wording
+in the IDE, this makes sense (""Parameters: configuration - the deleted launch
+configuration"") except that one would hope one could get data out of said
+configuration... but since it's been deleted, one can't. The getAttribute()
+function throws a CoreException.
+
+This enhancement request is to clarify and(or) make the removed function more
+useful. Taking away the argument (so launchConfigurationRemoved would have no
+arguments) would clarify how it works, and adding a just-before-deleting
+listener would mean that developers could take actions with knowledge of the
+data in the configuration.
+
+To confirm that it's deleted first, make a minimal class that has knowledge of
+the launch manager (ie, a launch tab) and add a listener. Put a breakpoint on
+the first line of the ...Removed() function, and check the filesystem when it
+stops there. This was only duped on w2k, because that's my dev box here."
+71123,71383, [plan item] Process improvements wrt performance  ,,platform-releng-inbox@eclipse.org,enhancement,P4,7/29/2004 17:43,6/23/2005 17:41,,12,"Process improvements wrt performance. For 3.1 we should get a firm grip on 
+speed and space performance. To do this we should (1) identify which aspects 
+are critically important performance-wise; (2) establish benchmarks to 
+quantify performance; and (3) look at ways to improve performance. By its 
+nature, it's hard to say in advance what kind of improvements we'll be able to 
+achieve, making it difficult to make performance improvements a release 
+deliverable. Instead, what we need to do for 3.1 is commit to track 
+performance from this point on. We should carry out performance reviews (1) 
+and create benchmarks (2) for every component, and for any critical aspects 
+that span components. Even if we cannot find ways to make significant 
+performance gains (3), the benchmarks are still critical to Eclipse's success 
+to prevent backsliding in the future. The work item is to improve our process 
+with respect to performance. The deliverables are the automated performance 
+tests, the build process that collects and publishes performance data covering 
+all critical aspects of Eclipse, and the committment to leverage this data to 
+monitor speed and space performance as part and parcel of developing Eclipse. 
+[All Eclipse components]"
+71175,, [PerspectiveBar] Reset Perspective in PerspectiveSwitch menu  ,,michaelvanmeekeren@yahoo.ca,normal,P3,7/30/2004 14:47,5/27/2005 12:09,,186,"Need reset perspective on PerspectiveSwitch popupmenu for
+RCP type usage in our product. We have this well documented why
+and it makes sense. I have enclosed a temporary edit of
+PerspectiveSwitcher."
+78874,, Using new registry API  ,,platform-text-inbox@eclipse.org,normal,P3,11/17/2004 14:06,8/23/2005 4:08,,579,"Following some rework of the registry, please apply this patch to make use of
+the new method called getNamespace() on IConfigurationElement.
+This patch will convert most occurrences of:
+	configurationElement.getDeclaringExtension().getNamespace()
+into
+	configurationElement.getNamespace()"
+80129,, [plan item] Scalability  ,,platform-runtime-inbox@eclipse.org,enhancement,P4,12/3/2004 14:12,5/2/2005 12:16,,29,"In cases where either the target machine is resource-constrained, or the 
+number of plug-ins is large, or the size of the workspace is large, the 
+scalability of the Eclipse Platform is especially important. The work involves 
+identifying problematic areas and making changes to improve the scalability. 
+[All components]"
+80132,, [plan item] Enhancements for supporting new users  ,,michaelvanmeekeren@yahoo.ca,enhancement,P4,12/3/2004 14:17,6/23/2005 17:28,,88,"Following on from the work done in Eclipse 3.0, we want to further improve the 
+way Eclipse feels to new users. For example: support for templates (to create 
+projects that do something useful) as well as a set of templates that ship 
+with Eclipse SDK; support for samples (enhancing sample support shipped in 3.0 
+and making it API); safe mode (a constrained mode of running the workbench -
+ 'training wheels' - where capabilities are restricted in order to prevent 
+common early mistakes); simpler workspace chooser (where do you want your work 
+saved?); more usable perspective chooser with short description, a small image 
+that shows the general perspective layout, perspective groups by role e.g. 
+Java Development. [Platform UI]"
+80136,, [plan item] Breakpoint improvements  ,,platform-debug-inbox@eclipse.org,enhancement,P4,12/3/2004 14:21,9/10/2008 12:54,,53,"Simplify debugging with lots of breakpoints: provide different ways to group 
+and organize breakpoints so that they can be enabled/disabled as a unit. 
+[Debug]"
+80145,, [plan item] RCP performance  ,,platform-runtime-inbox@eclipse.org,enhancement,P4,12/3/2004 14:32,5/11/2005 11:18,,24,"Startup time and total space requirements are key elements in the viability of 
+Eclipse as an RCP. In the 3.1 cycle we will focus on these two performance 
+characteristics with the particular goals of: reducing space required internal 
+data structures (e.g., framework state, extension registry, ...); streamlining 
+the startup execution to get to the application code faster; and providing 
+basic support for space-efficient resource bundles. [Platform Core]"
+80146,, [plan item] RCP infrastructure  ,,platform-runtime-inbox@eclipse.org,enhancement,P4,12/3/2004 14:33,6/8/2005 10:24,,10,"There are various improvements to the RCP infrastructure to better support a 
+widening range of uses, including: improve support for preconfigured installs; 
+and improve support for API declaration/consumption. Additionally, all RCP-
+related plug-ins will be updated to use only classes in the J2ME 
+CDC/Foundation profile. [Platform Core; Platform UI; Update; Help]"
+80147,, [plan item] OSGi  ,,platform-runtime-inbox@eclipse.org,enhancement,P4,12/3/2004 14:34,5/2/2005 12:16,,14,"Eclipse 3.1 will include a compliant implementation of the upcoming OSGi 
+Platform R4 specification. We will also increase the flexibility of the 
+adaptor structure of the OSGi framework in order to make it easier to use the 
+Eclipse OSGi implementation on its own. [Platform Core]"
+80148,, [plan item] Dynamic plug-ins  ,,platform-runtime-inbox@eclipse.org,enhancement,P4,12/3/2004 14:35,5/11/2005 11:16,,153,"In Eclipse 3.0 it became possible to install and remove plug-ins without 
+restarting the system. In practice this is a cooperative effort requiring the 
+rest of the plug-ins in the system to respond correctly to the changes. Work 
+will be done to increase the runtime support for making plug-ins dynamic-
+aware, including annotating plug-ins with their dynamic characteristics, 
+changing the registry data structure to use light-weight handles, and provide 
+support for tracking key objects. Other RCP plug-ins will be updated to use 
+these mechanisms. Also, develop reusable coding structures and guidelines for 
+writing dynamic-aware plug-ins. [Platform Core; Platform UI; Platform Text; 
+Update; Help]"
+80150,76722, [plan item] [launcher] Support for launcher branding  ,,christophe_cornu@ca.ibm.com,enhancement,P4,12/3/2004 14:39,4/12/2005 0:03,,81,"A key step in producing an RCP-based product is creating the launcher the user 
+uses to run the product. As a minimum it should have a product-specific name 
+and icon. Currently, constructing such a launcher requires a C compiler and 
+other OS-specific tools. We will investigate providing template launchers 
+which can be instantiated by PDE when assembling a product for a given OS. 
+[SWT; PDE]"
+80151,24131, [plan item] Ant debugger  ,,platform-ant-inbox@eclipse.org,enhancement,P4,12/3/2004 14:41,2/23/2005 17:13,,360,Provide an integrated debugger for Ant scripts. [Ant]
+80154,, [plan item] Provide better text editor support for RCP  ,,platform-text-inbox@eclipse.org,enhancement,P4,12/3/2004 14:43,4/15/2005 5:52,,14,"The list of functions to add will grow over time. The initial set includes: 
+annotation presentation and navigation, user assigned colors and fonts, spell 
+checking, user defined, persistent folding, quick diff, templates, URL 
+detection and handling. [Platform Text]"
+80396,, [plan item] Mapping logical views to physical files on disk  ,,platform-resources-inbox@eclipse.org,enhancement,P4,12/7/2004 13:02,5/5/2005 13:57,,162,"In some cases, multiple distinct objects happen to be stored in a single file, 
+like an archive. Conversely, in other cases, something that is logically a 
+single object is stored across multiple files. This discrepancy between 
+logical and physical creates problems for common operations such as searching, 
+comparing, and versioning, which need to work in the physical realm. Eclipse 
+should support some way of mapping between a logical view and the physical 
+organization of files on disk. [Platform Core, Platform UI, Team]"

@@ -1,0 +1,94 @@
+********************************************************************************************
+Content of this folder:
+********************************************************************************************
+bug  and developer files for JDT and Platform project milestones. The bug files are provided in 19 different milestones. JDT Milestone 3.1 is a milestone for JDT project. All the input (.txt) files start with JDT are for JDT project. The Platform input files starts with "Platform". 
+For each milestone, some additional information are given in a .csv file with the same name as the project milestone.
+
+
+********************************************************************************************
+Description of Developer files (JDTDeveloper.txt(for JDT milestone bugs) and PlatformDeveloper.txt (for platform milestone bugs))
+********************************************************************************************
+
+1. The developer files have the profile matrix for all the develoeprs for corresponding projects.
+
+2. The first row is the id of the developers and name of differnet components of JDT/Platform products.
+
+3. The first column of each other rows represents the id of the developers.
+
+4. The other columns (2 to 13) represents skill levels or productivity for the developers on the particular component. The productivity is defined relative to average productivity.
+
+5. For a particular developer, a value 0 in profile column indicates that particular developer does not possess the skill in that profile.
+
+
+
+********************************************************************************************
+Description of Developer files with hourly wage Information (JDTDeveloperWithWage.txt and PlatformDeveloperWithWage.txt). Required if you bug fix cost is also considered
+********************************************************************************************
+
+1. The developer files have the profile matrix for all the develoeprs for corresponding projects.
+
+2. The first row is the id of the developers and name of differnet components of JDT/Platform products.
+
+3. The first column of each other rows represents the id of the developers.
+
+4. The other columns (2 to 13) represents skill levels or productivity for the developers on the particular component. The productivity is defined relative to average productivity.
+
+5. For a particular developer, a value 0 in profile column indicates that particular developer does not possess the skill in that profile.
+
+6. The last column indicates hourly wage of the developers
+
+
+
+********************************************************************************************
+Description of bug files (JDTMilestone3.1.txt, PlatformMilestone3.0.txt etc.)
+********************************************************************************************
+
+1. This file is provided as the input for the implementation.
+
+2. The first column represents the bug id of a particular milestone.
+
+3. The second column shows the manually assigned developer to the corressponding bugs.
+
+4. The third column is the estimated effort requried to fix the corresponding bug in person hours.
+
+5. The columns 4 to 15 represents the effort required (in percentage of total effort required) in corresponding components of JDT/Platform products.
+
+
+
+
+********************************************************************************************
+CSV Files for Project Milestones
+********************************************************************************************
+Each JDT and Platform milestone projects have more information related to the bugs that we did not use in our experiments.
+
+
+********************************************************************************************
+Competency Graph (CompetencyGraph.txt):
+********************************************************************************************
+
+In each line of this file, the first number specifies the competency index on which subsequent competency indexes depends on. For example, in the given file
+competency index 1 and 4 are dependent on competency index 2. The competency index order can be extracted from the header information in JDTDeveloper.txt and PlatformDeveloper.txt files or the relevant bug files
+
+For example, from JDTDeveloper.txt files , we see the order of the competencies:
+
+jdt	jface	core	swt	ui	debug	ltk	text	jdi	search	compare	other
+
+So for the above example, competency areas 'jdt' (index 1) and 'swt' (index 4) depends on competency area  jface(index 2).
+
+For platform projects, interpretation will be different from JDT projects for the same text file. We assume same sort of dependencies among competencies 
+across all Eclipse JDT project milestones and all Eclipse Platform project milestones.
+
+
+
+********************************************************************************************
+Bug Dependency Graph (CompetencyGraph.txt):
+********************************************************************************************
+
+For each bug in a particular project milestones, bug dependency information can be found in the relevant csv file.
+In a particular csv file, the 'Depends On' column in a row specifies the bug ids on which the bug represented by the row depends on.
+
+For a project milestone, bug dependency graph can be constructed using all the bugs in the relevant text file and extracting 
+their bug dependency information from the relevant csv file, searching with the bug id.
+
+
+
